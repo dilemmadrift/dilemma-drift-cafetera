@@ -1,5 +1,5 @@
 import { shopifyFetch, createCart } from '../lib/shopify';
-import { ArrowRight, BatteryCharging, Droplets, Zap, Star, Lock } from "lucide-react";
+import { ArrowRight, BatteryCharging, Droplets, Zap, Star, Lock, Coffee, Thermometer, Plane } from "lucide-react";
 import { redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
@@ -34,7 +34,7 @@ export default async function Home() {
 
   const price = parseFloat(productNode.priceRange.minVariantPrice.amount).toFixed(2);
   const variantId = productNode.variants.edges[0]?.node?.id;
-  const compareAtPrice = (price * 1.25).toFixed(2); // Simulated high price for anchor effect
+  const compareAtPrice = (price * 1.5).toFixed(2); // Anclaje de precio más agresivo (50% OFF percibido)
 
   async function buyNow(formData) {
     "use server";
@@ -43,7 +43,6 @@ export default async function Home() {
     if (checkoutUrl) redirect(checkoutUrl);
   }
 
-  // Minimal Payment Icons (SVG)
   const PaymentIcons = () => (
     <div className="flex gap-4 items-center mt-6 opacity-60">
       <img src="https://cdn.shopify.com/s/files/1/0104/1052/files/apple-pay.svg?v=1614338903" alt="Apple Pay" className="h-6 filter invert" />
@@ -54,12 +53,32 @@ export default async function Home() {
   );
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-white selection:text-black antialiased">
-      <nav className="p-6 border-b border-white/5 flex justify-between items-center absolute w-full z-50">
+    <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-white selection:text-black antialiased overflow-x-hidden">
+      
+      {/* Inyección CSS para la cinta sin tocar configuraciones */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+        .animate-marquee { display: flex; width: 200%; animation: marquee 15s linear infinite; }
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+      `}} />
+
+      {/* Cinta de Urgencia Global */}
+      <div className="bg-white text-black py-2 overflow-hidden relative z-50 border-b border-gray-300">
+        <div className="animate-marquee whitespace-nowrap text-xs font-black tracking-[0.2em] uppercase flex items-center">
+          <span className="mx-8">⚡ GLOBAL LAUNCH: 50% OFF + FREE SHIPPING</span>
+          <span className="mx-8">⚡ GLOBAL LAUNCH: 50% OFF + FREE SHIPPING</span>
+          <span className="mx-8">⚡ GLOBAL LAUNCH: 50% OFF + FREE SHIPPING</span>
+          <span className="mx-8">⚡ GLOBAL LAUNCH: 50% OFF + FREE SHIPPING</span>
+        </div>
+      </div>
+
+      <nav className="p-6 border-b border-white/5 flex justify-between items-center relative z-40">
         <h1 className="text-sm font-bold tracking-[0.4em] uppercase text-white/40">DILEMMA DRIFT / GLOBAL</h1>
       </nav>
 
-      <div className="relative pt-36 pb-20 px-6 md:px-12 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center min-h-[95vh]">
+      {/* Hero Section */}
+      <div className="relative pt-20 pb-20 px-6 md:px-12 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center min-h-[85vh]">
         <div className="relative z-20 order-2 md:order-1">
           <div className="flex items-center gap-2 mb-6 text-yellow-500">
             {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 fill-current" />)}
@@ -70,7 +89,7 @@ export default async function Home() {
             RAW ESPRESSO.<br/><span className="text-gray-500">OFF-GRID.</span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 font-light mb-12 tracking-wide leading-relaxed max-w-xl">
-            18 bars of raw industrial extraction. On the asphalt, in the mountains, or at the office. <strong className="text-white">Zero cords. Zero excuses.</strong>
+            18 bars of raw industrial pressure. Compatible with <strong className="text-white">Nespresso, Dolce Gusto & Ground Coffee.</strong> Zero cords. Zero excuses.
           </p>
           
           <form action={buyNow} className="w-full relative z-30 max-w-lg">
@@ -82,9 +101,6 @@ export default async function Home() {
                 </span>
                 <span className="text-2xl text-gray-600 line-through">
                   ${compareAtPrice}
-                </span>
-                <span className="text-sm font-bold tracking-widest uppercase text-yellow-500 bg-yellow-950 px-3 py-1 ml-auto">
-                    Global Launch Offer
                 </span>
             </div>
 
@@ -103,8 +119,7 @@ export default async function Home() {
                 </div>
                 <div className="text-gray-500 text-xs tracking-wide uppercase flex flex-col gap-1">
                     <span>⚡ FREE WORLDWIDE EXPRESS SHIPPING</span>
-                    <span>🛠️ 2-Year Industrial Warranty</span>
-                    <span>🤝 60-Day Unconditional Guarantee</span>
+                    <span>🛠️ 1-Year Industrial Warranty</span>
                 </div>
                 <PaymentIcons />
             </div>
@@ -121,43 +136,47 @@ export default async function Home() {
         </div>
       </div>
 
+      {/* Grid de Datos Duros (Mejorado con info de Brewbit) */}
       <div className="py-24 px-6 md:px-12 bg-[#0a0a0a] border-y border-white/5 relative z-20">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
-          <div className="border-l-2 border-white/10 pl-8 py-2 hover:border-white/30 transition-colors group">
-            <Zap className="w-9 h-9 mb-7 text-white group-hover:scale-110 transition-transform" />
-            <h3 className="text-xl font-bold tracking-widest uppercase mb-4 text-white">18-Bar Force</h3>
-            <p className="text-gray-500 font-light text-base leading-relaxed">Industrial-grade extraction mechanism. Delivers the perfect crema regardless of your location.</p>
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          <div className="border-l-2 border-white/10 pl-6 hover:border-white/30 transition-colors">
+            <Coffee className="w-8 h-8 mb-5 text-white" />
+            <h3 className="text-lg font-bold tracking-widest uppercase mb-2 text-white">3-in-1 Modularity</h3>
+            <p className="text-gray-500 font-light text-sm leading-relaxed">Absolute versatility. Supports Nespresso capsules, large pods, and your favorite ground coffee.</p>
           </div>
-          <div className="border-l-2 border-white/10 pl-8 py-2 hover:border-white/30 transition-colors group">
-            <BatteryCharging className="w-9 h-9 mb-7 text-white group-hover:scale-110 transition-transform" />
-            <h3 className="text-xl font-bold tracking-widest uppercase mb-4 text-white">Autonomous Core</h3>
-            <p className="text-gray-500 font-light text-base leading-relaxed">Internal boiling system. No external cables, no plugs, absolute thermodynamic independence.</p>
+          <div className="border-l-2 border-white/10 pl-6 hover:border-white/30 transition-colors">
+            <Thermometer className="w-8 h-8 mb-5 text-white" />
+            <h3 className="text-lg font-bold tracking-widest uppercase mb-2 text-white">90°C Thermal Core</h3>
+            <p className="text-gray-500 font-light text-sm leading-relaxed">Heats up in just 200 seconds. Achieves 90°C internal boiling without external power.</p>
           </div>
-          <div className="border-l-2 border-white/10 pl-8 py-2 hover:border-white/30 transition-colors group">
-            <Droplets className="w-9 h-9 mb-7 text-white group-hover:scale-110 transition-transform" />
-            <h3 className="text-xl font-bold tracking-widest uppercase mb-4 text-white"> modular Cleaning</h3>
-            <p className="text-gray-500 font-light text-base leading-relaxed">Ballistic architecture. Purge, rinse, and re-deploy the entire system in under 30 seconds.</p>
+          <div className="border-l-2 border-white/10 pl-6 hover:border-white/30 transition-colors">
+            <Zap className="w-8 h-8 mb-5 text-white" />
+            <h3 className="text-lg font-bold tracking-widest uppercase mb-2 text-white">18-Bar Force</h3>
+            <p className="text-gray-500 font-light text-sm leading-relaxed">Industrial-grade extraction mechanism. Delivers a rich, thick crema anywhere.</p>
+          </div>
+          <div className="border-l-2 border-white/10 pl-6 hover:border-white/30 transition-colors">
+            <BatteryCharging className="w-8 h-8 mb-5 text-white" />
+            <h3 className="text-lg font-bold tracking-widest uppercase mb-2 text-white">2500mAh Engine</h3>
+            <p className="text-gray-500 font-light text-sm leading-relaxed">High-capacity rechargeable cell. Ultra-lightweight 700g chassis built for the road.</p>
           </div>
         </div>
       </div>
 
-      <div className="py-32 px-6 md:px-12 bg-[#050505] relative z-20">
+      {/* Evidencia Operativa (Testimonios) */}
+      <div className="py-24 px-6 md:px-12 bg-[#050505] relative z-20">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl font-bold tracking-widest uppercase mb-4 text-white">FIELD EVIDENCE</h2>
-            <p className="text-xl text-gray-500 font-light">Real extractions from our active operative network.</p>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold tracking-widest uppercase mb-4 text-white">FIELD EVIDENCE</h2>
+            <p className="text-gray-500 font-light">Real extractions from our active operative network.</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="relative aspect-[9/16] bg-[#0a0a0a] overflow-hidden border border-white/10 rounded-sm">
-              <div className="bg-gradient-to-b from-black/90 via-transparent to-transparent h-32 w-full absolute top-0 z-10 pointer-events-none" />
               <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-90 z-0">
                 <source src="/testimonio2.mp4" type="video/mp4" />
               </video>
             </div>
-
             <div className="relative aspect-[9/16] bg-[#0a0a0a] overflow-hidden border border-white/10 rounded-sm">
-              <div className="bg-gradient-to-b from-black/90 via-transparent to-transparent h-32 w-full absolute top-0 z-10 pointer-events-none" />
               <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-90 z-0">
                 <source src="/testimonio3.mp4" type="video/mp4" />
               </video>
@@ -165,6 +184,49 @@ export default async function Home() {
           </div>
         </div>
       </div>
+
+      {/* Destrucción de Objeciones (FAQ Acordeón) */}
+      <div className="py-24 px-6 md:px-12 bg-[#0a0a0a] border-t border-white/5 relative z-20">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold tracking-widest uppercase mb-4 text-white">OPERATIONAL BRIEFING</h2>
+            <p className="text-gray-500 font-light">Clear your doubts. Execute the mission.</p>
+          </div>
+          
+          <div className="space-y-4">
+            <details className="group border border-white/10 bg-[#050505] p-6 cursor-pointer hover:border-white/30 transition-colors">
+              <summary className="font-bold tracking-widest uppercase text-sm flex justify-between items-center text-white">
+                Do I need electricity or hot water to use it?
+                <span className="text-gray-500 group-open:rotate-45 transition-transform text-2xl font-light">+</span>
+              </summary>
+              <p className="mt-4 text-gray-400 font-light text-sm leading-relaxed border-t border-white/5 pt-4">
+                Negative. The Dilemma Drift engine features a self-heating core and a 2500mAh battery. Just add cold water, and it heats it to 90°C in under 200 seconds. It operates completely off-grid.
+              </p>
+            </details>
+            
+            <details className="group border border-white/10 bg-[#050505] p-6 cursor-pointer hover:border-white/30 transition-colors">
+              <summary className="font-bold tracking-widest uppercase text-sm flex justify-between items-center text-white">
+                Can I use this during a flight?
+                <span className="text-gray-500 group-open:rotate-45 transition-transform text-2xl font-light">+</span>
+              </summary>
+              <p className="mt-4 text-gray-400 font-light text-sm leading-relaxed border-t border-white/5 pt-4">
+                Yes, it is TSA-compliant to carry on, but due to its internal heating element, global airline regulations prohibit using the heating function *during* the flight. You can use it in the terminal or wait until you land.
+              </p>
+            </details>
+
+            <details className="group border border-white/10 bg-[#050505] p-6 cursor-pointer hover:border-white/30 transition-colors">
+              <summary className="font-bold tracking-widest uppercase text-sm flex justify-between items-center text-white">
+                How do I clean the internal mechanisms?
+                <span className="text-gray-500 group-open:rotate-45 transition-transform text-2xl font-light">+</span>
+              </summary>
+              <p className="mt-4 text-gray-400 font-light text-sm leading-relaxed border-t border-white/5 pt-4">
+                Ballistic cleaning protocol: Simply fill the reservoir with fresh water and run a cycle without inserting a capsule. The 18-bar pressure system will purge and clean itself automatically.
+              </p>
+            </details>
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 }
