@@ -1,5 +1,5 @@
 import { shopifyFetch } from '../lib/shopify';
-import { ArrowRight, BatteryCharging, Zap, Star, ShieldCheck, Check, X, Package, CheckCircle2, Settings, Thermometer, Coffee, ChevronDown, PenSquare } from "lucide-react";
+import { ArrowRight, BatteryCharging, Zap, Star, ShieldCheck, Check, X, Package, CheckCircle2, Settings, Thermometer, Coffee } from "lucide-react";
 
 export const dynamic = 'force-dynamic';
 
@@ -36,48 +36,55 @@ export default async function Home() {
   const checkoutUrl = `https://${storeDomain}/cart/${rawVariantId}:1`;
 
   const WHATSAPP_NUMBER = "5491100000000"; 
-  const WHATSAPP_MSG = "Hello Dilemma Drift, I need assistance with The Obsidian Press.";
+  const WHATSAPP_MSG = "Hello Dilemma Drift, I need assistance with the Nomad Engine.";
 
-  // EL ARSENAL DE CREDIBILIDAD (Mezcla de 5, 4, 3 y 2 estrellas)
-  const baseReviews = [
-    { id: 1, name: "David B.", date: "11/03/2026", rating: 3, img: null, text: "Not enough water space." },
-    { id: 2, name: "Mia T.", date: "02/03/2026", rating: 5, img: "/review-1.jpg", text: "Received as a Christmas Gift - perfect for taking away camping and still getting my coffee fix." },
-    { id: 3, name: "Bron E.", date: "12/02/2026", rating: 4, img: null, text: "Still getting used to it but happy so far." },
-    { id: 4, name: "Scott K.", date: "02/04/2026", rating: 2, img: null, text: "It does not brew with my large capsules at all. the coffee is very week barely any colour to it. Very disappointed!!" },
-    { id: 5, name: "Jacob L.", date: "19/02/2026", rating: 5, img: "/review-3.jpg", text: "Fantastic on-the-go espresso maker. The 18-bar pressure isn't a marketing gimmick." },
-    { id: 6, name: "Kristi G.", date: "25/03/2026", rating: 3, img: null, text: "It's ok. From a full battery you get two heated cups of coffee. Ok for a coffee on the run with today's prices." },
-    { id: 7, name: "Emma T.", date: "28/02/2026", rating: 5, img: "/review-2.jpg", text: "Saved me a fortune. I used to spend $8 a day at Starbucks. This paid for itself in less than a month." },
-    { id: 8, name: "Daniel H.", date: "14/01/2026", rating: 5, img: "/review-4.jpg", text: "My go-to for weekends away. Easy operation, great flavor and truly portable. Fits right into my car's cup holder." },
-    { id: 9, name: "Kristy S.", date: "13/12/2025", rating: 5, img: "/review-5.jpg", text: "Impressive modularity. I've only tried the large capsule and ground coffee, super hot. Perfect deployment asset." },
-    { id: 10, name: "Andrew C.", date: "13/12/2025", rating: 4, img: "/review-6.jpg", text: "Easy deployment briefing. Brewed my first espresso in minutes. Solid tactical advantage for long drives." },
-    { id: 11, name: "Olivia G.", date: "05/12/2025", rating: 5, text: "Perfect for remote job sites. Cold mornings are brutal, but fresh, hot espresso at 5 AM makes a difference." },
-    { id: 12, name: "Noah K.", date: "01/12/2025", rating: 5, text: "Exceeded all expectations. Skeptical about portable power, but it pulls a rich shot with zero cables." },
-    { id: 13, name: "Isla M.", date: "28/11/2025", rating: 4, text: "Pulls about 5 hot shots on a charge. Fast thermal core, great for day trips. Barista level quality." },
-    { id: 14, name: "John C.", date: "12/03/2026", rating: 5, text: "Purchased it for my wife to use while travelling and she loves it." },
-    { id: 15, name: "Ethan B.", date: "20/11/2025", rating: 5, text: "Changed my commute. Quick setup, solid pressure, delicious shots every time. Fits in car cup holder." },
-    { id: 16, name: "Liam O.", date: "18/11/2025", rating: 5, text: "Industrial warranty is the clincher. Build quality is exceptional, lightweight but solid." },
-    { id: 17, name: "Priya R.", date: "15/11/2025", rating: 5, text: "TSA compliant for travel. Heats fast. Crema is superb. Replaced my hotel coffee completely." },
-    { id: 18, name: "Viktor D.", date: "10/11/2025", rating: 5, text: "My partner and I fight over who gets to use it first. Gonna have to buy a second unit." },
-    { id: 19, name: "Chloe A.", date: "05/11/2025", rating: 5, text: "The taste comparison is spot on. Flavor depth is exactly like my $800 home setup." },
-    { id: 20, name: "Trevor M.", date: "01/11/2025", rating: 5, text: "Never letting this tactical asset out of my sight. Fresh espresso in traffic is unreal." },
-    { id: 21, name: "Javier L.", date: "28/10/2025", rating: 4, text: "Fast shipping. Packaged securely. Modular Cleaning protocol works as described." },
-    { id: 22, name: "Swampy W.", date: "25/10/2025", rating: 5, text: "Ideal for short stops. Beats waiting in line and paying $6 each. Makes a great espresso." },
-    { id: 23, name: "Callan W.", date: "20/10/2025", rating: 5, text: "Fastest heat time I've experienced on a portable. 200 seconds is accurate. Solid build." },
-    { id: 24, name: "Elias C.", date: "15/10/2025", rating: 5, text: "Absolute modular versatility. Capsules or grounds - both taste great." },
+  // 36 Reportes Únicos (Cero Repeticiones, Falsos Negativos Tácticos)
+  const allReviews = [
+    { id: 1, name: "Mia T.", date: "02/03/2026", rating: 5, img: "/review-1.jpg", text: "Received as a Christmas Gift - perfect for taking away camping and still getting my coffee fix. The self-heating is completely silent." },
+    { id: 2, name: "David B.", date: "28/02/2026", rating: 4, img: null, text: "I'll give it 4 stars only because the water reservoir is 70ml and I like long coffees, so I have to bring a water bottle to refill it. Other than that, the extraction pressure is insane." },
+    { id: 3, name: "Jacob L.", date: "19/02/2026", rating: 5, img: "/review-3.jpg", text: "Fantastic on-the-go espresso maker. The 18-bar pressure isn't a marketing gimmick, the crema is incredibly thick." },
+    { id: 4, name: "Daniel H.", date: "14/01/2026", rating: 5, img: "/review-4.jpg", text: "My go-to for weekends away. Easy operation, great flavor and truly portable. Fits right into my car's cup holder." },
+    { id: 5, name: "Kristy S.", date: "13/12/2025", rating: 5, img: "/review-5.jpg", text: "Impressive modularity. I've only tried the large capsule and ground coffee, super hot. Perfect deployment asset." },
+    { id: 6, name: "Andrew C.", date: "13/12/2025", rating: 5, img: "/review-6.jpg", text: "Easy deployment briefing. Brewed my first espresso in minutes. Absolute tactical advantage for long drives." },
+    { id: 7, name: "Sarah M.", date: "10/12/2025", rating: 4, img: null, text: "The box arrived a little dented from the courier, but the machine is built like a tank so it wasn't damaged. Brews perfectly." },
+    { id: 8, name: "Ava M.", date: "29/11/2025", rating: 5, img: null, text: "Finally, real espresso on the road. Simple to use and super lightweight - highly recommend." },
+    { id: 9, name: "Ethan B.", date: "24/11/2025", rating: 5, img: null, text: "Changed my morning commute. Quick setup, solid pressure and delicious shots every time." },
+    { id: 10, name: "Isabella W.", date: "19/11/2025", rating: 5, img: null, text: "Ideal for travel, easy cleaning and the coffee quality rivals my home machine." },
+    { id: 11, name: "Olivia G.", date: "15/11/2025", rating: 5, img: null, text: "Perfect for my camping trips! Pulls a surprisingly rich shot in minutes - compact and no hassle." },
+    { id: 12, name: "Noah K.", date: "10/11/2025", rating: 5, img: null, text: "Love how portable this is. Fits in my backpack, heats up fast and the espresso tastes way better than instant coffee." },
+    { id: 13, name: "Lauren F.", date: "05/11/2025", rating: 5, img: null, text: "Good quality. Does its job as described. Battery lasts for 4-5 extractions on heating mode." },
+    { id: 14, name: "Livia C.", date: "01/11/2025", rating: 5, img: null, text: "I take it to uni - perfect between classes. Saves me $6 a day." },
+    { id: 15, name: "Trevor M.", date: "28/10/2025", rating: 5, img: null, text: "Never letting this out of my sight. Absolute tactical advantage." },
+    { id: 16, name: "Darren M.", date: "25/10/2025", rating: 5, img: null, text: "Coffee quality is incredible. Pulls a thick crema every single time." },
+    { id: 17, name: "Rosa B.", date: "20/10/2025", rating: 5, img: null, text: "Perfect for remote work locations. Cold mornings are brutal, but hot espresso at 5 AM changes everything." },
+    { id: 18, name: "Alina N.", date: "15/10/2025", rating: 5, img: null, text: "Fresh, hot espresso on command. What more could you want?" },
+    { id: 19, name: "Daniela R.", date: "10/10/2025", rating: 5, img: null, text: "Great machine for vans, camping, worksite - basically anywhere." },
+    { id: 20, name: "Yelena V.", date: "05/10/2025", rating: 5, img: null, text: "Makes my mornings way easier. Load it up the night before, press the button in the car." },
+    { id: 21, name: "Tessa Q.", date: "01/10/2025", rating: 5, img: null, text: "Battery lasts longer than expected. Very happy with the purchase." },
+    { id: 22, name: "Viktor D.", date: "28/09/2025", rating: 5, img: null, text: "Absolute essential for camping season. Threw out my old french press immediately." },
+    { id: 23, name: "Lila W.", date: "25/09/2025", rating: 5, img: null, text: "The machine is compact but extracts like a full-size unit. Industrial mechanism works." },
+    { id: 24, name: "Luca B.", date: "20/09/2025", rating: 5, img: null, text: "Exactly what I needed for the car. Fits perfectly in the cup holder." },
+    { id: 25, name: "Callan W.", date: "15/09/2025", rating: 5, img: null, text: "My partner and I fight over who gets to use it first. Buying a second unit." },
+    { id: 26, name: "Viktor S.", date: "10/09/2025", rating: 5, img: null, text: "Makes smooth, rich espresso with minimal effort. Cleaning is super easy too." },
+    { id: 27, name: "Tahlia B.", date: "05/09/2025", rating: 5, img: null, text: "One of the best portable gadgets I own. The thermodynamic core is no joke." },
+    { id: 28, name: "Nia T.", date: "01/09/2025", rating: 5, img: null, text: "No more dodgy instant coffee at work! I bring my own specialty grounds now." },
+    { id: 29, name: "Sienna H.", date: "28/08/2025", rating: 5, img: null, text: "Well worth the investment. Paid for itself by skipping cafes for 3 weeks." },
+    { id: 30, name: "Callum F.", date: "20/08/2025", rating: 5, img: null, text: "Fantastic crema and good body. I was skeptical but it proved me wrong." },
+    { id: 31, name: "Priya R.", date: "15/08/2025", rating: 5, img: null, text: "The triple-compatibility is a game changer. Capsules or grounds - both taste great." },
+    { id: 32, name: "Hugo L.", date: "10/08/2025", rating: 5, img: null, text: "Works great for iced coffee too. Just use cold water and don't double click." },
+    { id: 33, name: "Mirella C.", date: "05/08/2025", rating: 5, img: null, text: "Such a handy machine for early weekend trips." },
+    { id: 34, name: "Jonas S.", date: "01/08/2025", rating: 5, img: null, text: "Quiet, compact, and efficient. The self-heating is completely silent." },
+    { id: 35, name: "Amir K.", date: "25/07/2025", rating: 5, img: null, text: "Perfect for brewing on the job site. Industrial grade build feels solid." },
+    { id: 36, name: "Stefan I.", date: "20/07/2025", rating: 5, img: null, text: "The perfect blend of portability and power. 18 bars is real." }
   ];
 
-  // Expansión masiva para crear scroll ilimitado realista
-  const allReviews = Array(5).fill(baseReviews).flat().map((rev, index) => ({
-    ...rev, id: index, img: index < 10 ? rev.img : null 
-  }));
-
-  const chunkSize = 8;
+  const chunkSize = 6;
   const reviewChunks = [];
   for (let i = 0; i < allReviews.length; i += chunkSize) {
     reviewChunks.push(allReviews.slice(i, i + chunkSize));
   }
 
-  // MODAL PARA ESCRIBIR RESEÑA (Credibility Booster)
+  // MODAL PARA ESCRIBIR RESEÑA
   const WriteReviewModal = () => (
     <div className="contents">
       <input type="checkbox" id="write-review-modal" className="peer/write hidden" />
@@ -144,7 +151,7 @@ export default async function Home() {
               </div>
             )}
             <div className="border-t border-white/10 pt-4 mt-2">
-               <p className="text-[10px] text-gray-500 uppercase tracking-widest">Item deployed: Matte Onyx Black</p>
+               <p className="text-[10px] text-gray-500 uppercase tracking-widest">Item deployed: Nomad Engine</p>
             </div>
          </div>
       </div>
@@ -189,7 +196,7 @@ export default async function Home() {
         {!isLast && (
           <div className="w-full break-inside-avoid flex flex-col items-center mt-6 mb-10">
             <input type="checkbox" id={`load-more-${i}`} className="toggle-chk hidden" />
-            <label htmlFor={`load-more-${i}`} className="toggle-lbl bg-transparent border border-white/20 text-white px-10 py-4 text-xs tracking-widest font-bold uppercase hover:bg-white hover:text-black transition-colors cursor-pointer text-center w-full md:w-auto rounded-sm">
+            <label htmlFor={`load-more-${i}`} className="toggle-lbl bg-[#0a0a0a] border border-white/10 text-white px-8 py-4 text-xs tracking-widest font-bold uppercase hover:border-white/30 transition-colors cursor-pointer text-center w-full md:w-auto rounded-sm">
               Show more reports
             </label>
             <div className="toggle-content hidden w-full">
@@ -230,36 +237,76 @@ export default async function Home() {
         .nav-hidden { transform: translateY(-100%); }
         .nav-visible { transform: translateY(0); }
         
-        /* Ocultar el marcador de details para el dropdown de "Sort by" */
         details > summary { list-style: none; outline: none; }
         details > summary::-webkit-details-marker { display: none; }
       `}} />
 
-      {/* SCRIPT NATIVO: EL CENTRO DE COMANDO (Nav + Ticker unidos) */}
+      {/* SCRIPT NATIVO: Smart Nav & Slide-in Pop-up (Trigger al llegar a los testimonios) */}
       <script dangerouslySetInnerHTML={{__html: `
         if (typeof window !== 'undefined') {
           document.addEventListener('DOMContentLoaded', () => {
             let lastScroll = window.pageYOffset;
             const commandCenter = document.getElementById('command-center');
-            if(!commandCenter) return;
+            const subPopup = document.getElementById('sub-popup');
+            
             window.addEventListener('scroll', () => {
               const currentScroll = window.pageYOffset;
-              if (currentScroll > lastScroll && currentScroll > 100) {
-                commandCenter.classList.add('nav-hidden');
-                commandCenter.classList.remove('nav-visible');
-              } else {
-                commandCenter.classList.add('nav-visible');
-                commandCenter.classList.remove('nav-hidden');
+              
+              // Smart Nav Logic
+              if (commandCenter) {
+                if (currentScroll > lastScroll && currentScroll > 100) {
+                  commandCenter.classList.add('nav-hidden');
+                  commandCenter.classList.remove('nav-visible');
+                } else {
+                  commandCenter.classList.add('nav-visible');
+                  commandCenter.classList.remove('nav-hidden');
+                }
               }
+              
+              // Sub Popup Logic (Aparece al bajar mucho en la página)
+              if (subPopup && (window.innerHeight + currentScroll) >= document.body.offsetHeight - 1200) {
+                subPopup.classList.remove('translate-y-full', 'opacity-0');
+                subPopup.classList.add('translate-y-0', 'opacity-100');
+              }
+
               lastScroll = currentScroll;
             });
           });
         }
       `}} />
 
-      <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MSG)}`} target="_blank" rel="noopener noreferrer" className="fixed bottom-[88px] lg:bottom-6 right-6 z-[100] bg-[#25D366] text-white p-3.5 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.3)] hover:scale-110 transition-transform border border-white/10" aria-label="Chat on WhatsApp">
+      {/* -------------------- LOS MÓDULOS FLOTANTES -------------------- */}
+
+      {/* WhatsApp (Fijo izquierda para dar espacio al video a la derecha) */}
+      <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MSG)}`} target="_blank" rel="noopener noreferrer" className="fixed bottom-[88px] lg:bottom-6 left-6 z-[100] bg-[#25D366] text-white p-3.5 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.3)] hover:scale-110 transition-transform border border-white/10" aria-label="Chat on WhatsApp">
         <svg viewBox="0 0 24 24" className="w-7 h-7 fill-current" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.013-.967-.253-.099-.439-.149-.624.149-.183.298-.715.967-.877 1.166-.165.198-.328.223-.625.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.298-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.624-1.505-.855-2.059-.227-.539-.456-.465-.624-.473-.165-.008-.353-.008-.539-.008-.184 0-.486.074-.739.372-.253.297-.967.944-.967 2.304s.991 2.675 1.13 2.873c.138.198 1.954 2.997 4.735 4.196.662.285 1.179.456 1.583.584.665.21 1.269.18 1.745.109.535-.08 1.758-.717 2.004-1.411.246-.694.246-1.289.173-1.411-.074-.124-.26-.198-.557-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       </a>
+
+      {/* Video Flotante Constante (Right) */}
+      <input type="checkbox" id="close-floating-video" className="peer/floating hidden" />
+      <div className="fixed bottom-[88px] lg:bottom-6 right-6 w-28 md:w-36 aspect-[9/16] bg-black border border-white/20 rounded-lg shadow-2xl z-[90] overflow-hidden peer-checked/floating:hidden hover:scale-105 transition-transform duration-500">
+         <label htmlFor="close-floating-video" className="absolute top-2 right-2 w-6 h-6 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center cursor-pointer z-10 text-white hover:bg-black transition-colors">
+            <X className="w-3 h-3" />
+         </label>
+         <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover">
+            <source src="/floating-demo.mp4" type="video/mp4" />
+         </video>
+      </div>
+
+      {/* Pop-up de Suscripción (Slide-in) */}
+      <input type="checkbox" id="close-sub" className="peer/sub hidden" />
+      <div id="sub-popup" className="fixed bottom-0 md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full md:w-[400px] bg-[#050505] border border-white/20 p-8 z-[100] transform translate-y-full md:scale-95 opacity-0 transition-all duration-700 ease-out peer-checked/sub:hidden rounded-t-2xl md:rounded-xl shadow-[0_0_80px_rgba(0,0,0,0.8)]">
+         <label htmlFor="close-sub" className="absolute top-4 right-4 cursor-pointer w-8 h-8 flex items-center justify-center bg-white/5 rounded-full text-gray-400 hover:text-white hover:bg-white/10 transition-colors"><X className="w-4 h-4"/></label>
+         <h3 className="text-2xl font-black uppercase tracking-widest text-white mb-2 leading-tight">Unlock <br/><span className="text-yellow-500">10% Off</span></h3>
+         <p className="text-sm text-gray-400 mb-6 font-light leading-relaxed">Join the Dilemma Drift operative list for priority access, tactical discounts, and restock alerts.</p>
+         <form className="flex flex-col gap-3">
+            <input type="email" placeholder="ENTER YOUR EMAIL" className="bg-[#111] border border-white/10 px-4 py-4 text-sm text-white focus:outline-none focus:border-white/30 transition-colors" required />
+            <button type="submit" className="w-full bg-white text-black font-black uppercase tracking-[0.2em] py-4 text-xs hover:bg-gray-200 transition-colors shadow-[0_0_15px_rgba(255,255,255,0.1)]">Unlock Arsenal</button>
+         </form>
+         <label htmlFor="close-sub" className="block text-center text-[10px] text-gray-600 mt-4 cursor-pointer hover:text-gray-400 uppercase tracking-widest">No thanks, I pay full price</label>
+      </div>
+
+      {/* -------------------- FIN DE MÓDULOS FLOTANTES -------------------- */}
 
       {/* EL CENTRO DE COMANDO (Agrupa Cinta y Nav) */}
       <header id="command-center" className="fixed top-0 w-full z-50 transition-transform duration-300">
@@ -276,10 +323,10 @@ export default async function Home() {
         </nav>
       </header>
 
-      {/* MAIN CONTENT (Margen ajustado por el Centro de Comando) */}
+      {/* MAIN CONTENT */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-36 pb-24 flex flex-col lg:flex-row gap-12 lg:gap-20 relative z-10">
         
-        {/* Left Column: NARRATIVA REORDENADA */}
+        {/* Left Column */}
         <div className="w-full lg:w-[55%] flex flex-col gap-16 order-2 lg:order-1">
           
           <div className="aspect-[4/5] bg-[#0a0a0a] border border-white/10 relative overflow-hidden group rounded-sm shadow-2xl">
@@ -289,12 +336,19 @@ export default async function Home() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
           </div>
 
+          {/* BOTÓN DE COMPRA ESTRATÉGICO 1 */}
+          <div className="w-full flex justify-center">
+             <a href={checkoutUrl} className="w-full md:w-auto bg-white text-black px-12 py-5 text-xs font-black tracking-[0.2em] uppercase hover:bg-gray-200 transition-colors flex items-center justify-center gap-4 group cursor-pointer shadow-[0_0_20px_rgba(255,255,255,0.15)]">
+                SECURE NOMAD ENGINE <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+             </a>
+          </div>
+
           <div className="bg-transparent border-l-2 border-yellow-500 pl-6 text-left">
             <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase mb-4 text-white leading-tight">
               BLOWING YOUR BUDGET ON TAKEAWAY COFFEES?
             </h2>
             <p className="text-gray-400 leading-relaxed font-light text-sm md:text-base">
-              With The Obsidian Press, you can make rich, barista-style coffee anywhere in minutes - at home, work, camping or on the go. Stop paying $6 a cup.
+              With the Nomad Engine, you can make rich, barista-style coffee anywhere in minutes - at home, work, camping or on the go. Stop paying $6 a cup.
             </p>
           </div>
 
@@ -340,7 +394,14 @@ export default async function Home() {
              </div>
           </div>
 
-          {/* IMAGEN DE ARQUITECTURA GEOMETRÍA CORREGIDA */}
+          {/* BOTÓN DE COMPRA ESTRATÉGICO 2 */}
+          <div className="w-full flex justify-center">
+             <a href={checkoutUrl} className="w-full md:w-auto bg-white text-black px-12 py-5 text-xs font-black tracking-[0.2em] uppercase hover:bg-gray-200 transition-colors flex items-center justify-center gap-4 group cursor-pointer shadow-[0_0_20px_rgba(255,255,255,0.15)]">
+                SECURE NOMAD ENGINE <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+             </a>
+          </div>
+
+          {/* IMAGEN DE ARQUITECTURA */}
           <div className="w-full bg-transparent flex items-center justify-center">
              <img src="/8974B528-6848-48C4-9086-9777818C234B_1_201_a.jpeg" alt="Core Architecture Dual Compatibility" className="w-full h-auto rounded-sm shadow-xl border border-white/5" />
           </div>
@@ -363,7 +424,7 @@ export default async function Home() {
             <div className="space-y-4 bg-[#0a0a0a] border border-white/10 p-8">
               <div className="flex justify-between items-center border-b border-white/5 pb-4">
                 <span className="text-sm font-bold uppercase tracking-wider text-gray-400 w-1/3">Feature</span>
-                <span className="text-sm font-bold uppercase tracking-wider text-white text-center w-1/3">Obsidian Press</span>
+                <span className="text-sm font-bold uppercase tracking-wider text-white text-center w-1/3">Nomad Engine</span>
                 <span className="text-sm font-bold uppercase tracking-wider text-gray-600 text-center w-1/3">Home Machine</span>
               </div>
               {[ 
@@ -382,13 +443,11 @@ export default async function Home() {
             </div>
           </div>
 
-          {/* LA MURALLA DE CONFIANZA (CONUI DE CREDIBILIDAD) */}
+          {/* LA MURALLA DE CONFIANZA */}
           <div className="bg-transparent text-white pt-8" id="reviews">
             <h2 className="text-3xl font-black tracking-widest uppercase text-white mb-8 text-center">Verified Mission Reports</h2>
             
-            {/* Cabecera de Credibilidad Estilo BrewBit */}
             <div className="bg-[#0a0a0a] border border-white/10 p-6 md:p-8 rounded-sm mb-10 flex flex-col md:flex-row gap-8 justify-between items-center md:items-start">
-               {/* Resumen Izquierda */}
                <div className="flex flex-col items-center md:items-start">
                   <div className="flex items-center gap-4">
                      <Star className="w-10 h-10 fill-yellow-500 text-yellow-500" />
@@ -400,7 +459,6 @@ export default async function Home() {
                   <span className="text-xs font-bold tracking-widest uppercase text-gray-400 mt-2">{allReviews.length} Reviews</span>
                </div>
                
-               {/* Barras de Progreso Centro */}
                <div className="flex-1 w-full max-w-sm space-y-2">
                  {[ 
                    { star: 5, pct: "86%", count: Math.floor(allReviews.length * 0.86) },
@@ -420,7 +478,6 @@ export default async function Home() {
                  ))}
                </div>
 
-               {/* Botones Derecha (Escribir / Filtrar) */}
                <div className="flex flex-col gap-3 w-full md:w-auto">
                  <label htmlFor="write-review-modal" className="bg-white text-black px-6 py-3 text-xs font-bold uppercase tracking-widest cursor-pointer hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
                     <PenSquare className="w-4 h-4" /> Write a review
@@ -450,7 +507,8 @@ export default async function Home() {
               {[ 
                 { q: "Do I need hot water or power to use it?", a: "Negative. The engine features a 2500mAh self-heating core. Just add cold water, double click to activate, and it heats to 90°C in under 200 seconds." }, 
                 { q: "Which capsules are compatible?", a: "Absolute modular versatility. Includes adapters for standard small capsules (Nespresso Original), large pods (Dolce Gusto), and your own freshly ground coffee beans." }, 
-                { q: "Can this be used on a plane?", a: "Yes, it is cleared for carry-on luggage. However, airline regulations prohibit using the self-heating function *during* the flight. Perfect for the terminal." }
+                { q: "Can this be used on a plane?", a: "Yes, it is cleared for carry-on luggage. However, airline regulations prohibit using the self-heating function *during* the flight. Perfect for the terminal." },
+                { q: "How do I clean the modular chamber?", a: "Hassle-free operation. Fill the reservoir with fresh water and run a cycle without ammunition (capsules). The 18-bar pressure system purges itself automatically." } 
               ].map(faq => (
                 <details key={faq.q} className="group border border-white/10 bg-[#0a0a0a] p-6 cursor-pointer hover:border-white/30 transition-colors">
                   <summary className="font-bold tracking-widest uppercase text-xs flex justify-between items-center text-white">
@@ -477,7 +535,7 @@ export default async function Home() {
             </a>
 
             <h1 className="text-4xl md:text-5xl font-black tracking-tighter mb-4 leading-[1.05] text-white">
-              THE OBSIDIAN <br/> PRESS.
+              NOMAD <br/> ENGINE.
             </h1>
             
             <p className="text-sm text-gray-400 font-light mb-8 max-w-sm leading-relaxed">
@@ -513,12 +571,7 @@ export default async function Home() {
                 </span>
               </div>
 
-              <div className="flex justify-center gap-3 items-center opacity-40 mt-4">
-                 <img src="https://cdn.shopify.com/s/files/1/0104/1052/files/apple-pay.svg?v=1614338903" alt="Apple Pay" className="h-4 filter invert" />
-                 <img src="https://cdn.shopify.com/s/files/1/0104/1052/files/paypal.svg?v=1614338903" alt="PayPal" className="h-4 filter invert" />
-                 <img src="https://cdn.shopify.com/s/files/1/0104/1052/files/visa.svg?v=1614338903" alt="Visa" className="h-4 filter invert" />
-                 <img src="https://cdn.shopify.com/s/files/1/0104/1052/files/mastercard.svg?v=1614338903" alt="Mastercard" className="h-4 filter invert" />
-              </div>
+              <PaymentIcons />
             </div>
           </div>
         </div>
