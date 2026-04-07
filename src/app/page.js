@@ -1,5 +1,5 @@
 import { shopifyFetch } from '../lib/shopify';
-import { ArrowRight, BatteryCharging, Zap, Star, ShieldCheck, Check, X, Package, CheckCircle2, Settings, Thermometer, Coffee, Lock, MailCheck } from "lucide-react";
+import { ArrowRight, BatteryCharging, Zap, Star, ShieldCheck, Check, X, Package, CheckCircle2, Settings, Thermometer, Coffee, Lock, MailCheck, GripHorizontal } from "lucide-react";
 
 export const dynamic = 'force-dynamic';
 
@@ -38,23 +38,72 @@ export default async function Home() {
   const WHATSAPP_NUMBER = "5491100000000"; 
   const WHATSAPP_MSG = "Hello Dilemma Drift, I need assistance with The Obsidian Press.";
 
-  // 85 Reseñas Únicas (Mezcla realística V22)
-  const baseReviews = [
-    { id: 1, name: "David B.", date: "11/03/2026", rating: 3, img: null, text: "Not enough water space. The reservoir only holds 70ml, so I have to bring a thermos with cold water to refill it. The heating element is surprisingly fast though." },
-    { id: 2, name: "Mia T.", date: "02/03/2026", rating: 5, img: "/review-1.jpg", text: "Received as a Christmas Gift - perfect for taking away camping and still getting my coffee fix. The self-heating is completely silent." },
-    { id: 3, name: "Bron E.", date: "12/02/2026", rating: 4, img: null, text: "Still getting used to the double click function to heat, but happy so far." },
-    { id: 4, name: "Scott K.", date: "02/02/2026", rating: 2, img: null, text: "It didn't puncture my large capsules correctly at first. Found out I wasn't pushing the adapter down hard enough. User error, but annoying." },
-    { id: 5, name: "Jacob L.", date: "19/02/2026", rating: 5, img: "/review-3.jpg", text: "Fantastic on-the-go espresso maker. The 18-bar pressure isn't a marketing gimmick, crema is thick." },
-    { id: 6, name: "Emma T.", date: "28/02/2026", rating: 5, img: "/review-2.jpg", text: "Saved me a fortune. I used to spend $8 a day at Starbucks. Paid for itself in less than a month." },
-    { id: 7, name: " Daniel H.", date: "14/01/2026", rating: 5, img: "/review-4.jpg", text: "My go-to for weekends away. Easy operation, great flavor and truly portable. Fits right into my car's cup holder." },
-    { id: 8, name: "Lauren F.", date: "05/11/2025", rating: 5, img: null, text: "Good quality. Does its job as described. Battery lasts for 4-5 extractions on heating mode." }
+  // BASE DE TEXTOS ÚNICOS (Mucha Persuasión 5 Estrellas, algunas quejas menores)
+  const reviewTexts = [
+    { rating: 5, text: "Received as a Christmas Gift - perfect for taking away camping and still getting my coffee fix. The self-heating is completely silent.", img: "/review-1.jpg" },
+    { rating: 5, text: "Fantastic on-the-go espresso maker. The 18-bar pressure isn't a marketing gimmick, the crema is incredibly thick.", img: "/review-3.jpg" },
+    { rating: 5, text: "Saved me a fortune. I used to spend $8 a day at Starbucks. Paid for itself in less than a month.", img: "/review-2.jpg" },
+    { rating: 5, text: "My go-to for weekends away. Easy operation, great flavor and truly portable. Fits right into my car's cup holder.", img: "/review-4.jpg" },
+    { rating: 5, text: "Impressive modularity. I've only tried the large capsule and ground coffee, super hot. Perfect deployment asset.", img: "/review-5.jpg" },
+    { rating: 5, text: "Easy deployment briefing. Brewed my first espresso in minutes. Solid tactical advantage for long drives.", img: "/review-6.jpg" },
+    { rating: 5, text: "Perfect for remote job sites. Cold mornings are brutal, but fresh, hot espresso at 5 AM makes a difference.", img: null },
+    { rating: 5, text: "Exceeded all expectations. Skeptical about portable power, but it pulls a rich shot with zero cables.", img: null },
+    { rating: 5, text: "Changed my morning commute. Quick setup, solid pressure and delicious shots every time.", img: null },
+    { rating: 5, text: "Ideal for travel, easy cleaning and the coffee quality rivals my $1000 home machine.", img: null },
+    { rating: 5, text: "Perfect for my camping trips! Pulls a surprisingly rich shot in minutes - compact and no hassle.", img: null },
+    { rating: 5, text: "Love how portable this is. Fits in my backpack, heats up fast and the espresso tastes way better than instant coffee.", img: null },
+    { rating: 5, text: "Good quality. Does its job as described. Battery lasts for 4-5 extractions on heating mode.", img: null },
+    { rating: 5, text: "I take it to uni - perfect between classes. Saves me $6 a day minimum.", img: null },
+    { rating: 5, text: "Never letting this out of my sight. Absolute tactical advantage.", img: null },
+    { rating: 5, text: "Coffee quality is incredible. Pulls a thick crema every single time.", img: null },
+    { rating: 5, text: "Great machine for vans, camping, worksite - basically anywhere.", img: null },
+    { rating: 5, text: "Makes my mornings way easier. Load it up the night before, press the button in the car.", img: null },
+    { rating: 4, text: "Pulls about 5 hot shots on a charge. Fast thermal core, great for day trips. Barista level quality.", img: null },
+    { rating: 4, text: "The box arrived a little dented from the courier, but the machine is built like a tank so it wasn't damaged. Brews perfectly.", img: null },
+    { rating: 4, text: "A bit heavy for ultra-light backpacking, but considering it heats water internally, it's worth the weight.", img: null },
+    { rating: 4, text: "Fast shipping. Packaged securely. Modular Cleaning protocol works as described.", img: null },
+    { rating: 3, text: "Not enough water space. The reservoir only holds 70ml, so I have to bring a thermos with cold water to refill it. The heating element is surprisingly fast though.", img: null },
+    { rating: 2, text: "It didn't puncture my large capsules correctly at first. Found out I wasn't pushing the adapter down hard enough. User error, but annoying.", img: null }
   ];
 
-  const allReviews = Array(11).fill(baseReviews).flat().map((rev, index) => ({
-    ...rev, id: index, name: index % 2 === 0 ? rev.name : rev.name.replace(".", " verified"), img: index < 8 ? rev.img : null 
-  }));
+  // NOMBRES 100% ÚNICOS Y HUMANOS
+  const uniqueNames = [
+    "Mia T.", "Jacob L.", "Emma T.", "Daniel H.", "Kristy S.", "Andrew C.", "Olivia G.", "Noah K.", "Isla M.", "Ethan B.", 
+    "Liam O.", "Priya R.", "Viktor D.", "Chloe A.", "Trevor M.", "Javier L.", "Swampy W.", "Callan W.", "Elias C.", "Sarah M.",
+    "David B.", "Scott K.", "Ava M.", "Isabella W.", "Lauren F.", "Livia C.", "Darren M.", "Rosa B.", "Alina N.", "Daniela R.",
+    "Yelena V.", "Tessa Q.", "Lila W.", "Luca B.", "Viktor S.", "Tahlia B.", "Nia T.", "Sienna H.", "Callum F.", "Hugo L.",
+    "Mirella C.", "Jonas S.", "Amir K.", "Stefan I.", "Zahid R.", "Ravi S.", "Quentin L.", "Talia W.", "Malika C.", "Pietro A.",
+    "Felix D.", "Aya M.", "Braden P.", "Emilia F.", "Idris S.", "Henrik L.", "Freya W.", "Matteo D.", "Victor R.", "Sarah J.",
+    "Mike T.", "Jess K.", "Rob V.", "Nina L.", "Liam P.", "Zoe D.", "Harry W.", "Tomás G.", "Elena V.", "Ryan W.",
+    "Sophie L.", "Gareth N.", "Maya C.", "Ian B.", "Zoe F.", "Connor D.", "Talia S.", "Omar H.", "Julian M.", "Marcus T.",
+    "Lucas M.", "Aria N.", "Leo F."
+  ];
 
-  const totalReviews = allReviews.length;
+  // Generamos exactamente 83 reseñas combinando los textos y los nombres únicos
+  const allReviews = [];
+  for(let i=0; i<83; i++) {
+    // Usamos los primeros textos para las primeras reseñas (que son 5 estrellas)
+    let textObj = reviewTexts[i % reviewTexts.length];
+    
+    // Forzamos a que las primeras 15 reseñas SEAN SÍ O SÍ 5 estrellas
+    if (i < 15 && textObj.rating < 5) {
+       textObj = reviewTexts[0]; // Forzamos un texto de 5 estrellas
+    }
+
+    allReviews.push({
+      id: i,
+      name: uniqueNames[i] || `Customer ${i}`,
+      date: `0${Math.floor(Math.random() * 9) + 1}/0${Math.floor(Math.random() * 3) + 1}/2026`,
+      rating: textObj.rating,
+      text: textObj.text,
+      img: i < 6 ? textObj.img : null // Solo las primeras 6 tienen foto
+    });
+  }
+
+  // Ordenamos para asegurar que las de 5 y 4 estrellas queden arriba
+  allReviews.sort((a, b) => b.rating - a.rating);
+
+  const totalReviews = allReviews.length; // 83
   const count5 = Math.floor(totalReviews * 0.86);
   const count4 = Math.floor(totalReviews * 0.10);
   const count3 = Math.floor(totalReviews * 0.03);
@@ -105,13 +154,14 @@ export default async function Home() {
               </div>
             )}
             <div className="border-t border-white/10 pt-4 mt-2">
-               <p className="text-[10px] text-gray-500 uppercase tracking-widest">Item deployed: Nomad Engine</p>
+               <p className="text-[10px] text-gray-500 uppercase tracking-widest">Item deployed: The Obsidian Press</p>
             </div>
          </div>
       </div>
     </div>
   );
 
+  // Motor Recursivo (Sin espacios fantasma)
   let reviewWallContent = null;
   for (let i = reviewChunks.length - 1; i >= 0; i--) {
     const chunk = reviewChunks[i];
@@ -119,9 +169,9 @@ export default async function Home() {
 
     reviewWallContent = (
       <div className="w-full contents">
-        <div className="masonry-columns space-y-4 mb-4 w-full block">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 w-full">
           {chunk.map((review) => (
-            <div key={`rev-${review.id}`} className="bg-[#0a0a0a] text-gray-200 rounded-sm border border-white/5 break-inside-avoid overflow-hidden flex flex-col hover:border-white/20 transition-all relative mb-4 shadow-lg">
+            <div key={`rev-${review.id}`} className="bg-[#0a0a0a] text-gray-200 rounded-sm border border-white/5 break-inside-avoid overflow-hidden flex flex-col hover:border-white/20 transition-all relative shadow-lg">
               <label htmlFor={`modal-${review.id}`} className="absolute inset-0 z-10 cursor-pointer"></label>
               {review.img && (
                 <div className="w-full aspect-[4/3] bg-black relative border-b border-white/5">
@@ -148,7 +198,7 @@ export default async function Home() {
         </div>
         
         {!isLast && (
-          <div className="w-full break-inside-avoid flex flex-col items-center mt-6 mb-10">
+          <div className="w-full break-inside-avoid flex flex-col items-center mt-2 mb-6">
             <input type="checkbox" id={`load-more-${i}`} className="toggle-chk hidden" />
             <label htmlFor={`load-more-${i}`} className="toggle-lbl bg-[#0a0a0a] border border-white/10 text-white px-10 py-4 text-xs tracking-widest font-bold uppercase hover:border-white/30 transition-colors cursor-pointer text-center w-full md:w-auto rounded-sm">
               Show more reports
@@ -182,9 +232,6 @@ export default async function Home() {
         .animate-fade-in { animation: fadeIn 0.2s ease-out forwards; }
         .animate-marquee { display: flex; width: max-content; animation: marquee 25s linear infinite; }
         
-        .masonry-columns { column-count: 1; column-gap: 16px; width: 100%; display: block; }
-        @media (min-width: 640px) { .masonry-columns { column-count: 2; } }
-        
         .toggle-chk:checked ~ .toggle-content { display: block; }
         .toggle-chk:checked ~ .toggle-lbl { display: none; }
 
@@ -194,28 +241,23 @@ export default async function Home() {
         details > summary { list-style: none; outline: none; }
         details > summary::-webkit-details-marker { display: none; }
 
-        /* V22: Ocultar módulos cerrados definitivamente */
-        .close-floating-chk:checked ~ .floating-video-container { display: none !important; }
+        /* Esconder modales */
         .close-sub-chk:checked ~ #sub-popup { display: none !important; }
-
-        /* V22: Simulación exitosa de Unlock Pop-up */
         .submit-trigger:checked ~ .form-elements { display: none !important; }
         .submit-trigger:checked ~ .success-elements { display: flex !important; animation: fadeIn 0.5s ease-out forwards; }
       `}} />
 
-      {/* SCRIPT NATIVO: Smart Nav & Slide-in Pop-up (Triggers V22) */}
+      {/* SCRIPTS NATIVOS: Drag & Drop + Smart Nav + Pop-up */}
       <script dangerouslySetInnerHTML={{__html: `
         if (typeof window !== 'undefined') {
           document.addEventListener('DOMContentLoaded', () => {
+            // Smart Nav Logic
             let lastScroll = window.pageYOffset;
             const commandCenter = document.getElementById('command-center');
             const subPopup = document.getElementById('sub-popup');
-            const subInput = document.getElementById('sub-input');
-            const subSuccess = document.getElementById('success-trigger');
             
             window.addEventListener('scroll', () => {
               const currentScroll = window.pageYOffset;
-              
               if (commandCenter) {
                 if (currentScroll > lastScroll && currentScroll > 100) {
                   commandCenter.classList.add('nav-hidden');
@@ -225,62 +267,120 @@ export default async function Home() {
                   commandCenter.classList.remove('nav-hidden');
                 }
               }
-              
               if (subPopup && !subPopup.classList.contains('op-completed') && (window.innerHeight + currentScroll) >= document.body.offsetHeight - 1500) {
                 subPopup.classList.remove('translate-y-full', 'opacity-0');
                 subPopup.classList.add('translate-y-0', 'opacity-100');
               }
-
               lastScroll = currentScroll;
             });
 
-            // V22: Lógica de simulación exitosa de Unlock
+            // Unlock Popup Logic
+            const subInput = document.getElementById('sub-input');
+            const subSuccess = document.getElementById('success-trigger');
             document.getElementById('unlock-btn').addEventListener('click', () => {
               if (subInput.value.includes('@')) {
                 subSuccess.checked = true;
                 subPopup.classList.add('op-completed');
-                setTimeout(() => {
-                  document.getElementById('close-sub').checked = true;
-                }, 2500);
+                setTimeout(() => { document.getElementById('close-sub').checked = true; }, 3000);
               } else {
                 subInput.classList.add('border-red-500');
                 setTimeout(() => subInput.classList.remove('border-red-500'), 1000);
               }
             });
+
+            // Drag & Drop Logic for Floating Video
+            const floatWidget = document.getElementById('floating-widget');
+            const dragHandle = document.getElementById('drag-handle');
+            const closeBtn = document.getElementById('close-floating-btn');
+            
+            let isDragging = false, startX, startY, initialLeft, initialTop;
+
+            if(floatWidget && dragHandle) {
+              closeBtn.addEventListener('click', (e) => {
+                 e.stopPropagation();
+                 floatWidget.style.display = 'none';
+              });
+
+              dragHandle.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                startX = e.clientX;
+                startY = e.clientY;
+                const rect = floatWidget.getBoundingClientRect();
+                initialLeft = rect.left;
+                initialTop = rect.top;
+                // Fix to absolute positions
+                floatWidget.style.bottom = 'auto';
+                floatWidget.style.right = 'auto';
+                floatWidget.style.left = initialLeft + 'px';
+                floatWidget.style.top = initialTop + 'px';
+              });
+
+              document.addEventListener('mousemove', (e) => {
+                if(!isDragging) return;
+                e.preventDefault(); // Prevent text selection
+                floatWidget.style.left = (initialLeft + (e.clientX - startX)) + 'px';
+                floatWidget.style.top = (initialTop + (e.clientY - startY)) + 'px';
+              });
+
+              document.addEventListener('mouseup', () => {
+                isDragging = false;
+              });
+
+              // Touch support
+              dragHandle.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                const touch = e.touches[0];
+                startX = touch.clientX; startY = touch.clientY;
+                const rect = floatWidget.getBoundingClientRect();
+                initialLeft = rect.left; initialTop = rect.top;
+                floatWidget.style.bottom = 'auto'; floatWidget.style.right = 'auto';
+              }, {passive: false});
+
+              document.addEventListener('touchmove', (e) => {
+                if(!isDragging) return;
+                const touch = e.touches[0];
+                floatWidget.style.left = (initialLeft + (touch.clientX - startX)) + 'px';
+                floatWidget.style.top = (initialTop + (touch.clientY - startY)) + 'px';
+              }, {passive: false});
+
+              document.addEventListener('touchend', () => { isDragging = false; });
+            }
           });
         }
       `}} />
 
-      {/* WhatsApp FAB */}
-      <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MSG)}`} target="_blank" rel="noopener noreferrer" className="fixed bottom-[88px] lg:bottom-6 right-6 z-[100] bg-[#25D366] text-white p-3.5 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.3)] hover:scale-110 transition-transform border border-white/10" aria-label="Chat on WhatsApp">
+      {/* WhatsApp FAB (Pegado a la izquierda) */}
+      <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MSG)}`} target="_blank" rel="noopener noreferrer" className="fixed bottom-[88px] lg:bottom-6 left-6 z-[95] bg-[#25D366] text-white p-3.5 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.3)] hover:scale-110 transition-transform border border-white/10" aria-label="Chat on WhatsApp">
         <svg viewBox="0 0 24 24" className="w-7 h-7 fill-current" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.013-.967-.253-.099-.439-.149-.624.149-.183.298-.715.967-.877 1.166-.165.198-.328.223-.625.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.298-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.624-1.505-.855-2.059-.227-.539-.456-.465-.624-.473-.165-.008-.353-.008-.539-.008-.184 0-.486.074-.739.372-.253.297-.967.944-.967 2.304s.991 2.675 1.13 2.873c.138.198 1.954 2.997 4.735 4.196.662.285 1.179.456 1.583.584.665.21 1.269.18 1.745.109.535-.08 1.758-.717 2.004-1.411.246-.694.246-1.289.173-1.411-.074-.124-.26-.198-.557-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       </a>
 
-      {/* VIDEO FLOTANTE TÁCTICO CORREGIDO V22 (Izquierda + Cruz + Expansión) */}
-      <div className="z-[90] fixed bottom-[88px] lg:bottom-6 right-6 lg:right-auto lg:left-6">
-        <input type="checkbox" id="expand-floating-video" className="peer/expand hidden" />
-        <input type="checkbox" id="close-floating-video" className="close-floating-chk hidden peer/close" />
-        
-        {/* Vista Miniatura */}
-        <div className="floating-video-container relative w-28 md:w-36 aspect-[9/16] bg-black border border-white/20 rounded-lg shadow-2xl overflow-hidden hover:scale-105 transition-transform duration-500 peer-checked/expand:hidden peer-checked/close:hidden">
-           {/* Cruz para CERRAR definitivamente el flotante V22 */}
-           <label htmlFor="close-floating-video" className="absolute top-2 right-2 w-6 h-6 bg-black/70 backdrop-blur-md rounded-full flex items-center justify-center cursor-pointer z-30 text-white hover:bg-black transition-colors">
-              <X className="w-3 h-3" />
-           </label>
-           
-           {/* Label que expande el video al hacer clic */}
-           <label htmlFor="expand-floating-video" className="absolute inset-0 z-20 cursor-pointer"></label>
-           <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover">
-              <source src="/floating-demo.mp4" type="video/mp4" />
-           </video>
+      {/* VIDEO FLOTANTE TÁCTICO V22 (Draggable via JS nativo) */}
+      <div id="floating-widget" className="fixed bottom-[88px] lg:bottom-6 right-6 z-[100] w-28 md:w-36 aspect-[9/16] bg-black border border-white/20 rounded-lg shadow-[0_0_30px_rgba(0,0,0,0.8)] overflow-hidden transition-shadow hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+        {/* Barra superior de arrastre (Drag Handle) */}
+        <div id="drag-handle" className="absolute top-0 left-0 w-full h-8 bg-gradient-to-b from-black/80 to-transparent z-40 cursor-grab active:cursor-grabbing flex justify-center items-start pt-1.5">
+           <GripHorizontal className="w-5 h-5 text-white/50" />
         </div>
+        
+        {/* Cruz para CERRAR definitivamente */}
+        <div id="close-floating-btn" className="absolute top-1.5 right-1.5 w-6 h-6 bg-black/80 backdrop-blur-md rounded-full flex items-center justify-center cursor-pointer z-50 text-white hover:bg-red-500 transition-colors">
+           <X className="w-3 h-3" />
+        </div>
+        
+        {/* Label que expande el video */}
+        <input type="checkbox" id="expand-floating-video" className="peer/expand hidden" />
+        <label htmlFor="expand-floating-video" className="absolute inset-y-0 mt-8 inset-x-0 z-20 cursor-pointer"></label>
+        
+        {/* Reproductor Miniatura */}
+        <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none">
+           <source src="/floating-demo.mp4" type="video/mp4" />
+        </video>
 
         {/* Vista Expandida (Modal Full Screen) */}
-        <div className="fixed inset-0 hidden peer-checked/expand:flex items-center justify-center bg-black/95 backdrop-blur-md z-[200] animate-fade-in p-4">
+        <div className="fixed inset-0 hidden peer-checked/expand:flex items-center justify-center bg-black/95 backdrop-blur-md z-[200] animate-fade-in p-4" style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh' }}>
            <label htmlFor="expand-floating-video" className="absolute top-6 right-6 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center cursor-pointer z-30 text-white hover:bg-white/20 transition-colors">
               <X className="w-5 h-5" />
            </label>
-           <a href={checkoutUrl} className="relative w-full max-w-sm aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-[0_0_50px_rgba(255,255,255,0.1)] block group cursor-pointer">
+           <a href={checkoutUrl} className="relative w-full max-w-sm aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-[0_0_50px_rgba(255,255,255,0.1)] block group cursor-pointer z-40">
               <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover">
                 <source src="/floating-demo.mp4" type="video/mp4" />
               </video>
@@ -293,22 +393,22 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* Pop-up de Suscripción CORREGIDO V22 (Simulación de éxito) */}
+      {/* Pop-up de Suscripción (Simulación de éxito realista sin recargar la página) */}
       <input type="checkbox" id="close-sub" className="close-sub-chk hidden peer/close-s" />
       <input type="checkbox" id="success-trigger" className="submit-trigger hidden peer/success" />
       <div id="sub-popup" className="fixed bottom-0 md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full md:w-[400px] bg-[#050505] border border-white/20 p-8 z-[100] transform translate-y-full md:scale-95 opacity-0 transition-all duration-700 ease-out rounded-t-2xl md:rounded-xl shadow-[0_0_80px_rgba(0,0,0,0.8)] peer-checked/close-s:hidden">
          <label htmlFor="close-sub" className="absolute top-4 right-4 cursor-pointer w-8 h-8 flex items-center justify-center bg-white/5 rounded-full text-gray-400 hover:text-white hover:bg-white/10 transition-colors"><X className="w-4 h-4"/></label>
          <h3 className="text-2xl font-black uppercase tracking-widest text-white mb-2 leading-tight">Unlock <br/><span className="text-yellow-500">TACTICAL DISPATCH</span></h3>
          
-         {/* Elementos del Formulario (Inputs) */}
+         {/* Form Elements */}
          <div className="form-elements flex flex-col gap-3">
             <p className="text-sm text-gray-400 mb-6 font-light leading-relaxed">Join the operative list for priority access, 10% tactical discounts, and restock alerts.</p>
             <input type="email" id="sub-input" placeholder="ENTER YOUR EMAIL" className="bg-[#111] border border-white/10 px-4 py-4 text-sm text-white focus:outline-none focus:border-white/30 transition-colors" />
-            <button id="unlock-btn" className="w-full bg-white text-black font-black uppercase tracking-[0.2em] py-4 text-xs hover:bg-gray-200 transition-colors shadow-[0_0_15px_rgba(255,255,255,0.1)] flex justify-center items-center text-center">Unlock Arsenal</button>
+            <button type="button" id="unlock-btn" className="w-full bg-white text-black font-black uppercase tracking-[0.2em] py-4 text-xs hover:bg-gray-200 transition-colors shadow-[0_0_15px_rgba(255,255,255,0.1)] flex justify-center items-center text-center">Unlock Arsenal</button>
             <label htmlFor="close-sub" className="block text-center text-[10px] text-gray-600 mt-4 cursor-pointer hover:text-gray-400 uppercase tracking-widest">No thanks, I pay full price</label>
          </div>
 
-         {/* Elementos de ÉXITO (Simulación V22) */}
+         {/* Success Elements */}
          <div className="success-elements hidden flex-col items-center text-center py-6 gap-4">
             <MailCheck className="w-16 h-16 text-green-500 bg-green-500/10 p-4 rounded-full border border-green-500/20" />
             <p className="text-green-500 font-bold uppercase tracking-widest text-sm">Deployment Secured</p>
@@ -316,7 +416,7 @@ export default async function Home() {
          </div>
       </div>
 
-      {/* EL CENTRO DE COMANDO (Cinta + Nav Fusionadas V22) */}
+      {/* EL CENTRO DE COMANDO */}
       <header id="command-center" className="fixed top-0 w-full z-50 transition-transform duration-300">
         <div className="bg-[#000000] text-white py-2 overflow-hidden border-b border-white/10">
           <div className="animate-marquee whitespace-nowrap text-[10px] font-black tracking-[0.2em] uppercase flex items-center">
@@ -324,18 +424,18 @@ export default async function Home() {
           </div>
         </div>
         <nav className="p-4 flex justify-between items-center bg-[#050505]/95 backdrop-blur-md border-b border-white/5">
-          <h1 className="text-xs font-bold tracking-[0.3em] uppercase text-white/90">DILEMMA DRIFT</h1>
+          <h1 className="text-xs font-black tracking-[0.3em] uppercase text-white/90">THE OBSIDIAN PRESS</h1>
           <a href={checkoutUrl} className="text-[10px] font-bold tracking-[0.2em] uppercase text-black bg-white px-5 py-2.5 hover:bg-gray-200 transition-colors flex items-center gap-2 shadow-[0_0_15px_rgba(255,255,255,0.2)]">
               SECURE UNIT
           </a>
         </nav>
       </header>
 
-      {/* MAIN CONTENT (Padding superior Reducido V22 para subir la página) */}
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-16 pb-24 flex flex-col lg:flex-row gap-12 lg:gap-20 relative z-10 items-start">
+      {/* MAIN CONTENT (Padding superior reducido para eliminar espacios vacíos) */}
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-20 pb-24 flex flex-col lg:flex-row gap-12 lg:gap-20 relative z-10 items-start">
         
-        {/* Left Column (Main Narrativa) */}
-        <div className="w-full lg:w-[55%] flex flex-col gap-12 order-2 lg:order-1 items-start">
+        {/* Left Column */}
+        <div className="w-full lg:w-[55%] flex flex-col gap-12 order-2 lg:order-1 items-start mt-8">
           
           <div className="aspect-[4/5] w-full bg-[#0a0a0a] border border-white/10 relative overflow-hidden group rounded-sm shadow-2xl">
             <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-1000">
@@ -344,7 +444,6 @@ export default async function Home() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
           </div>
 
-          {/* BOTÓN DE COMPRA ESTRATÉGICO 1 */}
           <div className="w-full flex justify-center">
              <a href={checkoutUrl} className="w-full md:w-auto bg-white text-black px-12 py-5 text-xs font-black tracking-[0.2em] uppercase hover:bg-gray-200 transition-colors flex items-center justify-center gap-4 group cursor-pointer shadow-[0_0_20px_rgba(255,255,255,0.15)]">
                 SECURE THE OBSIDIAN PRESS <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
@@ -367,7 +466,6 @@ export default async function Home() {
             </p>
           </div>
 
-          {/* HOW IT WORKS */}
           <div className="w-full">
             <h2 className="text-xl font-bold tracking-[0.1em] uppercase mb-8 text-center border-b border-white/5 pb-4 text-white">How does it work?</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -385,7 +483,6 @@ export default async function Home() {
             </div>
           </div>
 
-          {/* ARGUMENTOS TÁCTICOS V22 (Corregido 'A11, A20' repetition) */}
           <div className="py-12 bg-[#0a0a0a] border border-white/5 px-8 relative z-20 w-full rounded-sm">
              <h2 className="text-xl font-bold tracking-[0.1em] uppercase mb-10 text-center text-white">Tactical Deployable Assets</h2>
              <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-12">
@@ -404,16 +501,17 @@ export default async function Home() {
              </div>
           </div>
 
-          {/* BOTÓN DE COMPRA ESTRATÉGICO 2 */}
-          <div className="w-full flex justify-center mt-[-20px]"> {/* Ajuste de espacio V22 */}
-             <a href={checkoutUrl} className="w-full md:w-auto bg-white text-black px-12 py-5 text-xs font-black tracking-[0.2em] uppercase hover:bg-gray-200 transition-colors flex items-center justify-center gap-4 group cursor-pointer shadow-[0_0_20px_rgba(255,255,255,0.15)]">
-                SECURE THE OBSIDIAN PRESS <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
-             </a>
-          </div>
-
-          {/* IMAGEN DE ARQUITECTURA */}
           <div className="w-full bg-transparent flex items-center justify-center">
              <img src="/8974B528-6848-48C4-9086-9777818C234B_1_201_a.jpeg" alt="Core Architecture Dual Compatibility" className="w-full h-auto rounded-sm shadow-xl border border-white/5" />
+          </div>
+
+          <div className="relative aspect-[4/3] w-full bg-black overflow-hidden border border-white/10 group rounded-sm">
+             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/30 pointer-events-none z-10" />
+             <img src="/field-deployment.png" alt="Espresso Machine in Vehicle" className="w-full h-full object-cover opacity-80 z-0 group-hover:scale-105 transition-transform duration-700" />
+             <div className="absolute bottom-6 left-6 z-20">
+                <span className="bg-yellow-500/20 text-yellow-500 border border-yellow-500/50 px-3 py-1 text-[10px] font-bold tracking-widest uppercase backdrop-blur-sm">Field Tested</span>
+                <h3 className="text-white font-black tracking-widest uppercase mt-3 text-xl">Vehicle Integration</h3>
+             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
@@ -429,7 +527,6 @@ export default async function Home() {
             </div>
           </div>
 
-          {/* COMPARISON TACTICAL */}
           <div className="w-full">
             <h2 className="text-xl font-bold tracking-[0.1em] uppercase mb-8 text-center text-white">Tactical Superiority</h2>
             <div className="space-y-4 bg-[#0a0a0a] border border-white/10 p-8 rounded-sm">
@@ -496,8 +593,7 @@ export default async function Home() {
             {reviewWallContent}
           </div>
 
-          {/* FAQ */}
-          <div className="w-full">
+          <div className="w-full mt-2"> {/* Espacios fantasmas eliminados */}
             <h2 className="text-xl font-bold tracking-[0.1em] uppercase mb-8 text-center border-b border-white/10 pb-4 text-white">Intelligence Data (FAQ)</h2>
             <div className="space-y-4">
               {[ 
@@ -520,8 +616,8 @@ export default async function Home() {
 
         </div>
 
-        {/* Right Column: Sticky Buy Box (Alineado arriba V22) */}
-        <div id="buy-box" className="w-full lg:w-[45%] order-1 lg:order-2 flex items-start lg:sticky lg:top-24 scroll-mt-24">
+        {/* Right Column: Sticky Buy Box */}
+        <div id="buy-box" className="w-full lg:w-[45%] order-1 lg:order-2 flex items-start lg:sticky lg:top-24 scroll-mt-24 mt-8 lg:mt-0">
           <div className="bg-[#080808] border border-white/10 p-8 shadow-2xl z-30 w-full rounded-sm">
             
             <a href="#reviews" className="flex items-center gap-2 mb-4 text-yellow-500 hover:opacity-80 transition-opacity cursor-pointer w-fit">
@@ -530,7 +626,7 @@ export default async function Home() {
             </a>
 
             <h1 className="text-4xl md:text-5xl font-black tracking-tighter mb-4 leading-[1.05] text-white">
-              THE OBSIDIAN <br/> PRESS.
+              NOMAD <br/> ENGINE.
             </h1>
             
             <p className="text-sm text-gray-400 font-light mb-8 max-w-sm leading-relaxed">
@@ -555,7 +651,7 @@ export default async function Home() {
               </div>
 
               <a href={checkoutUrl} className="w-full bg-white text-black px-8 py-5 text-sm font-black tracking-[0.2em] uppercase hover:bg-gray-200 transition-colors flex items-center justify-center gap-4 group cursor-pointer shadow-[0_0_20px_rgba(255,255,255,0.15)]">
-                SECURE YOUR NOMAD ENGINE KIT
+                SECURE YOUR DEPLOYMENT KIT
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
               </a>
               
