@@ -38,8 +38,8 @@ export default async function Home() {
   const WHATSAPP_NUMBER = "5491100000000"; 
   const WHATSAPP_MSG = "Hello Dilemma Drift, I need assistance with the Autonomous Espresso Engine.";
 
-  // Batallón de 72 Reseñas Únicas (Ingeniería Persuasiva sin repeticiones)
-  const allReviews = [
+  // Batallón de 72 Reseñas Únicas (Ingeniería Persuasiva)
+  const baseReviews = [
     { id: 1, name: "Mia T.", date: "02/03/2026", img: "/review-1.jpg", text: "Received as a Christmas Gift - perfect for taking away camping and still getting my coffee fix." },
     { id: 2, name: "Emma T.", date: "28/02/2026", img: "/review-2.jpg", text: "BrewPort has saved me a fortune. I used to spend $8 a day at Starbucks. This paid for itself in less than a month." },
     { id: 3, name: "Jacob L.", date: "19/02/2026", img: "/review-3.jpg", text: "Fantastic on-the-go espresso maker. The 18-bar pressure isn't a marketing gimmick." },
@@ -99,34 +99,38 @@ export default async function Home() {
     { id: 57, name: "Nina L.", date: "28/10/2025", text: "The crema is actually better than my $1500 Breville at home. Crazy." },
     { id: 58, name: "Liam P.", date: "24/10/2025", text: "Took this snowboarding. Having hot espresso on a mountain peak is a flex." },
     { id: 59, name: "Zoe D.", date: "20/10/2025", text: "Onyx black looks incredible. Very sleek corporate design." },
-    { id: 60, name: "Harry W.", date: "15/10/2025", text: "Don't bother with cheaper clones. This is the real deal." }
+    { id: 60, name: "Harry W.", date: "15/10/2025", text: "Don't bother with cheaper clones. This is the real deal." },
+    { id: 61, name: "Tomás G.", date: "10/10/2025", text: "Got it for my dad who drives trucks. He hasn't stopped talking about how good the hot extraction is." },
+    { id: 62, name: "Elena V.", date: "05/10/2025", text: "Doesn't leak, doesn't jam, just works. The Type-C charging is super convenient." },
+    { id: 63, name: "Ryan W.", date: "01/10/2025", text: "I work in photography and early morning shoots are freezing. This engine brings me back to life." },
+    { id: 64, name: "Sophie L.", date: "28/09/2025", text: "Better than hotel room coffee by a mile. It travels with me everywhere now." },
+    { id: 65, name: "Gareth N.", date: "20/09/2025", text: "It's heavy enough to feel premium, but light enough to hike with. Perfect balance." },
+    { id: 66, name: "Maya C.", date: "15/09/2025", text: "Customer service was excellent when I had a question about the pod adapters." },
+    { id: 67, name: "Ian B.", date: "10/09/2025", text: "The double-click heating feature is intuitive. No complex menus, just raw performance." },
+    { id: 68, name: "Zoe F.", date: "05/09/2025", text: "I use large pods and the adapter fits perfectly. No water bypassing the seal." },
+    { id: 69, name: "Connor D.", date: "01/09/2025", text: "It literally pays for itself. Do the math on takeaway coffees. This is an investment." },
+    { id: 70, name: "Talia S.", date: "28/08/2025", text: "Gave up my home pod machine for this. Takes up zero counter space and performs identically." },
+    { id: 71, name: "Omar H.", date: "20/08/2025", text: "As a pilot, I need reliable coffee on layovers. This is my permanent wingman." },
+    { id: 72, name: "Julian M.", date: "15/08/2025", text: "If you're hesitating, just buy it. Best piece of tech in my everyday carry." }
   ];
 
-  // Fraccionamiento para el botón "Show more reviews" (12 reviews por bloque)
+  // Fraccionamos en bloques de 12
   const chunkSize = 12;
   const reviewChunks = [];
   for (let i = 0; i < allReviews.length; i += chunkSize) {
     reviewChunks.push(allReviews.slice(i, i + chunkSize));
   }
 
-  // Componente del Pop-Up (Loox Killer nativo)
+  // Componente del Pop-Up Modal Nativo (CSS)
   const ReviewModal = ({ review }) => (
     <div className="review-modal-container contents">
-      {/* Checkbox oculto que controla el modal */}
       <input type="checkbox" id={`modal-${review.id}`} className="peer/modal hidden" />
-      
-      {/* Fondo oscuro y contenedor del modal. Se muestra solo cuando el checkbox está 'checked' */}
       <div className="fixed inset-0 z-[200] hidden peer-checked/modal:flex items-center justify-center p-4">
-         {/* Etiqueta que actúa como fondo para cerrar al hacer clic afuera */}
          <label htmlFor={`modal-${review.id}`} className="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"></label>
-         
-         {/* Caja blanca del testimonio (Estilo Loox) */}
          <div className="relative bg-white text-black p-8 max-w-md w-full rounded-xl shadow-2xl z-10 animate-fade-in">
-            {/* Botón X de cerrar */}
             <label htmlFor={`modal-${review.id}`} className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200 transition-colors">
                <X className="w-4 h-4 text-gray-600" />
             </label>
-            
             <div className="flex justify-between items-start mb-6">
                <div>
                   <div className="flex items-center gap-2 mb-2">
@@ -141,15 +145,12 @@ export default async function Home() {
                </div>
                <span className="text-xs text-gray-400 font-mono mt-1">{review.date}</span>
             </div>
-            
             <p className="text-gray-800 text-base leading-relaxed mb-6">"{review.text}"</p>
-            
             {review.img && (
               <div className="w-full aspect-square bg-gray-100 rounded-lg overflow-hidden mb-4">
                  <img src={review.img} alt="Customer product" className="w-full h-full object-cover" />
               </div>
             )}
-            
             <div className="border-t border-gray-100 pt-4 mt-2">
                <p className="text-xs text-gray-500 uppercase tracking-widest">Item type: Onyx Black</p>
             </div>
@@ -158,7 +159,7 @@ export default async function Home() {
     </div>
   );
 
-  // Componente Recursivo de Grilla
+  // Motor Recursivo Finito (Termina en la 6ta página)
   function ReviewWall({ depth = 0 }) {
     if (depth >= reviewChunks.length) return null;
     const currentChunk = reviewChunks[depth];
@@ -167,42 +168,39 @@ export default async function Home() {
       <div className="contents">
         <div className="masonry-columns space-y-4 mb-4">
           {currentChunk.map((review) => (
-            <div key={`rev-${review.id}`} className="bg-white text-black rounded-lg break-inside-avoid overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-shadow relative">
-              {/* Esta etiqueta envuelve toda la tarjeta y abre el modal CSS al hacer clic */}
+            <div key={`rev-${review.id}`} className="bg-[#111111] text-gray-200 rounded-sm border border-white/5 break-inside-avoid overflow-hidden flex flex-col hover:border-white/20 transition-all relative">
               <label htmlFor={`modal-${review.id}`} className="absolute inset-0 z-10 cursor-pointer"></label>
               
               {review.img && (
-                <div className="w-full aspect-[4/3] bg-gray-100 relative">
-                  <img src={review.img} alt="Deployment Asset" className="absolute inset-0 w-full h-full object-cover" />
+                <div className="w-full aspect-[4/3] bg-black relative border-b border-white/5">
+                  <img src={review.img} alt="Deployment Asset" className="absolute inset-0 w-full h-full object-cover opacity-90" />
                 </div>
               )}
               <div className="p-6 flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-3">
                    <div>
-                      <p className="text-sm font-bold text-gray-900 flex items-center gap-1">
-                         {review.name} <CheckCircle2 className="w-3 h-3 text-black" />
+                      <p className="text-sm font-bold text-white flex items-center gap-1">
+                         {review.name} <CheckCircle2 className="w-3 h-3 text-green-500" />
                       </p>
                       <p className="text-[10px] text-gray-500 mt-1">{review.date}</p>
                    </div>
                 </div>
-                <div className="flex text-yellow-400 gap-0.5 mb-3">
+                <div className="flex text-yellow-500 gap-0.5 mb-3">
                   {[...Array(5)].map((_, j) => <Star key={`st-${j}`} className="w-3 h-3 fill-current" />)}
                 </div>
-                <p className="text-sm text-gray-700 leading-relaxed">"{review.text}"</p>
+                <p className="text-sm text-gray-400 leading-relaxed font-light italic">"{review.text}"</p>
               </div>
-
-              {/* Inyectamos el Modal invisible dentro de cada tarjeta */}
               <ReviewModal review={review} />
             </div>
           ))}
         </div>
         
+        {/* El botón desaparece al llegar al último chunk */}
         {depth < reviewChunks.length - 1 && (
           <div className="w-full break-inside-avoid col-span-full flex justify-center mt-6 mb-10">
             <input type="checkbox" id={`load-more-${depth}`} className="toggle-chk hidden" />
-            {/* Botón Central Estilo BrewBit */}
-            <label htmlFor={`load-more-${depth}`} className="toggle-lbl bg-gray-100 text-gray-800 px-6 py-3 rounded-md text-sm font-semibold hover:bg-gray-200 transition-colors cursor-pointer border border-gray-200">
-              Show more reviews
+            <label htmlFor={`load-more-${depth}`} className="toggle-lbl bg-transparent border border-white/20 text-white px-8 py-4 text-xs tracking-widest font-bold uppercase hover:bg-white hover:text-black transition-colors cursor-pointer">
+              Show more reports
             </label>
             <div className="toggle-content hidden w-full">
               <ReviewWall depth={depth + 1} />
@@ -234,12 +232,10 @@ export default async function Home() {
         details > summary { list-style: none; }
         details > summary::-webkit-details-marker { display: none; }
         
-        /* Grilla Masonry Perfecta */
         .masonry-columns { column-count: 1; column-gap: 16px; width: 100%; display: block; }
         @media (min-width: 640px) { .masonry-columns { column-count: 2; } }
         @media (min-width: 1024px) { .masonry-columns { column-count: 3; } }
         
-        /* Motor CSS de recursividad */
         .toggle-chk:checked ~ .toggle-content { display: block; }
         .toggle-chk:checked ~ .toggle-lbl { display: none; }
       `}} />
@@ -311,9 +307,8 @@ export default async function Home() {
              </div>
           </div>
 
-          {/* IMAGEN DE ARQUITECTURA (Problema de recorte solucionado con object-contain) */}
-          <div className="w-full bg-[#050505] flex items-center justify-center p-4 border border-white/5">
-             {/* Asegurate de poner el nombre correcto de tu foto acá */}
+          {/* IMAGEN DE ARQUITECTURA (Sin recortes) */}
+          <div className="w-full bg-[#0a0a0a] flex items-center justify-center border border-white/5 p-4 rounded-md">
              <img src="/8974B528-6848-48C4-9086-9777818C234B_1_201_a.jpeg" alt="Core Architecture Diagram" className="w-full h-auto object-contain max-h-[500px]" />
           </div>
 
@@ -348,15 +343,15 @@ export default async function Home() {
             </div>
           </div>
 
-          {/* LA MURALLA DE CONFIANZA (Estilo Loox Nativo) */}
-          <div className="bg-[#f9f9f9] text-black p-8 rounded-xl">
-            <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-200 pb-6 mb-8 gap-6">
-               <h2 className="text-2xl font-black tracking-tight text-black">Trusted by Adventurers.</h2>
+          {/* LA MURALLA DE CONFIANZA (Estilo Ónix Integrado) */}
+          <div className="bg-transparent text-white pt-8">
+            <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-white/10 pb-6 mb-8 gap-6">
+               <h2 className="text-2xl font-black tracking-widest uppercase text-white">Verified Mission Reports</h2>
                <div className="flex items-center gap-4">
-                  <div className="flex text-yellow-400 gap-1">
-                    {[...Array(5)].map((_, j) => <Star key={`stt-${j}`} className="w-5 h-5 fill-current" />)}
+                  <div className="flex text-yellow-500 gap-1">
+                    {[...Array(5)].map((_, j) => <Star key={`stt-${j}`} className="w-4 h-4 fill-current" />)}
                   </div>
-                  <span className="text-sm font-bold text-gray-800">681 Reviews</span>
+                  <span className="text-xs font-bold tracking-widest uppercase text-gray-400">681 Reports</span>
                </div>
             </div>
             
