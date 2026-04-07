@@ -52,7 +52,6 @@ export default async function Home() {
     </div>
   );
 
-  // Generación masiva de reseñas tácticas
   const reviews = [
     { name: "Mia T.", date: "02/03/2026", img: "/review-1.jpg", text: "Received as a gift - perfect for taking away camping and still getting my coffee fix. The self-heating is completely silent." },
     { name: "Emma T.", date: "28/02/2026", img: "/review-2.jpg", text: "Dilemma Drift has saved me a fortune. I used to spend $8 a day at Starbucks. This paid for itself in less than a month." },
@@ -107,7 +106,6 @@ export default async function Home() {
         {/* Left Column */}
         <div className="w-full lg:w-[55%] flex flex-col gap-16 order-2 lg:order-1">
           
-          {/* Hero Video (Nombre actualizado) */}
           <div className="aspect-[4/5] bg-[#0a0a0a] border border-white/10 relative overflow-hidden group">
             <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-1000">
               <source src="/demo-hero.mp4" type="video/mp4" />
@@ -115,7 +113,6 @@ export default async function Home() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
           </div>
 
-          {/* Operational Briefing */}
           <div>
             <h2 className="text-2xl font-black tracking-[0.1em] uppercase mb-8 text-center border-b border-white/10 pb-4">Operational Briefing</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -137,7 +134,6 @@ export default async function Home() {
             </div>
           </div>
 
-          {/* Videos de Acción (Nombres actualizados) */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="aspect-[4/5] bg-[#0a0a0a] border border-white/10 relative overflow-hidden group">
               <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
@@ -151,7 +147,6 @@ export default async function Home() {
             </div>
           </div>
 
-          {/* LA MURALLA DE CONFIANZA (Masonry Grid) */}
           <div className="mt-8">
             <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-8">
                <h2 className="text-2xl font-black tracking-[0.1em] uppercase">Field Evidence</h2>
@@ -163,13 +158,12 @@ export default async function Home() {
                </div>
             </div>
             
-            {/* Masonry Columns Layout */}
             <div className="columns-1 md:columns-2 gap-4 space-y-4">
               {reviews.map((review, i) => (
                 <div key={i} className="bg-[#0a0a0a] border border-white/10 break-inside-avoid overflow-hidden flex flex-col hover:border-white/20 transition-colors">
                   {review.img && (
                     <div className="w-full aspect-[4/3] bg-[#111] relative border-b border-white/5">
-                      <img src={review.img} alt={`Review ${i}`} className="absolute inset-0 w-full h-full object-cover" onError={(e) => e.target.style.display = 'none'} />
+                      <img src={review.img} alt={`Review ${i}`} className="absolute inset-0 w-full h-full object-cover" />
                     </div>
                   )}
                   <div className="p-5 flex-1 flex flex-col">
@@ -192,13 +186,11 @@ export default async function Home() {
               ))}
             </div>
             
-            {/* Botón Fake de Carga para anclaje psicológico */}
             <button className="w-full mt-8 py-4 border border-white/20 text-xs font-bold tracking-[0.2em] uppercase text-gray-400 hover:text-white hover:border-white transition-colors">
                Load 426 More Reports
             </button>
           </div>
 
-          {/* Intelligence Data (FAQ) */}
           <div className="mb-12">
             <h2 className="text-2xl font-black tracking-[0.1em] uppercase mb-8 text-center border-b border-white/10 pb-4">Intelligence Data</h2>
             <div className="space-y-4">
@@ -279,7 +271,6 @@ export default async function Home() {
 
       </div>
 
-      {/* Floating Action Button (Mobile) */}
       <div className="lg:hidden fixed bottom-0 left-0 w-full bg-[#050505] border-t border-white/10 p-4 z-50">
           <form action={buyNow}>
              <input type="hidden" name="variantId" value={variantId} />
