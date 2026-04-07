@@ -38,14 +38,14 @@ export default async function Home() {
   const WHATSAPP_NUMBER = "5491100000000"; 
   const WHATSAPP_MSG = "Hello Dilemma Drift, I need assistance with the Autonomous Espresso Engine.";
 
-  // Batallón de 72 Reseñas Únicas (Ingeniería Persuasiva)
+  // Batallón de 72 Reseñas Únicas
   const baseReviews = [
     { id: 1, name: "Mia T.", date: "02/03/2026", img: "/review-1.jpg", text: "Received as a Christmas Gift - perfect for taking away camping and still getting my coffee fix." },
-    { id: 2, name: "Emma T.", date: "28/02/2026", img: "/review-2.jpg", text: "BrewPort has saved me a fortune. I used to spend $8 a day at Starbucks. This paid for itself in less than a month." },
-    { id: 3, name: "Jacob L.", date: "19/02/2026", img: "/review-3.jpg", text: "Fantastic on-the-go espresso maker. The 18-bar pressure isn't a marketing gimmick." },
-    { id: 4, name: "Daniel H.", date: "14/01/2026", img: "/review-4.jpg", text: "My go-to for weekends away. Easy operation, great flavor and truly portable. Highly recommended." },
-    { id: 5, name: "Kristy S.", date: "13/12/2025", img: "/review-5.jpg", text: "Impressive how this coffee maker works. I've only tried it with the large capsule and it comes out super hot." },
-    { id: 6, name: "Andrew C.", date: "13/12/2025", img: "/review-6.jpg", text: "Instructions easy to follow and was able to brew my first coffee within minutes - will definitely be taking this camping." },
+    { id: 2, name: "Emma T.", date: "28/02/2026", img: "/review-2.jpg", text: "Saved me a fortune. I used to spend $8 a day at Starbucks. This paid for itself in less than a month." },
+    { id: 3, name: "Jacob L.", date: "19/02/2026", img: "/review-3.jpg", text: "Fantastic on-the-go espresso maker. The 18-bar pressure isn't a marketing gimmick, the crema is thick." },
+    { id: 4, name: "Daniel H.", date: "14/01/2026", img: "/review-4.jpg", text: "My go-to for weekends away. Easy operation, great flavor and truly portable. Fits right into my car's cup holder." },
+    { id: 5, name: "Kristy S.", date: "13/12/2025", img: "/review-5.jpg", text: "Impressive modularity. I've only tried the large capsule and ground coffee, super hot. Perfect deployment asset." },
+    { id: 6, name: "Andrew C.", date: "13/12/2025", img: "/review-6.jpg", text: "Easy deployment briefing. Brewed my first espresso in minutes. Absolute tactical advantage for long drives." },
     { id: 7, name: "Kylie C.", date: "13/12/2025", text: "I should have bought it a long time ago - great for travelling." },
     { id: 8, name: "Ava M.", date: "29/01/2026", text: "Finally, real espresso on the road. Simple to use and super lightweight - highly recommend." },
     { id: 9, name: "Ethan B.", date: "04/02/2026", text: "Changed my morning commute. Quick setup, solid pressure and delicious shots every time." },
@@ -114,61 +114,26 @@ export default async function Home() {
     { id: 72, name: "Julian M.", date: "15/08/2025", text: "If you're hesitating, just buy it. Best piece of tech in my everyday carry." }
   ];
 
-  // Fraccionamos en bloques de 12
-  const chunkSize = 12;
+  // Fraccionamiento: 6 reseñas por bloque para crear la cascada (12 bloques en total)
+  const chunkSize = 6;
   const reviewChunks = [];
-  for (let i = 0; i < allReviews.length; i += chunkSize) {
-    reviewChunks.push(allReviews.slice(i, i + chunkSize));
+  for (let i = 0; i < baseReviews.length; i += chunkSize) {
+    reviewChunks.push(baseReviews.slice(i, i + chunkSize));
   }
 
-  // Componente del Pop-Up Modal Nativo (CSS)
-  const ReviewModal = ({ review }) => (
-    <div className="review-modal-container contents">
-      <input type="checkbox" id={`modal-${review.id}`} className="peer/modal hidden" />
-      <div className="fixed inset-0 z-[200] hidden peer-checked/modal:flex items-center justify-center p-4">
-         <label htmlFor={`modal-${review.id}`} className="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"></label>
-         <div className="relative bg-white text-black p-8 max-w-md w-full rounded-xl shadow-2xl z-10 animate-fade-in">
-            <label htmlFor={`modal-${review.id}`} className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200 transition-colors">
-               <X className="w-4 h-4 text-gray-600" />
-            </label>
-            <div className="flex justify-between items-start mb-6">
-               <div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <h3 className="font-bold text-lg">{review.name}</h3>
-                    <div className="flex items-center gap-1 text-green-600 bg-green-50 px-2 py-0.5 rounded-full text-xs font-bold">
-                       <CheckCircle2 className="w-3 h-3" /> Verified
-                    </div>
-                  </div>
-                  <div className="flex text-yellow-400">
-                    {[...Array(5)].map((_, j) => <Star key={j} className="w-4 h-4 fill-current" />)}
-                  </div>
-               </div>
-               <span className="text-xs text-gray-400 font-mono mt-1">{review.date}</span>
-            </div>
-            <p className="text-gray-800 text-base leading-relaxed mb-6">"{review.text}"</p>
-            {review.img && (
-              <div className="w-full aspect-square bg-gray-100 rounded-lg overflow-hidden mb-4">
-                 <img src={review.img} alt="Customer product" className="w-full h-full object-cover" />
-              </div>
-            )}
-            <div className="border-t border-gray-100 pt-4 mt-2">
-               <p className="text-xs text-gray-500 uppercase tracking-widest">Item type: Onyx Black</p>
-            </div>
-         </div>
-      </div>
-    </div>
-  );
+  // GENERADOR ESTRUCTURAL BOTTOM-UP (Fricción Cero - Sin Funciones React Anidadas)
+  let reviewWallContent = null;
+  for (let i = reviewChunks.length - 1; i >= 0; i--) {
+    const chunk = reviewChunks[i];
+    const isLast = i === reviewChunks.length - 1;
 
-  // Motor Recursivo Finito (Termina en la 6ta página)
-  function ReviewWall({ depth = 0 }) {
-    if (depth >= reviewChunks.length) return null;
-    const currentChunk = reviewChunks[depth];
-    
-    return (
-      <div className="contents">
-        <div className="masonry-columns space-y-4 mb-4">
-          {currentChunk.map((review) => (
-            <div key={`rev-${review.id}`} className="bg-[#111111] text-gray-200 rounded-sm border border-white/5 break-inside-avoid overflow-hidden flex flex-col hover:border-white/20 transition-all relative">
+    reviewWallContent = (
+      <div className="w-full contents">
+        <div className="masonry-columns space-y-4 mb-4 w-full block">
+          {chunk.map((review) => (
+            <div key={`rev-${review.id}`} className="bg-[#111111] text-gray-200 rounded-sm border border-white/5 break-inside-avoid overflow-hidden flex flex-col hover:border-white/20 transition-all relative mb-4">
+              
+              {/* Modal Checkbox Trigger */}
               <label htmlFor={`modal-${review.id}`} className="absolute inset-0 z-10 cursor-pointer"></label>
               
               {review.img && (
@@ -176,6 +141,7 @@ export default async function Home() {
                   <img src={review.img} alt="Deployment Asset" className="absolute inset-0 w-full h-full object-cover opacity-90" />
                 </div>
               )}
+              
               <div className="p-6 flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-3">
                    <div>
@@ -186,43 +152,72 @@ export default async function Home() {
                    </div>
                 </div>
                 <div className="flex text-yellow-500 gap-0.5 mb-3">
-                  {[...Array(5)].map((_, j) => <Star key={`st-${j}`} className="w-3 h-3 fill-current" />)}
+                  {[...Array(5)].map((_, j) => <Star key={`st-${review.id}-${j}`} className="w-3 h-3 fill-current" />)}
                 </div>
                 <p className="text-sm text-gray-400 leading-relaxed font-light italic">"{review.text}"</p>
               </div>
-              <ReviewModal review={review} />
+
+              {/* MODAL NATIVO (Estética Ónix) inyectado inline para seguridad del servidor */}
+              <div className="review-modal-container contents">
+                 <input type="checkbox" id={`modal-${review.id}`} className="peer/modal hidden" />
+                 <div className="fixed inset-0 z-[200] hidden peer-checked/modal:flex items-center justify-center p-4">
+                    <label htmlFor={`modal-${review.id}`} className="absolute inset-0 bg-black/90 backdrop-blur-sm cursor-pointer"></label>
+                    <div className="relative bg-[#0a0a0a] text-white p-8 max-w-md w-full rounded-md shadow-2xl z-10 border border-white/10 animate-fade-in">
+                       <label htmlFor={`modal-${review.id}`} className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white/5 rounded-full cursor-pointer hover:bg-white/10 transition-colors">
+                          <X className="w-4 h-4 text-gray-400" />
+                       </label>
+                       <div className="flex justify-between items-start mb-6">
+                          <div>
+                             <div className="flex items-center gap-2 mb-2">
+                               <h3 className="font-bold text-lg">{review.name}</h3>
+                               <div className="flex items-center gap-1 text-green-500 bg-green-500/10 border border-green-500/20 px-2 py-0.5 rounded-sm text-xs font-bold uppercase tracking-widest">
+                                  <CheckCircle2 className="w-3 h-3" /> Verified
+                               </div>
+                             </div>
+                             <div className="flex text-yellow-500">
+                               {[...Array(5)].map((_, j) => <Star key={`st-mod-${review.id}-${j}`} className="w-4 h-4 fill-current" />)}
+                             </div>
+                          </div>
+                          <span className="text-xs text-gray-500 font-mono mt-1">{review.date}</span>
+                       </div>
+                       <p className="text-gray-300 text-base leading-relaxed mb-6 font-light italic">"{review.text}"</p>
+                       {review.img && (
+                         <div className="w-full aspect-square bg-black border border-white/5 rounded-sm overflow-hidden mb-4">
+                            <img src={review.img} alt="Customer product" className="w-full h-full object-cover" />
+                         </div>
+                       )}
+                       <div className="border-t border-white/10 pt-4 mt-2">
+                          <p className="text-[10px] text-gray-500 uppercase tracking-widest">Item deployed: Matte Onyx Black</p>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+
             </div>
           ))}
         </div>
         
-        {/* El botón desaparece al llegar al último chunk */}
-        {depth < reviewChunks.length - 1 && (
-          <div className="w-full break-inside-avoid col-span-full flex justify-center mt-6 mb-10">
-            <input type="checkbox" id={`load-more-${depth}`} className="toggle-chk hidden" />
-            <label htmlFor={`load-more-${depth}`} className="toggle-lbl bg-transparent border border-white/20 text-white px-8 py-4 text-xs tracking-widest font-bold uppercase hover:bg-white hover:text-black transition-colors cursor-pointer">
+        {!isLast && (
+          <div className="w-full break-inside-avoid flex flex-col items-center mt-6 mb-10">
+            <input type="checkbox" id={`load-more-${i}`} className="toggle-chk hidden" />
+            <label htmlFor={`load-more-${i}`} className="toggle-lbl bg-transparent border border-white/20 text-white px-8 py-4 text-xs tracking-widest font-bold uppercase hover:bg-white hover:text-black transition-colors cursor-pointer text-center w-full md:w-auto">
               Show more reports
             </label>
             <div className="toggle-content hidden w-full">
-              <ReviewWall depth={depth + 1} />
+              {reviewContent}
             </div>
           </div>
         )}
       </div>
     );
+    // Preservamos el scope para la próxima iteración
+    var reviewContent = reviewWallContent; 
   }
-
-  const PaymentIcons = () => (
-    <div className="flex justify-center gap-3 items-center opacity-40 mt-4">
-      <img src="https://cdn.shopify.com/s/files/1/0104/1052/files/apple-pay.svg?v=1614338903" alt="Apple Pay" className="h-4 filter invert" />
-      <img src="https://cdn.shopify.com/s/files/1/0104/1052/files/paypal.svg?v=1614338903" alt="PayPal" className="h-4 filter invert" />
-      <img src="https://cdn.shopify.com/s/files/1/0104/1052/files/visa.svg?v=1614338903" alt="Visa" className="h-4 filter invert" />
-      <img src="https://cdn.shopify.com/s/files/1/0104/1052/files/mastercard.svg?v=1614338903" alt="Mastercard" className="h-4 filter invert" />
-    </div>
-  );
 
   return (
     <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-white selection:text-black antialiased pb-20 lg:pb-0 relative">
       
+      {/* Motor CSS Seguro */}
       <style dangerouslySetInnerHTML={{__html: `
         html { scroll-behavior: smooth; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -234,7 +229,6 @@ export default async function Home() {
         
         .masonry-columns { column-count: 1; column-gap: 16px; width: 100%; display: block; }
         @media (min-width: 640px) { .masonry-columns { column-count: 2; } }
-        @media (min-width: 1024px) { .masonry-columns { column-count: 3; } }
         
         .toggle-chk:checked ~ .toggle-content { display: block; }
         .toggle-chk:checked ~ .toggle-lbl { display: none; }
@@ -307,9 +301,9 @@ export default async function Home() {
              </div>
           </div>
 
-          {/* IMAGEN DE ARQUITECTURA (Sin recortes) */}
-          <div className="w-full bg-[#0a0a0a] flex items-center justify-center border border-white/5 p-4 rounded-md">
-             <img src="/8974B528-6848-48C4-9086-9777818C234B_1_201_a.jpeg" alt="Core Architecture Diagram" className="w-full h-auto object-contain max-h-[500px]" />
+          {/* IMAGEN DE VEHÍCULO / ARQUITECTURA */}
+          <div className="w-full bg-[#050505] flex items-center justify-center p-4 border border-white/5 rounded-md">
+             <img src="/field-deployment.png" alt="Core Architecture Diagram" className="w-full h-auto object-contain max-h-[500px]" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -343,7 +337,7 @@ export default async function Home() {
             </div>
           </div>
 
-          {/* LA MURALLA DE CONFIANZA (Estilo Ónix Integrado) */}
+          {/* LA MURALLA DE CONFIANZA TOTALMENTE INTEGRADA */}
           <div className="bg-transparent text-white pt-8">
             <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-white/10 pb-6 mb-8 gap-6">
                <h2 className="text-2xl font-black tracking-widest uppercase text-white">Verified Mission Reports</h2>
@@ -355,8 +349,8 @@ export default async function Home() {
                </div>
             </div>
             
-            {/* Motor Recursivo Inyectado */}
-            <ReviewWall depth={0} />
+            {/* Se inyecta la Variable del Motor Directo */}
+            {reviewWallContent}
           </div>
 
           <div>
@@ -424,7 +418,12 @@ export default async function Home() {
                 </span>
               </div>
 
-              <PaymentIcons />
+              <div className="flex justify-center gap-3 items-center opacity-40 mt-4">
+                 <img src="https://cdn.shopify.com/s/files/1/0104/1052/files/apple-pay.svg?v=1614338903" alt="Apple Pay" className="h-4 filter invert" />
+                 <img src="https://cdn.shopify.com/s/files/1/0104/1052/files/paypal.svg?v=1614338903" alt="PayPal" className="h-4 filter invert" />
+                 <img src="https://cdn.shopify.com/s/files/1/0104/1052/files/visa.svg?v=1614338903" alt="Visa" className="h-4 filter invert" />
+                 <img src="https://cdn.shopify.com/s/files/1/0104/1052/files/mastercard.svg?v=1614338903" alt="Mastercard" className="h-4 filter invert" />
+              </div>
             </div>
           </div>
         </div>
