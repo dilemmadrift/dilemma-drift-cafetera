@@ -1,5 +1,5 @@
 import { shopifyFetch } from '../lib/shopify';
-import { ArrowRight, BatteryCharging, Zap, Star, ShieldCheck, Check, X, Package, CheckCircle2, Settings, Thermometer, Coffee } from "lucide-react";
+import { ArrowRight, BatteryCharging, Zap, Star, ShieldCheck, Check, X, Package, CheckCircle2, Settings, Thermometer, Coffee, ChevronDown, PenSquare } from "lucide-react";
 
 export const dynamic = 'force-dynamic';
 
@@ -38,7 +38,6 @@ export default async function Home() {
   const WHATSAPP_NUMBER = "5491100000000"; 
   const WHATSAPP_MSG = "Hello Dilemma Drift, I need assistance with the Nomad Engine.";
 
-  // 36 Reportes Únicos (Cero Repeticiones, Falsos Negativos Tácticos)
   const allReviews = [
     { id: 1, name: "Mia T.", date: "02/03/2026", rating: 5, img: "/review-1.jpg", text: "Received as a Christmas Gift - perfect for taking away camping and still getting my coffee fix. The self-heating is completely silent." },
     { id: 2, name: "David B.", date: "28/02/2026", rating: 4, img: null, text: "I'll give it 4 stars only because the water reservoir is 70ml and I like long coffees, so I have to bring a water bottle to refill it. Other than that, the extraction pressure is insane." },
@@ -84,7 +83,6 @@ export default async function Home() {
     reviewChunks.push(allReviews.slice(i, i + chunkSize));
   }
 
-  // MODAL PARA ESCRIBIR RESEÑA
   const WriteReviewModal = () => (
     <div className="contents">
       <input type="checkbox" id="write-review-modal" className="peer/write hidden" />
@@ -241,7 +239,7 @@ export default async function Home() {
         details > summary::-webkit-details-marker { display: none; }
       `}} />
 
-      {/* SCRIPT NATIVO: Smart Nav & Slide-in Pop-up (Trigger al llegar a los testimonios) */}
+      {/* SCRIPT NATIVO: Smart Nav & Slide-in Pop-up */}
       <script dangerouslySetInnerHTML={{__html: `
         if (typeof window !== 'undefined') {
           document.addEventListener('DOMContentLoaded', () => {
@@ -252,7 +250,6 @@ export default async function Home() {
             window.addEventListener('scroll', () => {
               const currentScroll = window.pageYOffset;
               
-              // Smart Nav Logic
               if (commandCenter) {
                 if (currentScroll > lastScroll && currentScroll > 100) {
                   commandCenter.classList.add('nav-hidden');
@@ -263,7 +260,6 @@ export default async function Home() {
                 }
               }
               
-              // Sub Popup Logic (Aparece al bajar mucho en la página)
               if (subPopup && (window.innerHeight + currentScroll) >= document.body.offsetHeight - 1200) {
                 subPopup.classList.remove('translate-y-full', 'opacity-0');
                 subPopup.classList.add('translate-y-0', 'opacity-100');
@@ -275,9 +271,7 @@ export default async function Home() {
         }
       `}} />
 
-      {/* -------------------- LOS MÓDULOS FLOTANTES -------------------- */}
-
-      {/* WhatsApp (Fijo izquierda para dar espacio al video a la derecha) */}
+      {/* WhatsApp FAB */}
       <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MSG)}`} target="_blank" rel="noopener noreferrer" className="fixed bottom-[88px] lg:bottom-6 left-6 z-[100] bg-[#25D366] text-white p-3.5 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.3)] hover:scale-110 transition-transform border border-white/10" aria-label="Chat on WhatsApp">
         <svg viewBox="0 0 24 24" className="w-7 h-7 fill-current" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.013-.967-.253-.099-.439-.149-.624.149-.183.298-.715.967-.877 1.166-.165.198-.328.223-.625.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.298-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.624-1.505-.855-2.059-.227-.539-.456-.465-.624-.473-.165-.008-.353-.008-.539-.008-.184 0-.486.074-.739.372-.253.297-.967.944-.967 2.304s.991 2.675 1.13 2.873c.138.198 1.954 2.997 4.735 4.196.662.285 1.179.456 1.583.584.665.21 1.269.18 1.745.109.535-.08 1.758-.717 2.004-1.411.246-.694.246-1.289.173-1.411-.074-.124-.26-.198-.557-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       </a>
@@ -293,7 +287,7 @@ export default async function Home() {
          </video>
       </div>
 
-      {/* Pop-up de Suscripción (Slide-in) */}
+      {/* Pop-up de Suscripción */}
       <input type="checkbox" id="close-sub" className="peer/sub hidden" />
       <div id="sub-popup" className="fixed bottom-0 md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full md:w-[400px] bg-[#050505] border border-white/20 p-8 z-[100] transform translate-y-full md:scale-95 opacity-0 transition-all duration-700 ease-out peer-checked/sub:hidden rounded-t-2xl md:rounded-xl shadow-[0_0_80px_rgba(0,0,0,0.8)]">
          <label htmlFor="close-sub" className="absolute top-4 right-4 cursor-pointer w-8 h-8 flex items-center justify-center bg-white/5 rounded-full text-gray-400 hover:text-white hover:bg-white/10 transition-colors"><X className="w-4 h-4"/></label>
@@ -306,9 +300,7 @@ export default async function Home() {
          <label htmlFor="close-sub" className="block text-center text-[10px] text-gray-600 mt-4 cursor-pointer hover:text-gray-400 uppercase tracking-widest">No thanks, I pay full price</label>
       </div>
 
-      {/* -------------------- FIN DE MÓDULOS FLOTANTES -------------------- */}
-
-      {/* EL CENTRO DE COMANDO (Agrupa Cinta y Nav) */}
+      {/* EL CENTRO DE COMANDO */}
       <header id="command-center" className="fixed top-0 w-full z-50 transition-transform duration-300">
         <div className="bg-[#000000] text-white py-2 overflow-hidden border-b border-white/10">
           <div className="animate-marquee whitespace-nowrap text-[10px] font-black tracking-[0.2em] uppercase flex items-center">
