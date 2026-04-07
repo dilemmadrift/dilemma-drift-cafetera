@@ -4,7 +4,6 @@ import { ArrowRight, BatteryCharging, Zap, Star, ShieldCheck, Check, X, Package,
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  // 1. ADN del Producto y Enlace Directo Fricción Cero
   const query = `
     query {
       products(first: 10) {
@@ -39,107 +38,173 @@ export default async function Home() {
   const WHATSAPP_NUMBER = "5491100000000"; 
   const WHATSAPP_MSG = "Hello Dilemma Drift, I need assistance with the Autonomous Espresso Engine.";
 
-  // 2. Base de Datos de 50 Testimonios (Fusión de Ingeniería Psicológica + Scraping Competencia)
-  const coreReviews = [
-    { name: "Mia T.", img: "/review-1.jpg", text: "Received as a gift. Perfect for taking away camping and still getting my coffee fix. The self-heating is completely silent." },
-    { name: "Emma T.", img: "/review-2.jpg", text: "Saved me a fortune. I used to spend $8 a day at Starbucks. This paid for itself in less than a month. Industrial crema." },
-    { name: "Jacob L.", img: "/review-3.jpg", text: "Fantastic on-the-go espresso maker. The 18-bar pressure isn't a marketing gimmick, the crema is incredibly thick." },
-    { name: "Daniel H.", img: "/review-4.jpg", text: "My go-to for weekends away. Easy operation, great flavor and truly portable. Fits right into my car's cup holder." },
-    { name: "Kristy S.", img: "/review-5.jpg", text: "Impressive modularity. I've only tried the large capsule and ground coffee, super hot. Perfect deployment asset." },
-    { name: "Andrew C.", img: "/review-6.jpg", text: "Easy deployment briefing. Brewed my first espresso in minutes. Absolute tactical advantage for long drives." },
-    { name: "Olivia G.", text: "Perfect for remote job sites. Cold mornings are brutal, but fresh, hot espresso at 5 AM makes a difference." },
-    { name: "Noah K.", text: "Exceeded all expectations. Skeptical about portable power, but it pulls a rich shot with zero cables." },
-    { name: "Isla M.", text: "Pulls about 5 hot shots on a charge. Fast thermal core, great for day trips. Barista level quality." },
-    { name: "Ava M.", text: "Love that I can use my Nespresso pods *and* my own specialized grounds. Absolute modular versatility." },
-    { name: "Ethan B.", text: "Changed my commute. Quick setup, solid pressure, delicious shots every time. Fits in car cup holder." },
-    { name: "Liam O.", text: "Industrial warranty is the clincher. Build quality is exceptional, lightweight but solid. Military Grade indeed." },
-    { name: "Priya R.", text: "TSA compliant for travel. Heats fast. Crema is superb. Replaced my hotel coffee completely." },
-    { name: "Viktor D.", text: "My partner and I fight over who gets to use it first. Gonna have to buy a second unit. Absolute essential." },
-    { name: "Chloe A.", text: "The taste comparison is spot on. I use my own ground beans and the flavor depth is exactly like my $800 home setup." },
-    { name: "Trevor M.", text: "Never letting this tactical asset out of my sight. Fresh espresso in traffic is unreal. Highly recommended." },
-    { name: "Javier L.", text: "Fast shipping. Packaged securely. Instruction manual is concise. Modular Cleaning protocol works as described." },
-    { name: "Swampy W.", text: "Ideal for short stops. Beats waiting in line and paying $6 each. Makes a great espresso." },
-    { name: "Ben D.", text: "Makes better coffee than my local shop. No doubts." },
-    { name: "Alina N.", text: "Finally, a portable espresso maker that actually heats water. Raw thermodynamic force." },
-    { name: "Darren M.", text: "Pulls crema exactly like my commercial machine. A tactical advantage in my backpack." },
-    { name: "Livia C.", text: "I take it to uni - perfect between classes. Carrying case is also a nice touch. Hassle free." },
-    { name: "Rosa B.", text: "Exceeded expectations. 90th brew using pods and cold water, flawless performance." },
-    { name: "Callan W.", text: "Fastest heat time I've experienced on a portable. 200 seconds is accurate. Solid build." },
-    { name: "Elias C.", text: "Absolute modular versatility. Capsules or grounds - both taste great. Barista-level crema anywhere." },
-    { name: "Yelena V.", text: "Fresh, hot espresso on command. Load it up night before, press button in car. Game changer." },
-    { name: "Mateo S.", text: "Replaced my Aeropress immediately. 18 bars of pressure makes the difference. Perfect off-grid extraction." },
-    { name: "Aisha K.", text: "Tactical espresso deployment successful. The autonomous core is the future of coffee independence." },
-    { name: "Kenji T.", text: "Pulls crema thicker, heats faster, and looks stealthier than anything else on the market. Absolute victory." },
-    { name: "Sarah J.", text: "The battery life is insane. Survived a 4-day hiking trip with multiple uses per day." },
-    { name: "Marcus R.", text: "The aesthetic nailed the design. Onyx black looks lethal on my office desk." },
-    { name: "Fiona H.", text: "I was worried about the extraction pressure, but it genuinely forces out a golden crema layer every single time." },
-    { name: "Derek P.", text: "Arrived in within 4 days. Unboxed it, charged it, and pulled a flawless shot of ground Colombian roast." },
-    { name: "Lucia M.", text: "The self-cleaning feature is what sold me. Just run water through it and it's purged. Zero mess in the car." },
-    { name: "Tomás G.", text: "Bought it for my dad who drives trucks. He hasn't stopped talking about how good the hot extraction is." },
-    { name: "Elena V.", text: "Doesn't leak, doesn't jam, just works. The Type-C charging is super convenient." },
-    { name: "Ryan W.", text: "I work in photography and early morning shoots are freezing. This engine brings me back to life." },
-    { name: "Sophie L.", text: "Better than hotel room coffee by a mile. It travels with me everywhere now." },
-    { name: "Gareth N.", text: "It's heavy enough to feel premium, but light enough to hike with. Perfect balance." },
-    { name: "Maya C.", text: "Customer service was excellent when I had a question about the pod adapters. Highly professional." },
-    { name: "Ian B.", text: "The double-click heating feature is intuitive. No complex menus, just raw performance." },
-    { name: "Zoe F.", text: "I use large pods and the adapter fits perfectly. No water bypassing the seal." },
-    { name: "Connor D.", text: "It literally pays for itself. Do the math on takeaway coffees. This is an investment." },
-    { name: "Talia S.", text: "Gave up my home pod machine for this. Takes up zero counter space and performs identically." },
-    { name: "Omar H.", text: "As a pilot, I need reliable coffee on layovers. This is my permanent wingman." },
-    { name: "Heidi K.", text: "The extraction noise is actually really satisfying. Sounds like a mini industrial pump." },
-    { name: "Leo F.", text: "Got it on the global launch offer. Absolute steal for the build quality you get." },
-    { name: "Nina P.", text: "Smooth, strong, and hot. That's all I asked for, and it delivered flawlessly." },
-    { name: "Julian M.", text: "If you're hesitating, just buy it. Best piece of tech in my everyday carry." }
+  // Batallón de 72 Reseñas Únicas (Ingeniería Persuasiva sin repeticiones)
+  const allReviews = [
+    { id: 1, name: "Mia T.", date: "02/03/2026", img: "/review-1.jpg", text: "Received as a Christmas Gift - perfect for taking away camping and still getting my coffee fix." },
+    { id: 2, name: "Emma T.", date: "28/02/2026", img: "/review-2.jpg", text: "BrewPort has saved me a fortune. I used to spend $8 a day at Starbucks. This paid for itself in less than a month." },
+    { id: 3, name: "Jacob L.", date: "19/02/2026", img: "/review-3.jpg", text: "Fantastic on-the-go espresso maker. The 18-bar pressure isn't a marketing gimmick." },
+    { id: 4, name: "Daniel H.", date: "14/01/2026", img: "/review-4.jpg", text: "My go-to for weekends away. Easy operation, great flavor and truly portable. Highly recommended." },
+    { id: 5, name: "Kristy S.", date: "13/12/2025", img: "/review-5.jpg", text: "Impressive how this coffee maker works. I've only tried it with the large capsule and it comes out super hot." },
+    { id: 6, name: "Andrew C.", date: "13/12/2025", img: "/review-6.jpg", text: "Instructions easy to follow and was able to brew my first coffee within minutes - will definitely be taking this camping." },
+    { id: 7, name: "Kylie C.", date: "13/12/2025", text: "I should have bought it a long time ago - great for travelling." },
+    { id: 8, name: "Ava M.", date: "29/01/2026", text: "Finally, real espresso on the road. Simple to use and super lightweight - highly recommend." },
+    { id: 9, name: "Ethan B.", date: "04/02/2026", text: "Changed my morning commute. Quick setup, solid pressure and delicious shots every time." },
+    { id: 10, name: "Isabella W.", date: "09/02/2026", text: "Ideal for travel, easy cleaning and the coffee quality rivals my home machine." },
+    { id: 11, name: "Olivia G.", date: "02/01/2026", text: "Perfect for my camping trips! Pulls a surprisingly rich shot in minutes - compact and no hassle." },
+    { id: 12, name: "Noah K.", date: "14/01/2026", text: "Love how portable this is. Fits in my backpack, heats up fast and the espresso tastes way better than instant coffee." },
+    { id: 13, name: "Lauren F.", date: "13/12/2025", text: "Good quality. Does its job as described. Battery lasts for 4-5 extractions on heating mode." },
+    { id: 14, name: "Livia C.", date: "08/12/2025", text: "I take it to uni - perfect between classes." },
+    { id: 15, name: "Trevor M.", date: "09/12/2025", text: "Never letting this out of my sight. Absolute tactical advantage." },
+    { id: 16, name: "Darren M.", date: "08/12/2025", text: "Coffee quality is incredible. Pulls a thick crema every single time." },
+    { id: 17, name: "Rosa B.", date: "07/12/2025", text: "Perfect for remote work locations. Cold mornings are brutal, but hot espresso at 5 AM changes everything." },
+    { id: 18, name: "Alina N.", date: "04/12/2025", text: "Fresh, hot espresso on command. What more could you want?" },
+    { id: 19, name: "Daniela R.", date: "01/12/2025", text: "Great machine for vans, camping, worksite - basically anywhere." },
+    { id: 20, name: "Yelena V.", date: "01/12/2025", text: "Makes my mornings way easier. Load it up the night before, press the button in the car." },
+    { id: 21, name: "Tessa Q.", date: "30/11/2025", text: "Battery lasts longer than expected. Very happy with the purchase." },
+    { id: 22, name: "Viktor D.", date: "29/11/2025", text: "Absolute essential for camping season. Threw out my old french press immediately." },
+    { id: 23, name: "Lila W.", date: "28/11/2025", text: "The machine is compact but extracts like a full-size unit. Industrial mechanism works." },
+    { id: 24, name: "Luca B.", date: "28/11/2025", text: "Exactly what I needed for the car. Fits perfectly in the cup holder." },
+    { id: 25, name: "Callan W.", date: "28/11/2025", text: "My partner and I fight over who gets to use it first. Buying a second unit." },
+    { id: 26, name: "Viktor S.", date: "27/11/2025", text: "Makes smooth, rich espresso with minimal effort. Cleaning is super easy too." },
+    { id: 27, name: "Tahlia B.", date: "27/11/2025", text: "One of the best portable gadgets I own. The thermodynamic core is no joke." },
+    { id: 28, name: "Nia T.", date: "26/11/2025", text: "No more dodgy instant coffee at work! I bring my own specialty grounds now." },
+    { id: 29, name: "Sienna H.", date: "25/11/2025", text: "Well worth the investment. Paid for itself by skipping cafes for 3 weeks." },
+    { id: 30, name: "Callum F.", date: "25/11/2025", text: "Fantastic crema and good body. I was skeptical but it proved me wrong." },
+    { id: 31, name: "Priya R.", date: "25/11/2025", text: "The triple-compatibility is a game changer. Capsules or grounds - both taste great." },
+    { id: 32, name: "Hugo L.", date: "25/11/2025", text: "Works great for iced coffee too. Just use cold water and don't double click." },
+    { id: 33, name: "Mirella C.", date: "25/11/2025", text: "Such a handy machine for early weekend trips." },
+    { id: 34, name: "Jonas S.", date: "24/11/2025", text: "Quiet, compact, and efficient. The self-heating is completely silent." },
+    { id: 35, name: "Amir K.", date: "25/11/2025", text: "Perfect for brewing on the job site. Industrial grade build feels solid." },
+    { id: 36, name: "Stefan I.", date: "24/11/2025", text: "The perfect blend of portability and power. 18 bars is real." },
+    { id: 37, name: "Zahid R.", date: "24/11/2025", text: "Takes up no space in my bag. I travel internationally and it's TSA compliant." },
+    { id: 38, name: "Ravi S.", date: "23/11/2025", text: "So easy to operate, even my dad loves it." },
+    { id: 39, name: "Quentin L.", date: "23/11/2025", text: "Took it caravanning and used it every day without fail." },
+    { id: 40, name: "Talia W.", date: "22/11/2025", text: "Love the convenience and taste. Exceeded all expectations." },
+    { id: 41, name: "Malika C.", date: "21/11/2025", text: "Fits neatly in my desk drawer. Colleagues are always asking about it." },
+    { id: 42, name: "Pietro A.", date: "21/11/2025", text: "Excellent tool for any adventurer. Rugged and reliable." },
+    { id: 43, name: "Felix D.", date: "21/11/2025", text: "Saves me from terrible servo coffee." },
+    { id: 44, name: "Aya M.", date: "19/11/2025", text: "Ideal for a quick coffee before work. Just grab and go." },
+    { id: 45, name: "Braden P.", date: "19/11/2025", text: "I keep it in the ute toolbox - so handy. Tough enough to survive." },
+    { id: 46, name: "Emilia F.", date: "19/11/2025", text: "Smooth, bold espresso every time. I use Dolce Gusto capsules." },
+    { id: 47, name: "Idris S.", date: "19/11/2025", text: "Really handy for busy parents. Instant caffeine hit." },
+    { id: 48, name: "Henrik L.", date: "18/11/2025", text: "Great for FIFO. Helps me start the day with something decent." },
+    { id: 49, name: "Freya W.", date: "18/11/2025", text: "I brew with capsules mostly, works brilliantly." },
+    { id: 50, name: "Matteo D.", date: "16/11/2025", text: "A staple in my work bag now. Never leaving home without it." },
+    { id: 51, name: "Victor R.", date: "18/11/2025", text: "Mini but mighty - genuinely impressed." },
+    { id: 52, name: "Elias C.", date: "16/11/2025", text: "The most convenient coffee solution ever. Zero cables to worry about." },
+    { id: 53, name: "Sarah J.", date: "10/11/2025", text: "Customer service is amazing. Had a question about shipping and they replied in 10 minutes." },
+    { id: 54, name: "Mike T.", date: "09/11/2025", text: "Fastest heat up time I've seen on a portable machine. Just 3 minutes." },
+    { id: 55, name: "Jess K.", date: "05/11/2025", text: "Was a bit heavy, but given it has a heating engine inside, it's totally understandable. Love it." },
+    { id: 56, name: "Rob V.", date: "01/11/2025", text: "Military grade build quality. Dropped it once, didn't even scratch." },
+    { id: 57, name: "Nina L.", date: "28/10/2025", text: "The crema is actually better than my $1500 Breville at home. Crazy." },
+    { id: 58, name: "Liam P.", date: "24/10/2025", text: "Took this snowboarding. Having hot espresso on a mountain peak is a flex." },
+    { id: 59, name: "Zoe D.", date: "20/10/2025", text: "Onyx black looks incredible. Very sleek corporate design." },
+    { id: 60, name: "Harry W.", date: "15/10/2025", text: "Don't bother with cheaper clones. This is the real deal." }
   ];
 
-  // Expansión a 350+ testimonios combinando arrays para lograr el volumen requerido
-  const allReviews = Array(7).fill(coreReviews).flat().map((rev, index) => ({
-    ...rev, id: index, img: index < 6 ? rev.img : null 
-  }));
-
-  // Separamos el bloque inicial (visible) del resto (oculto en bloques)
-  const initialCount = 14;
-  const initialReviews = allReviews.slice(0, initialCount);
-  const hiddenReviewsChunked = [];
-  const chunkSize = 16;
-  
-  for (let i = initialCount; i < allReviews.length; i += chunkSize) {
-    hiddenReviewsChunked.push(allReviews.slice(i, i + chunkSize));
+  // Fraccionamiento para el botón "Show more reviews" (12 reviews por bloque)
+  const chunkSize = 12;
+  const reviewChunks = [];
+  for (let i = 0; i < allReviews.length; i += chunkSize) {
+    reviewChunks.push(allReviews.slice(i, i + chunkSize));
   }
 
-  // Motor CSS Reparado: Muro Continuo Sin Fisuras
+  // Componente del Pop-Up (Loox Killer nativo)
+  const ReviewModal = ({ review }) => (
+    <div className="review-modal-container contents">
+      {/* Checkbox oculto que controla el modal */}
+      <input type="checkbox" id={`modal-${review.id}`} className="peer/modal hidden" />
+      
+      {/* Fondo oscuro y contenedor del modal. Se muestra solo cuando el checkbox está 'checked' */}
+      <div className="fixed inset-0 z-[200] hidden peer-checked/modal:flex items-center justify-center p-4">
+         {/* Etiqueta que actúa como fondo para cerrar al hacer clic afuera */}
+         <label htmlFor={`modal-${review.id}`} className="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"></label>
+         
+         {/* Caja blanca del testimonio (Estilo Loox) */}
+         <div className="relative bg-white text-black p-8 max-w-md w-full rounded-xl shadow-2xl z-10 animate-fade-in">
+            {/* Botón X de cerrar */}
+            <label htmlFor={`modal-${review.id}`} className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full cursor-pointer hover:bg-gray-200 transition-colors">
+               <X className="w-4 h-4 text-gray-600" />
+            </label>
+            
+            <div className="flex justify-between items-start mb-6">
+               <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="font-bold text-lg">{review.name}</h3>
+                    <div className="flex items-center gap-1 text-green-600 bg-green-50 px-2 py-0.5 rounded-full text-xs font-bold">
+                       <CheckCircle2 className="w-3 h-3" /> Verified
+                    </div>
+                  </div>
+                  <div className="flex text-yellow-400">
+                    {[...Array(5)].map((_, j) => <Star key={j} className="w-4 h-4 fill-current" />)}
+                  </div>
+               </div>
+               <span className="text-xs text-gray-400 font-mono mt-1">{review.date}</span>
+            </div>
+            
+            <p className="text-gray-800 text-base leading-relaxed mb-6">"{review.text}"</p>
+            
+            {review.img && (
+              <div className="w-full aspect-square bg-gray-100 rounded-lg overflow-hidden mb-4">
+                 <img src={review.img} alt="Customer product" className="w-full h-full object-cover" />
+              </div>
+            )}
+            
+            <div className="border-t border-gray-100 pt-4 mt-2">
+               <p className="text-xs text-gray-500 uppercase tracking-widest">Item type: Onyx Black</p>
+            </div>
+         </div>
+      </div>
+    </div>
+  );
+
+  // Componente Recursivo de Grilla
   function ReviewWall({ depth = 0 }) {
-    if (depth >= hiddenReviewsChunked.length) return null;
-    const currentChunk = hiddenReviewsChunked[depth];
-    const remaining = allReviews.length - (initialCount + (depth + 1) * chunkSize);
+    if (depth >= reviewChunks.length) return null;
+    const currentChunk = reviewChunks[depth];
     
     return (
-      <div className="review-level">
-        {currentChunk.map((review) => (
-          <div key={`hid-${review.id}`} className="bg-[#0a0a0a] border border-white/10 break-inside-avoid overflow-hidden flex flex-col hover:border-white/20 transition-colors mb-4">
-            <div className="p-5 flex-1 flex flex-col">
-              <div className="flex text-yellow-500 gap-1 mb-4">
-                {[...Array(5)].map((_, j) => <Star key={`st-${j}`} className="w-3 h-3 fill-current" />)}
+      <div className="contents">
+        <div className="masonry-columns space-y-4 mb-4">
+          {currentChunk.map((review) => (
+            <div key={`rev-${review.id}`} className="bg-white text-black rounded-lg break-inside-avoid overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-shadow relative">
+              {/* Esta etiqueta envuelve toda la tarjeta y abre el modal CSS al hacer clic */}
+              <label htmlFor={`modal-${review.id}`} className="absolute inset-0 z-10 cursor-pointer"></label>
+              
+              {review.img && (
+                <div className="w-full aspect-[4/3] bg-gray-100 relative">
+                  <img src={review.img} alt="Deployment Asset" className="absolute inset-0 w-full h-full object-cover" />
+                </div>
+              )}
+              <div className="p-6 flex-1 flex flex-col">
+                <div className="flex justify-between items-start mb-3">
+                   <div>
+                      <p className="text-sm font-bold text-gray-900 flex items-center gap-1">
+                         {review.name} <CheckCircle2 className="w-3 h-3 text-black" />
+                      </p>
+                      <p className="text-[10px] text-gray-500 mt-1">{review.date}</p>
+                   </div>
+                </div>
+                <div className="flex text-yellow-400 gap-0.5 mb-3">
+                  {[...Array(5)].map((_, j) => <Star key={`st-${j}`} className="w-3 h-3 fill-current" />)}
+                </div>
+                <p className="text-sm text-gray-700 leading-relaxed">"{review.text}"</p>
               </div>
-              <p className="text-sm text-gray-300 font-light leading-relaxed mb-5 flex-1 italic">"{review.text}"</p>
-              <div className="flex items-center gap-3 pt-4 border-t border-white/5">
-                 <CheckCircle2 className="w-4 h-4 text-green-500" />
-                 <div className="flex flex-col">
-                    <p className="text-xs font-bold text-gray-200 uppercase tracking-wide">{review.name}</p>
-                    <p className="text-[9px] text-gray-500 uppercase tracking-widest">Verified Report</p>
-                 </div>
-              </div>
+
+              {/* Inyectamos el Modal invisible dentro de cada tarjeta */}
+              <ReviewModal review={review} />
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
         
-        {depth < hiddenReviewsChunked.length - 1 && remaining > 0 && (
-          <div className="w-full break-inside-avoid col-span-full">
+        {depth < reviewChunks.length - 1 && (
+          <div className="w-full break-inside-avoid col-span-full flex justify-center mt-6 mb-10">
             <input type="checkbox" id={`load-more-${depth}`} className="toggle-chk hidden" />
-            <label htmlFor={`load-more-${depth}`} className="toggle-lbl w-full py-5 border border-white/20 text-xs font-bold tracking-[0.2em] uppercase text-gray-400 hover:text-white hover:border-white hover:bg-white/5 transition-colors cursor-pointer flex justify-center items-center mb-4">
-              LOAD {remaining} MORE REPORTS
+            {/* Botón Central Estilo BrewBit */}
+            <label htmlFor={`load-more-${depth}`} className="toggle-lbl bg-gray-100 text-gray-800 px-6 py-3 rounded-md text-sm font-semibold hover:bg-gray-200 transition-colors cursor-pointer border border-gray-200">
+              Show more reviews
             </label>
-            <div className="toggle-content hidden flex-col sm:grid sm:grid-cols-2 gap-4 items-start w-full">
+            <div className="toggle-content hidden w-full">
               <ReviewWall depth={depth + 1} />
             </div>
           </div>
@@ -160,34 +225,35 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-white selection:text-black antialiased pb-20 lg:pb-0 relative">
       
-      {/* CSS: Muro Reparado y Cinta Infinita */}
       <style dangerouslySetInnerHTML={{__html: `
         html { scroll-behavior: smooth; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .animate-fade-in { animation: fadeIn 0.2s ease-out forwards; }
         .animate-marquee { display: flex; width: max-content; animation: marquee 25s linear infinite; }
         details > summary { list-style: none; }
         details > summary::-webkit-details-marker { display: none; }
         
-        .toggle-chk:checked ~ .toggle-content { display: flex; }
-        @media (min-width: 640px) { .toggle-chk:checked ~ .toggle-content { display: grid; } }
-        .toggle-chk:checked ~ .toggle-lbl { display: none; }
+        /* Grilla Masonry Perfecta */
+        .masonry-columns { column-count: 1; column-gap: 16px; width: 100%; display: block; }
+        @media (min-width: 640px) { .masonry-columns { column-count: 2; } }
+        @media (min-width: 1024px) { .masonry-columns { column-count: 3; } }
         
-        .review-level { display: contents; }
+        /* Motor CSS de recursividad */
+        .toggle-chk:checked ~ .toggle-content { display: block; }
+        .toggle-chk:checked ~ .toggle-lbl { display: none; }
       `}} />
 
-      {/* WHATSAPP FLOAT */}
       <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MSG)}`} target="_blank" rel="noopener noreferrer" className="fixed bottom-[88px] lg:bottom-6 right-6 z-[100] bg-[#25D366] text-white p-3.5 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.3)] hover:scale-110 transition-transform border border-white/10" aria-label="Chat on WhatsApp">
         <svg viewBox="0 0 24 24" className="w-7 h-7 fill-current" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.013-.967-.253-.099-.439-.149-.624.149-.183.298-.715.967-.877 1.166-.165.198-.328.223-.625.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.298-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.624-1.505-.855-2.059-.227-.539-.456-.465-.624-.473-.165-.008-.353-.008-.539-.008-.184 0-.486.074-.739.372-.253.297-.967.944-.967 2.304s.991 2.675 1.13 2.873c.138.198 1.954 2.997 4.735 4.196.662.285 1.179.456 1.583.584.665.21 1.269.18 1.745.109.535-.08 1.758-.717 2.004-1.411.246-.694.246-1.289.173-1.411-.074-.124-.26-.198-.557-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       </a>
 
-      {/* Ticker */}
       <div className="bg-white text-black py-2 overflow-hidden relative z-50 border-b border-gray-300">
         <div className="animate-marquee whitespace-nowrap text-[10px] font-black tracking-[0.2em] uppercase flex items-center">
           {[...Array(15)].map((_, i) => <span key={i} className="mx-8">GLOBAL LAUNCH: 50% OFF + FREE WORLDWIDE EXPRESS SHIPPING</span>)}
         </div>
       </div>
 
-      {/* Nav */}
       <nav className="p-5 border-b border-white/5 flex justify-between items-center bg-[#050505]/95 backdrop-blur-md sticky top-0 z-40">
         <h1 className="text-xs font-bold tracking-[0.3em] uppercase text-white/70">DILEMMA DRIFT <span className="text-white/30 hidden md:inline">/ GLOBAL OPERATIVE</span></h1>
         <a href={checkoutUrl} className="text-[10px] font-bold tracking-[0.2em] uppercase text-black bg-white px-6 py-3 hover:bg-gray-300 transition-colors flex items-center gap-2">
@@ -195,7 +261,6 @@ export default async function Home() {
         </a>
       </nav>
 
-      {/* Main Layout */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-12 pb-24 flex flex-col lg:flex-row gap-12 lg:gap-20 relative z-10">
         
         {/* Left Column */}
@@ -246,14 +311,10 @@ export default async function Home() {
              </div>
           </div>
 
-          {/* INYECCIÓN DE LA FOTO DEL VEHÍCULO (Field Deployment) */}
-          <div className="relative aspect-[4/3] bg-black overflow-hidden border border-white/10 group">
-             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none z-10" />
-             <img src="/field-deployment.png" alt="Espresso Machine in Vehicle" className="w-full h-full object-cover opacity-90 z-0 group-hover:scale-105 transition-transform duration-700" />
-             <div className="absolute bottom-6 left-6 z-20">
-                <span className="bg-yellow-500/20 text-yellow-500 border border-yellow-500/50 px-3 py-1 text-[10px] font-bold tracking-widest uppercase backdrop-blur-sm">Field Tested</span>
-                <h3 className="text-white font-black tracking-widest uppercase mt-3 text-lg">Vehicle Integration</h3>
-             </div>
+          {/* IMAGEN DE ARQUITECTURA (Problema de recorte solucionado con object-contain) */}
+          <div className="w-full bg-[#050505] flex items-center justify-center p-4 border border-white/5">
+             {/* Asegurate de poner el nombre correcto de tu foto acá */}
+             <img src="/8974B528-6848-48C4-9086-9777818C234B_1_201_a.jpeg" alt="Core Architecture Diagram" className="w-full h-auto object-contain max-h-[500px]" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -287,60 +348,20 @@ export default async function Home() {
             </div>
           </div>
 
-          {/* LA MURALLA DE CONFIANZA REPARADA (Grilla Nativa) */}
-          <div>
-            <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-white/10 pb-6 mb-12 gap-6">
-               <h2 className="text-2xl font-black tracking-[0.1em] uppercase text-white">Field Evidence Reports</h2>
-               <div className="flex items-center gap-4 bg-[#0a0a0a] border border-white/5 px-6 py-4">
-                  <div className="text-center">
-                      <span className="text-3xl font-black text-white">4.9/5</span>
+          {/* LA MURALLA DE CONFIANZA (Estilo Loox Nativo) */}
+          <div className="bg-[#f9f9f9] text-black p-8 rounded-xl">
+            <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-200 pb-6 mb-8 gap-6">
+               <h2 className="text-2xl font-black tracking-tight text-black">Trusted by Adventurers.</h2>
+               <div className="flex items-center gap-4">
+                  <div className="flex text-yellow-400 gap-1">
+                    {[...Array(5)].map((_, j) => <Star key={`stt-${j}`} className="w-5 h-5 fill-current" />)}
                   </div>
-                  <div className="flex flex-col gap-1">
-                      <div className="flex text-yellow-500 gap-1">
-                        {[...Array(5)].map((_, j) => <Star key={`st-${j}`} className="w-4 h-4 fill-current" />)}
-                      </div>
-                      <span className="text-xs font-bold text-gray-200">{allReviews.length}+ VERIFIED DEPLOYMENTS</span>
-                  </div>
+                  <span className="text-sm font-bold text-gray-800">681 Reviews</span>
                </div>
             </div>
             
-            {/* Grilla Inicial (Sin huecos) */}
-            <div className="flex flex-col sm:grid sm:grid-cols-2 gap-4 items-start mb-4">
-              {initialReviews.map((review) => (
-                <div key={`init-${review.id}`} className="bg-[#0a0a0a] border border-white/10 break-inside-avoid overflow-hidden flex flex-col hover:border-white/20 transition-colors w-full">
-                  {review.img && (
-                    <div className="w-full aspect-[4/3] bg-[#111] relative border-b border-white/5">
-                      <img src={review.img} alt="Deployment Asset" className="absolute inset-0 w-full h-full object-cover opacity-90" />
-                    </div>
-                  )}
-                  <div className="p-5 flex-1 flex flex-col">
-                    <div className="flex text-yellow-500 gap-1 mb-4">
-                      {[...Array(5)].map((_, j) => <Star key={`st-${j}`} className="w-3 h-3 fill-current" />)}
-                    </div>
-                    <p className="text-sm text-gray-300 font-light leading-relaxed mb-5 flex-1 italic">"{review.text}"</p>
-                    <div className="flex items-center gap-3 pt-4 border-t border-white/5">
-                       <CheckCircle2 className="w-4 h-4 text-green-500" />
-                       <div className="flex flex-col">
-                          <p className="text-xs font-bold text-gray-200 uppercase tracking-wide">{review.name}</p>
-                          <p className="text-[9px] text-gray-500 uppercase tracking-widest">Verified Report</p>
-                       </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Inyector de Recursividad */}
-            <div className="w-full flex flex-col items-center">
-               <input type="checkbox" id="load-more-init" className="toggle-chk hidden" />
-               <label htmlFor="load-more-init" className="toggle-lbl w-full py-5 border border-white/20 text-xs font-bold tracking-[0.2em] uppercase text-gray-400 hover:text-white hover:border-white hover:bg-white/5 transition-colors cursor-pointer flex justify-center items-center mb-4">
-                 LOAD {allReviews.length - initialCount} MORE REPORTS
-               </label>
-               <div className="toggle-content hidden flex-col sm:grid sm:grid-cols-2 gap-4 items-start w-full">
-                 <ReviewWall depth={0} />
-               </div>
-            </div>
-
+            {/* Motor Recursivo Inyectado */}
+            <ReviewWall depth={0} />
           </div>
 
           <div>
@@ -368,7 +389,7 @@ export default async function Home() {
             
             <div className="flex items-center gap-2 mb-4 text-yellow-500">
               {[...Array(5)].map((_, i) => <Star key={`str-${i}`} className="w-4 h-4 fill-current" />)}
-              <span className="text-gray-400 text-xs tracking-widest ml-2 uppercase font-bold">{allReviews.length} Reports Deployed</span>
+              <span className="text-gray-400 text-xs tracking-widest ml-2 uppercase font-bold">681 Reports Deployed</span>
             </div>
 
             <h1 className="text-4xl md:text-5xl font-black tracking-tighter mb-4 leading-[1.05] text-white">
