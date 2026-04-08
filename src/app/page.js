@@ -1,5 +1,5 @@
 import { shopifyFetch } from '../lib/shopify';
-import { ArrowRight, BatteryCharging, Zap, Star, ShieldCheck, Check, X, Package, CheckCircle2, Settings, Thermometer, Coffee, Lock, MailCheck } from "lucide-react";
+import { ArrowRight, BatteryCharging, Zap, Star, ShieldCheck, Check, X, Package, CheckCircle2, Settings, Thermometer, Coffee, Lock, MailCheck, GripHorizontal } from "lucide-react";
 
 export const dynamic = 'force-dynamic';
 
@@ -35,7 +35,6 @@ export default async function Home() {
   const storeDomain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN || 'dilemma-drift-3.myshopify.com';
   const checkoutUrl = `https://${storeDomain}/cart/${rawVariantId}:1`;
 
-  // CAMBIÁ ESTE NÚMERO POR TU WHATSAPP BUSINESS CUANDO LO TENGAS
   const WHATSAPP_NUMBER = "5491100000000"; 
   const WHATSAPP_MSG = "Hello Dilemma Drift, I need assistance with The Obsidian Press.";
 
@@ -105,7 +104,7 @@ export default async function Home() {
               </div>
             )}
             <div className="border-t border-white/10 pt-4 mt-2">
-               <p className="text-[10px] text-gray-500 uppercase tracking-widest">Item deployed: The Obsidian Press</p>
+               <p className="text-[10px] text-gray-500 uppercase tracking-widest">Item deployed: Nomad Engine</p>
             </div>
          </div>
       </div>
@@ -119,7 +118,7 @@ export default async function Home() {
 
     reviewWallContent = (
       <div className="w-full contents">
-        <div className="masonry-columns space-y-4 mb-4 w-full block">
+        <div className="masonry-columns space-y-4 mb-2 w-full block">
           {chunk.map((review) => (
             <div key={`rev-${review.id}`} className="bg-[#0a0a0a] text-gray-200 rounded-sm border border-white/5 break-inside-avoid overflow-hidden flex flex-col hover:border-white/20 transition-all relative mb-4 shadow-lg">
               <label htmlFor={`modal-${review.id}`} className="absolute inset-0 z-10 cursor-pointer"></label>
@@ -148,7 +147,7 @@ export default async function Home() {
         </div>
         
         {!isLast && (
-          <div className="w-full break-inside-avoid flex flex-col items-center mt-6 mb-10">
+          <div className="w-full break-inside-avoid flex flex-col items-center mt-2 mb-4">
             <input type="checkbox" id={`load-more-${i}`} className="toggle-chk hidden" />
             <label htmlFor={`load-more-${i}`} className="toggle-lbl bg-[#0a0a0a] border border-white/10 text-white px-10 py-4 text-xs tracking-widest font-bold uppercase hover:border-white/30 transition-colors cursor-pointer text-center w-full md:w-auto rounded-sm">
               Show more reports
@@ -194,17 +193,16 @@ export default async function Home() {
         details > summary { list-style: none; outline: none; }
         details > summary::-webkit-details-marker { display: none; }
 
-        /* V24: Esconder modales */
+        .close-floating-chk:checked ~ .floating-video-container { display: none !important; }
         .close-sub-chk:checked ~ #sub-popup { display: none !important; }
         .submit-trigger:checked ~ .form-elements { display: none !important; }
         .submit-trigger:checked ~ .success-elements { display: flex !important; animation: fadeIn 0.5s ease-out forwards; }
       `}} />
 
-      {/* SCRIPT NATIVO: Smart Nav, Pop-up y Drag&Drop Video V24 */}
+      {/* SCRIPT NATIVO: Smart Nav, Drag Drop & Modals */}
       <script dangerouslySetInnerHTML={{__html: `
         if (typeof window !== 'undefined') {
           document.addEventListener('DOMContentLoaded', () => {
-            // 1. SMART NAV & POP-UP
             let lastScroll = window.pageYOffset;
             const commandCenter = document.getElementById('command-center');
             const subPopup = document.getElementById('sub-popup');
@@ -247,7 +245,6 @@ export default async function Home() {
                 });
             }
 
-            // 2. DRAG & DROP UNIVERSAL VIDEO FLOTANTE V24
             const floatWidget = document.getElementById('floating-widget');
             const dragOverlay = document.getElementById('drag-overlay');
             const closeBtn = document.getElementById('close-floating-btn');
@@ -269,7 +266,6 @@ export default async function Home() {
                     const rect = floatWidget.getBoundingClientRect();
                     initialLeft = rect.left;
                     initialTop = rect.top;
-                    // Liberar bottom/right para basarse en top/left
                     floatWidget.style.bottom = 'auto';
                     floatWidget.style.right = 'auto';
                     floatWidget.style.left = initialLeft + 'px';
@@ -287,13 +283,11 @@ export default async function Home() {
 
                 const endDrag = () => {
                     if (isDragging && !isMoved) {
-                        // Fue un clic, no un arrastre. Expandimos el video.
                         expandChk.checked = true;
                     }
                     isDragging = false;
                 };
 
-                // Eventos de Mouse
                 dragOverlay.addEventListener('mousedown', (e) => { 
                     e.preventDefault(); 
                     startDrag(e.clientX, e.clientY); 
@@ -301,7 +295,6 @@ export default async function Home() {
                 document.addEventListener('mousemove', (e) => { doDrag(e.clientX, e.clientY); });
                 document.addEventListener('mouseup', endDrag);
 
-                // Eventos Touch (Mobile)
                 dragOverlay.addEventListener('touchstart', (e) => { 
                     startDrag(e.touches[0].clientX, e.touches[0].clientY); 
                 }, {passive: true});
@@ -322,24 +315,20 @@ export default async function Home() {
         <svg viewBox="0 0 24 24" className="w-7 h-7 fill-current" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.013-.967-.253-.099-.439-.149-.624.149-.183.298-.715.967-.877 1.166-.165.198-.328.223-.625.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.298-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.624-1.505-.855-2.059-.227-.539-.456-.465-.624-.473-.165-.008-.353-.008-.539-.008-.184 0-.486.074-.739.372-.253.297-.967.944-.967 2.304s.991 2.675 1.13 2.873c.138.198 1.954 2.997 4.735 4.196.662.285 1.179.456 1.583.584.665.21 1.269.18 1.745.109.535-.08 1.758-.717 2.004-1.411.246-.694.246-1.289.173-1.411-.074-.124-.26-.198-.557-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       </a>
 
-      {/* VIDEO FLOTANTE TÁCTICO V24 (Draggable Universal) */}
+      {/* VIDEO FLOTANTE TÁCTICO V25 */}
       <div id="floating-widget" className="fixed bottom-[88px] lg:bottom-6 right-6 z-[100] w-28 md:w-36 aspect-[9/16] bg-black border border-white/20 rounded-lg shadow-[0_0_30px_rgba(0,0,0,0.8)] overflow-hidden transition-shadow hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
         
-        {/* Cruz para CERRAR definitivamente */}
         <div id="close-floating-btn" className="absolute top-1.5 right-1.5 w-6 h-6 bg-black/80 backdrop-blur-md rounded-full flex items-center justify-center cursor-pointer z-50 text-white hover:bg-red-500 transition-colors">
            <X className="w-3 h-3" />
         </div>
         
-        {/* Capa invisible que capta TODO el click y el arrastre sobre el video */}
         <div id="drag-overlay" className="absolute inset-0 z-20 cursor-grab active:cursor-grabbing"></div>
         <input type="checkbox" id="expand-floating-video" className="peer/expand hidden" />
         
-        {/* Reproductor Miniatura */}
         <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none">
            <source src="/floating-demo.mp4" type="video/mp4" />
         </video>
 
-        {/* Vista Expandida (Modal Full Screen) */}
         <div className="fixed inset-0 hidden peer-checked/expand:flex items-center justify-center bg-black/95 backdrop-blur-md z-[200] animate-fade-in p-4" style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh' }}>
            <label htmlFor="expand-floating-video" className="absolute top-6 right-6 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center cursor-pointer z-30 text-white hover:bg-white/20 transition-colors">
               <X className="w-5 h-5" />
@@ -357,7 +346,7 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* Pop-up de Suscripción (Simulación de éxito realista sin recargar la página) */}
+      {/* Pop-up de Suscripción */}
       <input type="checkbox" id="close-sub" className="close-sub-chk hidden peer/close-s" />
       <input type="checkbox" id="success-trigger" className="submit-trigger hidden peer/success" />
       <div id="sub-popup" className="fixed bottom-0 md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full md:w-[400px] bg-[#050505] border border-white/20 p-8 z-[100] transform translate-y-full md:scale-95 opacity-0 transition-all duration-700 ease-out rounded-t-2xl md:rounded-xl shadow-[0_0_80px_rgba(0,0,0,0.8)] peer-checked/close-s:hidden">
@@ -378,7 +367,7 @@ export default async function Home() {
          </div>
       </div>
 
-      {/* EL CENTRO DE COMANDO (Nav + Ticker Fusionados) */}
+      {/* EL CENTRO DE COMANDO */}
       <header id="command-center" className="fixed top-0 w-full z-50 transition-transform duration-300">
         <div className="bg-[#000000] text-white py-2 overflow-hidden border-b border-white/10">
           <div className="animate-marquee whitespace-nowrap text-[10px] font-black tracking-[0.2em] uppercase flex items-center">
@@ -393,11 +382,11 @@ export default async function Home() {
         </nav>
       </header>
 
-      {/* MAIN CONTENT */}
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-32 pb-24 flex flex-col lg:flex-row gap-12 lg:gap-20 relative z-10 items-start">
+      {/* MAIN CONTENT (Padding ajustado para eliminar el agujero negro superior V25) */}
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-28 pb-24 flex flex-col lg:flex-row gap-8 lg:gap-16 relative z-10 items-start">
         
         {/* Left Column */}
-        <div className="w-full lg:w-[55%] flex flex-col gap-12 order-2 lg:order-1 items-start">
+        <div className="w-full lg:w-[55%] flex flex-col gap-8 order-2 lg:order-1 items-start mt-2">
           
           <div className="aspect-[4/5] w-full bg-[#0a0a0a] border border-white/10 relative overflow-hidden group rounded-sm shadow-2xl">
             <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-1000">
@@ -406,13 +395,13 @@ export default async function Home() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
           </div>
 
-          <div className="w-full flex justify-center">
+          <div className="w-full flex justify-center my-2">
              <a href={checkoutUrl} className="w-full md:w-auto bg-white text-black px-12 py-5 text-xs font-black tracking-[0.2em] uppercase hover:bg-gray-200 transition-colors flex items-center justify-center gap-4 group cursor-pointer shadow-[0_0_20px_rgba(255,255,255,0.15)]">
                 SECURE THE OBSIDIAN PRESS <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
              </a>
           </div>
 
-          <div className="bg-transparent border-l-2 border-yellow-500 pl-6 text-left w-full">
+          <div className="bg-transparent border-l-2 border-yellow-500 pl-6 text-left w-full my-4">
             <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase mb-4 text-white leading-tight">
               BLOWING YOUR BUDGET ON TAKEAWAY COFFEES?
             </h2>
@@ -421,14 +410,14 @@ export default async function Home() {
             </p>
           </div>
 
-          <div className="bg-[#080808] border border-white/10 p-8 md:p-12 text-center rounded-sm w-full">
+          <div className="bg-[#080808] border border-white/10 p-8 md:p-12 text-center rounded-sm w-full mb-4">
             <h2 className="text-2xl md:text-3xl font-black tracking-[0.1em] uppercase mb-6 text-white">COLD WATER CAN MAKE ESPRESSO.</h2>
             <p className="text-gray-400 leading-relaxed font-light text-sm">
               Remarkably small but with a powerful 2500mAh lithium battery. This industrial-grade portable espresso engine upgrades your daily coffee needs. Simply add cold water with your favorite capsules or freshly ground coffee. <strong className="text-white">Never be limited by location.</strong> It's just one tap to extract exquisite espresso anywhere.
             </p>
           </div>
 
-          <div className="w-full">
+          <div className="w-full mb-4">
             <h2 className="text-xl font-bold tracking-[0.1em] uppercase mb-8 text-center border-b border-white/5 pb-4 text-white">How does it work?</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[ 
@@ -445,7 +434,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="py-12 bg-[#0a0a0a] border border-white/5 px-8 relative z-20 w-full rounded-sm">
+          <div className="py-12 bg-[#0a0a0a] border border-white/5 px-8 relative z-20 w-full rounded-sm mb-4">
              <h2 className="text-xl font-bold tracking-[0.1em] uppercase mb-10 text-center text-white">Tactical Deployable Assets</h2>
              <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-12">
                {[ 
@@ -463,27 +452,12 @@ export default async function Home() {
              </div>
           </div>
 
-          <div className="w-full flex justify-center mt-[-20px]">
-             <a href={checkoutUrl} className="w-full md:w-auto bg-white text-black px-12 py-5 text-xs font-black tracking-[0.2em] uppercase hover:bg-gray-200 transition-colors flex items-center justify-center gap-4 group cursor-pointer shadow-[0_0_20px_rgba(255,255,255,0.15)]">
-                SECURE THE OBSIDIAN PRESS <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
-             </a>
+          {/* V25: IMAGEN CORREGIDA CON OBJECT-CONTAIN SIN CORTES */}
+          <div className="w-full bg-[#050505] border border-white/10 rounded-sm overflow-hidden relative">
+             <img src="/field-deployment.png" alt="Core Architecture Dual Compatibility" className="w-full h-auto object-contain" />
           </div>
 
-          <div className="w-full bg-transparent flex items-center justify-center">
-             <img src="/core-split.png" alt="Core Architecture Dual Compatibility" className="w-full h-auto rounded-sm shadow-xl border border-white/5" />
-          </div>
-
-          <div className="relative aspect-[4/3] w-full bg-black overflow-hidden border border-white/10 group rounded-sm">
-             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/30 pointer-events-none z-10" />
-             <img src="/field-deployment.png" alt="Espresso Machine in Vehicle" className="w-full h-full object-cover opacity-80 z-0 group-hover:scale-105 transition-transform duration-700" />
-             <div className="absolute bottom-6 left-6 z-20">
-                <span className="bg-yellow-500/20 text-yellow-500 border border-yellow-500/50 px-3 py-1 text-[10px] font-bold tracking-widest uppercase backdrop-blur-sm">Field Tested</span>
-                <h3 className="text-white font-black tracking-widest uppercase mt-3 text-xl">Vehicle Integration</h3>
-             </div>
-          </div>
-
-          {/* V24: Acomodamos el video negro (Asegurate de que demo-action1 esté en .mp4 limpio) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mt-4">
             <div className="aspect-[4/5] bg-[#0a0a0a] border border-white/10 relative overflow-hidden group">
               <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity bg-[#111]">
                 <source src="/demo-action1.mp4" type="video/mp4" />
@@ -496,7 +470,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="w-full">
+          <div className="w-full mt-4">
             <h2 className="text-xl font-bold tracking-[0.1em] uppercase mb-8 text-center text-white">Tactical Superiority</h2>
             <div className="space-y-4 bg-[#0a0a0a] border border-white/10 p-8 rounded-sm">
               <div className="flex justify-between items-center border-b border-white/5 pb-4">
@@ -520,7 +494,8 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="bg-transparent text-white pt-8 w-full" id="reviews">
+          {/* LA MURALLA DE CONFIANZA */}
+          <div className="bg-transparent text-white pt-8 w-full mt-4" id="reviews">
             <h2 className="text-3xl font-black tracking-widest uppercase text-white mb-8 text-center">Verified Mission Reports</h2>
             
             <div className="bg-[#0a0a0a] border border-white/10 p-6 md:p-8 rounded-sm mb-10 flex flex-col md:flex-row gap-8 justify-between items-center md:items-start">
@@ -561,13 +536,14 @@ export default async function Home() {
             {reviewWallContent}
           </div>
 
-          <div className="w-full mt-2">
-            <h2 className="text-xl font-bold tracking-[0.1em] uppercase mb-8 text-center border-b border-white/10 pb-4 text-white">Intelligence Data (FAQ)</h2>
+          <div className="w-full mt-0">
+            <h2 className="text-xl font-bold tracking-[0.1em] uppercase mb-6 text-center border-b border-white/10 pb-4 text-white">Intelligence Data (FAQ)</h2>
             <div className="space-y-4">
               {[ 
                 { q: "Do I need hot water or power to use it?", a: "Negative. The Obsidian Press features a 2500mAh self-heating core. Just add cold water, double click to activate, and it heats to 90°C in under 200 seconds." }, 
                 { q: "Which capsules are compatible?", a: "Absolute modular versatility. Includes adapters for small capsules (Nespresso Original), large pods (Dolce Gusto), and your own freshly ground coffee beans." }, 
-                { q: "Can this be used on a plane?", a: "Yes, cleared for carry-on luggage. However, airline regulations prohibit using the self-heating function *during* the flight. Perfect for the terminal." }
+                { q: "Can this be used on a plane?", a: "Yes, cleared for carry-on luggage. However, airline regulations prohibit using the self-heating function *during* the flight. Perfect for the terminal." },
+                { q: "How do I clean the modular chamber?", a: "Hassle-free operation. Fill the reservoir with fresh water and run a cycle without ammunition (capsules). The 18-bar pressure system purges itself automatically." } 
               ].map(faq => (
                 <details key={faq.q} className="group border border-white/10 bg-[#0a0a0a] p-6 cursor-pointer hover:border-white/30 transition-colors rounded-sm">
                   <summary className="font-bold tracking-widest uppercase text-xs flex justify-between items-center text-white">
@@ -585,7 +561,7 @@ export default async function Home() {
         </div>
 
         {/* Right Column: Sticky Buy Box */}
-        <div id="buy-box" className="w-full lg:w-[45%] order-1 lg:order-2 flex items-start lg:sticky lg:top-24 scroll-mt-24 mt-8 lg:mt-0">
+        <div id="buy-box" className="w-full lg:w-[45%] order-1 lg:order-2 flex items-start lg:sticky lg:top-24 scroll-mt-24 mt-4 lg:mt-0">
           <div className="bg-[#080808] border border-white/10 p-8 shadow-2xl z-30 w-full rounded-sm">
             
             <a href="#reviews" className="flex items-center gap-2 mb-4 text-yellow-500 hover:opacity-80 transition-opacity cursor-pointer w-fit">
