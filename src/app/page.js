@@ -38,8 +38,7 @@ export default async function Home() {
   const WHATSAPP_NUMBER = "5491100000000"; 
   const WHATSAPP_MSG = "Hello Dilemma Drift, I need assistance with The Obsidian Press.";
 
-  // 48 TESTIMONIOS 100% ÚNICOS Y REALES (Sacados de tus competidores y adaptados al Lujo)
-  const allReviews = [
+  const baseReviews = [
     { id: 1, name: "William P.", date: "18/03/2026", rating: 5, img: "/review-1.jpg", text: "Take this bad boy with me while I'm out on the boat. Couldn't be happier with it. The battery handles the heating perfectly." },
     { id: 2, name: "David B.", date: "11/03/2026", rating: 3, img: null, text: "Not enough water space. The reservoir only holds 70ml, so I have to bring a thermos with cold water to refill it if I want a long coffee. The heating element is surprisingly fast though." },
     { id: 3, name: "Mia T.", date: "02/03/2026", rating: 5, img: "/review-2.jpg", text: "Received as a gift - perfect for taking away camping and still getting my coffee fix. The self-heating is completely silent." },
@@ -90,7 +89,6 @@ export default async function Home() {
     { id: 48, name: "Christopher E.", date: "05/05/2025", rating: 5, img: null, text: "The instructions were simple, and I had my first espresso within minutes." }
   ];
 
-  // ANCLAJE PSICOLÓGICO FIJO (Mostramos 681 en todos lados para autoridad)
   const totalReviewsAnclaje = 681;
   const count5 = Math.floor(totalReviewsAnclaje * 0.86);
   const count4 = Math.floor(totalReviewsAnclaje * 0.10);
@@ -108,18 +106,16 @@ export default async function Home() {
 
   const chunkSize = 6;
   const reviewChunks = [];
-  for (let i = 0; i < allReviews.length; i += chunkSize) {
-    reviewChunks.push(allReviews.slice(i, i + chunkSize));
+  for (let i = 0; i < baseReviews.length; i += chunkSize) {
+    reviewChunks.push(baseReviews.slice(i, i + chunkSize));
   }
 
-  // Componente Estrella 4.8 Híbrida (SVG Custom para precisión visual)
   const StarRating48 = () => (
     <div className="flex text-yellow-500 mt-2 gap-0.5">
       <Star className="w-5 h-5 fill-current" />
       <Star className="w-5 h-5 fill-current" />
       <Star className="w-5 h-5 fill-current" />
       <Star className="w-5 h-5 fill-current" />
-      {/* Estrella cortada al 80% */}
       <div className="relative w-5 h-5">
          <Star className="absolute top-0 left-0 w-5 h-5 text-gray-700" />
          <div className="absolute top-0 left-0 h-full overflow-hidden" style={{ width: '80%' }}>
@@ -234,7 +230,7 @@ export default async function Home() {
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         .animate-fade-in { animation: fadeIn 0.2s ease-out forwards; }
-        .animate-marquee { display: flex; width: max-content; animation: marquee 25s linear infinite; }
+        .animate-marquee { display: flex; width: max-content; animation: marquee 45s linear infinite; }
         
         .masonry-columns { column-count: 1; column-gap: 16px; width: 100%; display: block; }
         @media (min-width: 640px) { .masonry-columns { column-count: 2; } }
@@ -254,11 +250,10 @@ export default async function Home() {
         .submit-trigger:checked ~ .success-elements { display: flex !important; animation: fadeIn 0.5s ease-out forwards; }
       `}} />
 
-      {/* SCRIPTS NATIVOS */}
       <script dangerouslySetInnerHTML={{__html: `
         if (typeof window !== 'undefined') {
           document.addEventListener('DOMContentLoaded', () => {
-            // Smart Nav Logic
+            // Smart Nav
             let lastScroll = window.pageYOffset;
             const commandCenter = document.getElementById('command-center');
             const subPopup = document.getElementById('sub-popup');
@@ -283,7 +278,7 @@ export default async function Home() {
               lastScroll = currentScroll;
             });
 
-            // Unlock Popup Logic (Fricción Cero - Sin enviar formulario)
+            // Unlock Popup Success
             if(document.getElementById('unlock-btn')){
                 document.getElementById('unlock-btn').addEventListener('click', () => {
                 if (subInput.value.includes('@')) {
@@ -300,13 +295,25 @@ export default async function Home() {
                 });
             }
 
-            // Drag & Drop Video
+            // Drag & Drop + Play Sound Video Flotante
             const floatWidget = document.getElementById('floating-widget');
             const dragOverlay = document.getElementById('drag-overlay');
             const closeBtn = document.getElementById('close-floating-btn');
             const expandChk = document.getElementById('expand-floating-video');
+            const expandedVideo = document.getElementById('expanded-video');
             
             let isDragging = false, isMoved = false, startX, startY, initialLeft, initialTop;
+
+            if (expandChk && expandedVideo) {
+               expandChk.addEventListener('change', (e) => {
+                  if (e.target.checked) {
+                     expandedVideo.currentTime = 0;
+                     expandedVideo.muted = false;
+                  } else {
+                     expandedVideo.muted = true;
+                  }
+               });
+            }
 
             if (floatWidget && dragOverlay && closeBtn) {
                 closeBtn.addEventListener('click', (e) => {
@@ -371,7 +378,7 @@ export default async function Home() {
         <svg viewBox="0 0 24 24" className="w-7 h-7 fill-current" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.013-.967-.253-.099-.439-.149-.624.149-.183.298-.715.967-.877 1.166-.165.198-.328.223-.625.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.298-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.624-1.505-.855-2.059-.227-.539-.456-.465-.624-.473-.165-.008-.353-.008-.539-.008-.184 0-.486.074-.739.372-.253.297-.967.944-.967 2.304s.991 2.675 1.13 2.873c.138.198 1.954 2.997 4.735 4.196.662.285 1.179.456 1.583.584.665.21 1.269.18 1.745.109.535-.08 1.758-.717 2.004-1.411.246-.694.246-1.289.173-1.411-.074-.124-.26-.198-.557-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       </a>
 
-      {/* VIDEO FLOTANTE TÁCTICO */}
+      {/* VIDEO FLOTANTE TÁCTICO V29 */}
       <div id="floating-widget" className="fixed bottom-[88px] lg:bottom-6 right-6 z-[90] w-28 md:w-36 aspect-[9/16] bg-black border border-white/20 rounded-lg shadow-[0_0_30px_rgba(0,0,0,0.8)] overflow-hidden transition-shadow hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
         
         <div id="close-floating-btn" className="absolute top-1.5 right-1.5 w-6 h-6 bg-black/80 backdrop-blur-md rounded-full flex items-center justify-center cursor-pointer z-50 text-white hover:bg-red-500 transition-colors">
@@ -386,11 +393,14 @@ export default async function Home() {
         </video>
 
         <div className="fixed inset-0 hidden peer-checked/expand:flex items-center justify-center bg-black/95 backdrop-blur-md z-[200] animate-fade-in p-4" style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh' }}>
+           {/* CAPA FANTASMA PARA CERRAR HACIENDO CLIC AFUERA DEL VIDEO */}
+           <label htmlFor="expand-floating-video" className="absolute inset-0 z-10 cursor-pointer"></label>
+           
            <label htmlFor="expand-floating-video" className="absolute top-6 right-6 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center cursor-pointer z-30 text-white hover:bg-white/20 transition-colors">
               <X className="w-5 h-5" />
            </label>
            <a href={checkoutUrl} className="relative w-full max-w-sm aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-[0_0_50px_rgba(255,255,255,0.1)] block group cursor-pointer z-40">
-              <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover pointer-events-none">
+              <video id="expanded-video" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover pointer-events-none">
                 <source src="/floating-demo.mp4" type="video/mp4" />
               </video>
               <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent flex flex-col items-center">
@@ -402,7 +412,7 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* Pop-up de Suscripción (Fix autocomplete y comportamiento) */}
+      {/* Pop-up de Suscripción */}
       <input type="checkbox" id="close-sub" className="close-sub-chk hidden peer/close-s" />
       <input type="checkbox" id="success-trigger" className="submit-trigger hidden peer/success" />
       <div id="sub-popup" className="fixed bottom-0 md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full md:w-[400px] bg-[#050505] border border-white/20 p-8 z-[100] transform translate-y-full md:scale-95 opacity-0 pointer-events-none transition-all duration-700 ease-out rounded-t-2xl md:rounded-xl shadow-[0_0_80px_rgba(0,0,0,0.8)] peer-checked/close-s:hidden">
@@ -423,7 +433,7 @@ export default async function Home() {
          </div>
       </div>
 
-      {/* EL CENTRO DE COMANDO (Nav Centrada y Fuente Serif de Lujo) */}
+      {/* EL CENTRO DE COMANDO */}
       <header id="command-center" className="fixed top-0 w-full z-50 transition-transform duration-300">
         <div className="bg-[#000000] text-white py-2 overflow-hidden border-b border-white/10">
           <div className="animate-marquee whitespace-nowrap text-[10px] font-black tracking-[0.2em] uppercase flex items-center">
@@ -513,6 +523,10 @@ export default async function Home() {
           </div>
 
           <div className="w-full bg-[#050505] border border-white/10 rounded-sm overflow-hidden relative">
+             <img src="/core-split.png" alt="Core Architecture Dual Compatibility" className="w-full h-auto object-contain" />
+          </div>
+
+          <div className="w-full bg-[#050505] border border-white/10 rounded-sm overflow-hidden relative">
              <img src="/field-deployment.png" alt="Field Deployment" className="w-full h-auto object-contain" />
           </div>
 
@@ -529,7 +543,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="w-full mt-4">
+          <div className="w-full">
             <h2 className="text-xl font-bold tracking-[0.1em] uppercase mb-8 text-center text-white">Tactical Superiority</h2>
             <div className="space-y-4 bg-[#0a0a0a] border border-white/10 p-8 rounded-sm">
               <div className="flex justify-between items-center border-b border-white/5 pb-4">
@@ -617,7 +631,7 @@ export default async function Home() {
         </div>
 
         {/* Right Column: Sticky Buy Box */}
-        <div id="buy-box" className="w-full lg:w-[45%] order-1 lg:order-2 flex items-start lg:sticky lg:top-28 scroll-mt-28 mt-4 lg:mt-0">
+        <div id="buy-box" className="w-full lg:w-[45%] order-1 lg:order-2 flex items-start lg:sticky lg:top-24 scroll-mt-24 mt-4 lg:mt-0">
           <div className="bg-[#080808] border border-white/10 p-8 shadow-2xl z-30 w-full rounded-sm">
             
             <a href="#reviews" className="flex items-center gap-2 mb-4 text-yellow-500 hover:opacity-80 transition-opacity cursor-pointer w-fit">
