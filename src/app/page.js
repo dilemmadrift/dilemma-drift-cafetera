@@ -213,6 +213,7 @@ export default async function Home() {
     var reviewContent = reviewWallContent; 
   }
 
+  // Iconos de pago encriptados (Sin depender de Shopify)
   const PaymentIcons = () => (
     <div className="flex flex-col items-center justify-center gap-2 opacity-50 mt-6">
       <div className="flex items-center gap-2 text-white">
@@ -517,8 +518,10 @@ export default async function Home() {
              </div>
           </div>
 
+          {/* ELIMINADA LA IMAGEN FANTASMA */}
+
           <div className="w-full bg-[#050505] border border-white/10 rounded-sm overflow-hidden relative">
-             <img src="/8974B528-6848-48C4-9086-9777818C234B_1_201_a.jpeg" alt="Core Architecture Dual Compatibility" className="w-full h-auto object-contain" />
+             <img src="/core-split.png" alt="Core Architecture Dual Compatibility" className="w-full h-auto object-contain" />
           </div>
 
           <div className="w-full bg-[#050505] border border-white/10 rounded-sm overflow-hidden relative">
