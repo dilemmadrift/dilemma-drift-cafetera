@@ -1,5 +1,5 @@
 import { shopifyFetch } from '../lib/shopify';
-import { ArrowRight, BatteryCharging, Zap, Star, ShieldCheck, Check, X, Package, CheckCircle2, Settings, Thermometer, Coffee, Lock, MailCheck, GripHorizontal, CreditCard, ChevronDown } from "lucide-react";
+import { ArrowRight, BatteryCharging, Zap, Star, ShieldCheck, Check, X, Package, CheckCircle2, Settings, Thermometer, Coffee, Lock, MailCheck, GripHorizontal, CreditCard } from "lucide-react";
 
 export const dynamic = 'force-dynamic';
 
@@ -33,6 +33,7 @@ export default async function Home() {
   const fullVariantId = productNode.variants.edges[0]?.node?.id || '';
   const rawVariantId = fullVariantId.split('/').pop();
   const storeDomain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN || 'dilemma-drift-3.myshopify.com';
+  // Base checkout string without quantity
   const checkoutUrlBase = `https://${storeDomain}/cart/${rawVariantId}`;
 
   const WHATSAPP_NUMBER = "5491100000000"; 
@@ -49,7 +50,44 @@ export default async function Home() {
     { id: 8, name: "Scott K.", date: "02/01/2026", rating: 2, img: null, text: "It didn't puncture my large capsules correctly at first. Found out I wasn't pushing the adapter down hard enough. User error, but annoying." },
     { id: 9, name: "Kristy S.", date: "13/12/2025", rating: 5, img: "/review-6.jpg", text: "Impressive modularity. I've only tried the large capsule and ground coffee, super hot. Perfect deployment asset." },
     { id: 10, name: "Andrew T.", date: "15/05/2025", rating: 5, img: null, text: "It's the perfect size for my camper setup. Highly recommended." },
-    { id: 11, name: "Barbara N.", date: "15/05/2025", rating: 5, img: null, text: "Finally a way to enjoy café coffee without the cost. The crema is exactly what I wanted." }
+    { id: 11, name: "Barbara N.", date: "15/05/2025", rating: 5, img: null, text: "Finally a way to enjoy café coffee without the cost. The crema is exactly what I wanted." },
+    { id: 12, name: "Maria L.", date: "15/05/2025", rating: 5, img: null, text: "Lightweight but brews strong - love it." },
+    { id: 13, name: "Barbara S.", date: "15/05/2025", rating: 5, img: null, text: "Super easy to assemble and disassemble. Washing the modular parts takes 10 seconds." },
+    { id: 14, name: "Donna W.", date: "09/05/2025", rating: 5, img: null, text: "Doesn't spill or leak during travel. Fits perfectly in the side pocket of my backpack." },
+    { id: 15, name: "Zoe M.", date: "09/05/2025", rating: 5, img: null, text: "I even use it in my camper van - space saver and delicious results." },
+    { id: 16, name: "Mark W.", date: "09/05/2025", rating: 5, img: null, text: "I bought it for the office, but now my colleagues borrow it constantly. Should have bought two." },
+    { id: 17, name: "Pita T.", date: "24/11/2025", rating: 5, img: null, text: "Have it as a Chrissy prezzies for my mate..he loves it!!" },
+    { id: 18, name: "Lucas M.", date: "15/10/2025", rating: 4, img: null, text: "Takes about 3 minutes to heat the water. Not instant, but for a battery-powered device, it's impressive." },
+    { id: 19, name: "Sofia G.", date: "10/10/2025", rating: 5, img: null, text: "POV: You actually bought something useful. Best purchase of the year." },
+    { id: 20, name: "Liam O.", date: "18/09/2025", rating: 5, img: null, text: "Industrial warranty is the clincher. Build quality is exceptional, lightweight but very solid." },
+    { id: 21, name: "Priya R.", date: "15/09/2025", rating: 5, img: null, text: "TSA compliant for travel. Heats fast. Crema is superb. Replaced my hotel coffee completely." },
+    { id: 22, name: "Viktor D.", date: "10/09/2025", rating: 5, img: null, text: "My partner and I fight over who gets to use it first. Absolute essential." },
+    { id: 23, name: "Chloe A.", date: "05/09/2025", rating: 5, img: null, text: "The taste comparison is spot on. Flavor depth with my own grounds is exactly like my expensive home setup." },
+    { id: 24, name: "Trevor M.", date: "01/09/2025", rating: 5, img: null, text: "Never letting this tactical asset out of my sight. Fresh espresso in traffic is unreal." },
+    { id: 25, name: "Javier L.", date: "28/08/2025", rating: 4, img: null, text: "Fast shipping. Packaged securely. Modular cleaning protocol works just as described." },
+    { id: 26, name: "Swampy W.", date: "25/08/2025", rating: 5, img: null, text: "Ideal for short stops. Beats waiting in line and paying $6 each. Makes a great espresso." },
+    { id: 27, name: "Callan W.", date: "20/08/2025", rating: 5, img: null, text: "Fastest heat time I've experienced on a portable. Solid build." },
+    { id: 28, name: "Elias C.", date: "15/08/2025", rating: 5, img: null, text: "Absolute modular versatility. Capsules or grounds - both taste great." },
+    { id: 29, name: "Marcus T.", date: "10/08/2025", rating: 4, img: null, text: "A bit heavy for ultra-light backpacking, but considering it heats water internally, it's worth the weight." },
+    { id: 30, name: "Sophie L.", date: "05/08/2025", rating: 5, img: null, text: "The matte onyx finish is gorgeous. Looks like a very expensive piece of tech on my desk." },
+    { id: 31, name: "Aria N.", date: "01/08/2025", rating: 5, img: null, text: "I bought it for van life. Being completely off-grid and having a hot espresso is a game changer." },
+    { id: 32, name: "Leo F.", date: "25/07/2025", rating: 5, img: null, text: "The 20-bar pump sounds serious when it engages. You can tell it's pushing real pressure." },
+    { id: 33, name: "Ben D.", date: "20/07/2025", rating: 5, img: null, text: "I'm wired! Makes espresso strong enough to wake me up instantly." },
+    { id: 34, name: "Opie T.", date: "15/07/2025", rating: 5, img: null, text: "Purchased my first one and really like how you can do grinds or pods. Loved it so much purchased one for my husband." },
+    { id: 35, name: "Phillip B.", date: "10/07/2025", rating: 5, img: null, text: "Use it on the building site everyday! very happy with my purchase." },
+    { id: 36, name: "Benjamin W.", date: "05/07/2025", rating: 5, img: null, text: "The machine feels premium, but the price is super reasonable." },
+    { id: 37, name: "Madison P.", date: "01/07/2025", rating: 5, img: null, text: "No more lining up for coffee at work. Lifesaver." },
+    { id: 38, name: "Ronald S.", date: "25/06/2025", rating: 5, img: null, text: "Incredible. The crema holds up even when I froth oat milk over it." },
+    { id: 39, name: "Margaret B.", date: "20/06/2025", rating: 5, img: null, text: "Works with almond and soy milk without issues." },
+    { id: 40, name: "James M.", date: "15/06/2025", rating: 5, img: null, text: "Perfect for early mornings at the office before meetings." },
+    { id: 41, name: "Mary W.", date: "10/06/2025", rating: 5, img: null, text: "I use it during long photography shoots outdoors. Keeps me fueled." },
+    { id: 42, name: "John R.", date: "05/06/2025", rating: 5, img: null, text: "Sleek and modern design — looks very expensive." },
+    { id: 43, name: "Ivy C.", date: "01/06/2025", rating: 5, img: null, text: "Makes camping trips feel way more luxurious." },
+    { id: 44, name: "Harper F.", date: "25/05/2025", rating: 5, img: null, text: "Brilliant little device for travelers." },
+    { id: 45, name: "Scarlett D.", date: "20/05/2025", rating: 5, img: null, text: "Customer service was helpful when I had a question—great support." },
+    { id: 46, name: "Betty F.", date: "15/05/2025", rating: 5, img: null, text: "My teenage kids love making iced coffee with it." },
+    { id: 47, name: "Dorothy N.", date: "10/05/2025", rating: 5, img: null, text: "It heats quickly and the coffee is ready in minutes." },
+    { id: 48, name: "Christopher E.", date: "05/05/2025", rating: 5, img: null, text: "The instructions were simple, and I had my first espresso within minutes." }
   ];
 
   const totalReviewsAnclaje = 681;
@@ -129,6 +167,7 @@ export default async function Home() {
   for (let i = reviewChunks.length - 1; i >= 0; i--) {
     const chunk = reviewChunks[i];
     const isLast = i === reviewChunks.length - 1;
+
     reviewWallContent = (
       <div className="w-full contents">
         <div className="masonry-columns space-y-4 mb-2 w-full block">
@@ -143,7 +182,9 @@ export default async function Home() {
               <div className="p-6 flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-3">
                    <div>
-                      <p className="text-sm font-bold text-white flex items-center gap-1">{review.name} <CheckCircle2 className="w-3 h-3 text-green-500" /></p>
+                      <p className="text-sm font-bold text-white flex items-center gap-1">
+                         {review.name} <CheckCircle2 className="w-3 h-3 text-green-500" />
+                      </p>
                       <p className="text-[10px] text-gray-500 mt-1">{review.date}</p>
                    </div>
                 </div>
@@ -156,11 +197,16 @@ export default async function Home() {
             </div>
           ))}
         </div>
+        
         {!isLast && (
           <div className="w-full break-inside-avoid flex flex-col items-center mt-2 mb-4">
             <input type="checkbox" id={`load-more-${i}`} className="toggle-chk hidden" />
-            <label htmlFor={`load-more-${i}`} className="toggle-lbl bg-[#0a0a0a] border border-white/10 text-white px-10 py-4 text-xs tracking-widest font-bold uppercase hover:border-white/30 transition-colors cursor-pointer text-center w-full md:w-auto rounded-sm">Show more reports</label>
-            <div className="toggle-content hidden w-full">{reviewContent}</div>
+            <label htmlFor={`load-more-${i}`} className="toggle-lbl bg-[#0a0a0a] border border-white/10 text-white px-10 py-4 text-xs tracking-widest font-bold uppercase hover:border-white/30 transition-colors cursor-pointer text-center w-full md:w-auto rounded-sm">
+              Show more reports
+            </label>
+            <div className="toggle-content hidden w-full">
+              {reviewContent}
+            </div>
           </div>
         )}
       </div>
@@ -174,33 +220,49 @@ export default async function Home() {
         <Lock className="w-3 h-3" />
         <span className="text-[9px] font-bold uppercase tracking-widest">Guaranteed Safe Checkout</span>
       </div>
-      <div className="flex gap-2 text-gray-400"><CreditCard className="w-5 h-5" /></div>
+      <div className="flex gap-2 text-gray-400">
+         <CreditCard className="w-5 h-5" />
+      </div>
     </div>
   );
 
   return (
     <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-white selection:text-black antialiased pb-20 lg:pb-0 relative scroll-smooth">
+      
       <style dangerouslySetInnerHTML={{__html: `
         html { scroll-behavior: smooth; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         .animate-fade-in { animation: fadeIn 0.2s ease-out forwards; }
         .animate-marquee { display: flex; width: max-content; animation: marquee 45s linear infinite; }
+        
         .masonry-columns { column-count: 1; column-gap: 16px; width: 100%; display: block; }
         @media (min-width: 640px) { .masonry-columns { column-count: 2; } }
+        
         .toggle-chk:checked ~ .toggle-content { display: block; }
         .toggle-chk:checked ~ .toggle-lbl { display: none; }
+
         .nav-hidden { transform: translateY(-100%); }
         .nav-visible { transform: translateY(0); }
+        
         details > summary { list-style: none; outline: none; }
         details > summary::-webkit-details-marker { display: none; }
+
+        .close-floating-chk:checked ~ .floating-video-container { display: none !important; }
+        .close-sub-chk:checked ~ #sub-popup { display: none !important; }
+        .submit-trigger:checked ~ .form-elements { display: none !important; }
+        .submit-trigger:checked ~ .success-elements { display: flex !important; animation: fadeIn 0.5s ease-out forwards; }
       `}} />
 
       <script dangerouslySetInnerHTML={{__html: `
         if (typeof window !== 'undefined') {
           document.addEventListener('DOMContentLoaded', () => {
+            // --- UI Interaction Logic ---
             let lastScroll = window.pageYOffset;
             const commandCenter = document.getElementById('command-center');
+            const subPopup = document.getElementById('sub-popup');
+            const subInput = document.getElementById('sub-input');
+            const subSuccess = document.getElementById('success-trigger');
             
             window.addEventListener('scroll', () => {
               const currentScroll = window.pageYOffset;
@@ -213,40 +275,130 @@ export default async function Home() {
                   commandCenter.classList.remove('nav-hidden');
                 }
               }
+              if (subPopup && !subPopup.classList.contains('op-completed') && (window.innerHeight + currentScroll) >= document.body.offsetHeight - 1500) {
+                subPopup.classList.remove('translate-y-full', 'opacity-0', 'pointer-events-none');
+                subPopup.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+              }
               lastScroll = currentScroll;
             });
 
-            const scrollBtn = document.getElementById('scroll-to-buy');
-            const buyBox = document.getElementById('buy-section-anchor');
-            if(scrollBtn && buyBox) {
-                scrollBtn.addEventListener('click', () => {
-                    buyBox.scrollIntoView({ behavior: 'smooth' });
+            if(document.getElementById('unlock-btn')){
+                document.getElementById('unlock-btn').addEventListener('click', () => {
+                if (subInput.value.includes('@')) {
+                    subSuccess.checked = true;
+                    subPopup.classList.add('op-completed');
+                    setTimeout(() => {
+                      document.getElementById('close-sub').checked = true;
+                      subPopup.classList.add('pointer-events-none');
+                    }, 2500);
+                } else {
+                    subInput.classList.add('border-red-500');
+                    setTimeout(() => subInput.classList.remove('border-red-500'), 1000);
+                }
                 });
             }
 
+            // --- Floating Video Logic ---
+            const floatWidget = document.getElementById('floating-widget');
+            const dragOverlay = document.getElementById('drag-overlay');
+            const closeBtn = document.getElementById('close-floating-btn');
+            const openTrigger = document.getElementById('open-video-trigger');
+            const closeBg = document.getElementById('close-video-bg');
+            const closeX = document.getElementById('close-video-x');
+            const expandedVideo = document.getElementById('expanded-video');
+            
+            let isDragging = false, isMoved = false, startX, startY, initialLeft, initialTop;
+
+            if (expandedVideo) {
+               if (openTrigger) {
+                  openTrigger.addEventListener('click', () => {
+                     expandedVideo.muted = false;
+                     expandedVideo.currentTime = 0;
+                     expandedVideo.play();
+                  });
+               }
+               const muteAndPause = () => {
+                  expandedVideo.muted = true;
+               };
+               if (closeBg) closeBg.addEventListener('click', muteAndPause);
+               if (closeX) closeX.addEventListener('click', muteAndPause);
+            }
+
+            if (floatWidget && dragOverlay && closeBtn) {
+                closeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    floatWidget.style.display = 'none';
+                });
+
+                const startDrag = (clientX, clientY) => {
+                    isDragging = true;
+                    isMoved = false;
+                    startX = clientX;
+                    startY = clientY;
+                    const rect = floatWidget.getBoundingClientRect();
+                    initialLeft = rect.left;
+                    initialTop = rect.top;
+                    floatWidget.style.bottom = 'auto';
+                    floatWidget.style.right = 'auto';
+                    floatWidget.style.left = initialLeft + 'px';
+                    floatWidget.style.top = initialTop + 'px';
+                };
+
+                const doDrag = (clientX, clientY) => {
+                    if (!isDragging) return;
+                    if (Math.abs(clientX - startX) > 3 || Math.abs(clientY - startY) > 3) {
+                        isMoved = true;
+                    }
+                    floatWidget.style.left = (initialLeft + (clientX - startX)) + 'px';
+                    floatWidget.style.top = (initialTop + (clientY - startY)) + 'px';
+                };
+
+                const endDrag = () => { isDragging = false; };
+
+                dragOverlay.addEventListener('mousedown', (e) => { e.preventDefault(); startDrag(e.clientX, e.clientY); });
+                document.addEventListener('mousemove', (e) => { doDrag(e.clientX, e.clientY); });
+                document.addEventListener('mouseup', endDrag);
+
+                dragOverlay.addEventListener('touchstart', (e) => { startDrag(e.touches[0].clientX, e.touches[0].clientY); }, {passive: true});
+                document.addEventListener('touchmove', (e) => { if(isDragging){ e.preventDefault(); doDrag(e.touches[0].clientX, e.touches[0].clientY); } }, {passive: false});
+                document.addEventListener('touchend', endDrag);
+            }
+
+            // --- UPSELL DYNAMIC CHECKOUT LOGIC ---
             const baseCheckout = "${checkoutUrlBase}";
             const basePriceNum = ${price};
+            
             const desktopCheckoutBtn = document.getElementById('desktop-checkout-btn');
             const mobileCheckoutBtn = document.getElementById('mobile-checkout-btn');
             const mobilePriceDisplay = document.getElementById('mobile-price-display');
             const mainPriceDisplay = document.getElementById('main-price-display');
             const mainCompareDisplay = document.getElementById('main-compare-display');
             
-            document.querySelectorAll('input[name="tier"]').forEach(radio => {
+            const tierRadios = document.querySelectorAll('input[name="tier"]');
+            
+            tierRadios.forEach(radio => {
                 radio.addEventListener('change', (e) => {
                     const qty = parseInt(e.target.value);
                     let discount = 1;
-                    if(qty === 2) discount = 0.85; 
-                    if(qty === 3) discount = 0.80; 
+                    if(qty === 2) discount = 0.85; // 15% off
+                    if(qty === 3) discount = 0.80; // 20% off
+                    
                     const newTotal = (basePriceNum * qty * discount).toFixed(2);
                     const newCompare = (basePriceNum * 1.5 * qty).toFixed(2);
                     const newCheckoutUrl = baseCheckout + ':' + qty;
                     
+                    // Update main display
                     if(mainPriceDisplay) mainPriceDisplay.innerText = '$' + newTotal;
                     if(mainCompareDisplay) mainCompareDisplay.innerText = '$' + newCompare;
+                    
+                    // Update mobile display
                     if(mobilePriceDisplay) mobilePriceDisplay.innerText = '$' + newTotal;
+                    
+                    // Update links
                     if(desktopCheckoutBtn) desktopCheckoutBtn.href = newCheckoutUrl;
                     if(mobileCheckoutBtn) mobileCheckoutBtn.href = newCheckoutUrl;
+                    
+                    // Also update header top links if they exist
                     document.querySelectorAll('.top-secure-link').forEach(link => link.href = newCheckoutUrl);
                 });
             });
@@ -254,63 +406,105 @@ export default async function Home() {
         }
       `}} />
 
+      <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MSG)}`} target="_blank" rel="noopener noreferrer" className="fixed bottom-[88px] lg:bottom-6 left-6 z-[95] bg-[#25D366] text-white p-3.5 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.3)] hover:scale-110 transition-transform border border-white/10" aria-label="Chat on WhatsApp">
+        <svg viewBox="0 0 24 24" className="w-7 h-7 fill-current" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.013-.967-.253-.099-.439-.149-.624.149-.183.298-.715.967-.877 1.166-.165.198-.328.223-.625.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.298-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.624-1.505-.855-2.059-.227-.539-.456-.465-.624-.473-.165-.008-.353-.008-.539-.008-.184 0-.486.074-.739.372-.253.297-.967.944-.967 2.304s.991 2.675 1.13 2.873c.138.198 1.954 2.997 4.735 4.196.662.285 1.179.456 1.583.584.665.21 1.269.18 1.745.109.535-.08 1.758-.717 2.004-1.411.246-.694.246-1.289.173-1.411-.074-.124-.26-.198-.557-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </a>
+
+      <div id="floating-widget" className="fixed bottom-[88px] lg:bottom-6 right-6 z-[90] w-28 md:w-36 aspect-[9/16] bg-black border border-white/20 rounded-lg shadow-[0_0_30px_rgba(0,0,0,0.8)] overflow-hidden transition-shadow hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+        <div id="close-floating-btn" className="absolute top-1.5 right-1.5 w-6 h-6 bg-black/80 backdrop-blur-md rounded-full flex items-center justify-center cursor-pointer z-50 text-white hover:bg-red-500 transition-colors">
+           <X className="w-3 h-3" />
+        </div>
+        <div id="drag-overlay" className="absolute inset-0 z-20 cursor-grab active:cursor-grabbing"></div>
+        <input type="checkbox" id="expand-floating-video" className="peer/expand hidden" />
+        <label id="open-video-trigger" htmlFor="expand-floating-video" className="absolute inset-y-0 mt-8 inset-x-0 z-30 cursor-pointer"></label>
+        
+        <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none">
+           <source src="/floating-demo.mp4" type="video/mp4" />
+        </video>
+
+        <div className="fixed inset-0 hidden peer-checked/expand:flex items-center justify-center bg-black/95 backdrop-blur-md z-[200] animate-fade-in p-4" style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh' }}>
+           <label id="close-video-bg" htmlFor="expand-floating-video" className="absolute inset-0 z-10 cursor-pointer"></label>
+           <label id="close-video-x" htmlFor="expand-floating-video" className="absolute top-6 right-6 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center cursor-pointer z-30 text-white hover:bg-white/20 transition-colors">
+              <X className="w-5 h-5" />
+           </label>
+           <a href={`${checkoutUrlBase}:1`} className="relative w-full max-w-sm aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-[0_0_50px_rgba(255,255,255,0.1)] block group cursor-pointer z-40 top-secure-link">
+              <video id="expanded-video" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover pointer-events-none">
+                <source src="/floating-demo.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent flex flex-col items-center">
+                 <span className="bg-white text-black px-8 py-4 text-xs font-black tracking-widest uppercase hover:scale-105 transition-transform flex items-center gap-3">
+                   SECURE THE OBSIDIAN PRESS <ArrowRight className="w-4 h-4" />
+                 </span>
+              </div>
+           </a>
+        </div>
+      </div>
+
+      <input type="checkbox" id="close-sub" className="close-sub-chk hidden peer/close-s" />
+      <input type="checkbox" id="success-trigger" className="submit-trigger hidden peer/success" />
+      <div id="sub-popup" className="fixed bottom-0 md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full md:w-[400px] bg-[#050505] border border-white/20 p-8 z-[100] transform translate-y-full md:scale-95 opacity-0 pointer-events-none transition-all duration-700 ease-out rounded-t-2xl md:rounded-xl shadow-[0_0_80px_rgba(0,0,0,0.8)] peer-checked/close-s:hidden">
+         <label htmlFor="close-sub" className="absolute top-4 right-4 cursor-pointer w-8 h-8 flex items-center justify-center bg-white/5 rounded-full text-gray-400 hover:text-white hover:bg-white/10 transition-colors"><X className="w-4 h-4"/></label>
+         <h3 className="text-2xl font-black uppercase tracking-widest text-white mb-2 leading-tight">Unlock <br/><span className="text-yellow-500">TACTICAL DISPATCH</span></h3>
+         
+         <div className="form-elements flex flex-col gap-3">
+            <p className="text-sm text-gray-400 mb-6 font-light leading-relaxed">Join the operative list for priority access, 10% tactical discounts, and restock alerts.</p>
+            <input type="email" name="email" autoComplete="off" id="sub-input" placeholder="ENTER YOUR EMAIL" className="bg-[#111] border border-white/10 px-4 py-4 text-sm text-white focus:outline-none focus:border-white/30 transition-colors" />
+            <button type="button" id="unlock-btn" className="w-full bg-white text-black font-black uppercase tracking-[0.2em] py-4 text-xs hover:bg-gray-200 transition-colors shadow-[0_0_15px_rgba(255,255,255,0.1)] flex justify-center items-center text-center">Unlock Arsenal</button>
+            <label htmlFor="close-sub" className="block text-center text-[10px] text-gray-600 mt-4 cursor-pointer hover:text-gray-400 uppercase tracking-widest">No thanks, I pay full price</label>
+         </div>
+
+         <div className="success-elements hidden flex-col items-center text-center py-6 gap-4">
+            <MailCheck className="w-16 h-16 text-green-500 bg-green-500/10 p-4 rounded-full border border-green-500/20" />
+            <p className="text-green-500 font-bold uppercase tracking-widest text-sm">Deployment Secured</p>
+            <p className="text-xs text-gray-400 leading-relaxed font-light">Operative secured. Check your arsenal for dispatch data and the tactical code.</p>
+         </div>
+      </div>
+
       <header id="command-center" className="fixed top-0 w-full z-50 transition-transform duration-300">
         <div className="bg-[#000000] text-white py-2 overflow-hidden border-b border-white/10">
           <div className="animate-marquee whitespace-nowrap text-[10px] font-black tracking-[0.2em] uppercase flex items-center">
             {[...Array(15)].map((_, i) => <span key={i} className="mx-8">GLOBAL LAUNCH: 50% OFF + FREE WORLDWIDE EXPRESS SHIPPING</span>)}
           </div>
         </div>
-        <nav className="p-4 flex justify-between items-center bg-black/80 backdrop-blur-md border-b border-white/5 relative">
+        <nav className="p-4 flex justify-between items-center bg-[#050505]/95 backdrop-blur-md border-b border-white/5 relative">
           <div className="w-full flex justify-center absolute left-0">
              <h1 className="text-lg md:text-xl font-serif tracking-[0.4em] text-white/90 text-center">THE OBSIDIAN PRESS</h1>
           </div>
           <div className="w-full flex justify-end z-10 hidden md:flex">
-             <a href={`${checkoutUrlBase}:1`} className="top-secure-link text-[10px] font-bold tracking-[0.2em] uppercase text-black bg-white px-5 py-2.5 hover:bg-gray-200 transition-colors flex items-center gap-2">
+             <a href={`${checkoutUrlBase}:1`} className="top-secure-link text-[10px] font-bold tracking-[0.2em] uppercase text-black bg-white px-5 py-2.5 hover:bg-gray-200 transition-colors flex items-center gap-2 shadow-[0_0_15px_rgba(255,255,255,0.2)]">
                  SECURE UNIT
              </a>
           </div>
         </nav>
       </header>
 
-      {/* --- EL NUEVO GANCHO CINEMATOGRÁFICO (HERO SECTION) --- */}
-      <section className="relative w-full h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden pt-20">
-         <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-50 scale-105">
-            <source src="/demo-hero.mp4" type="video/mp4" />
-         </video>
-         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-[#050505]"></div>
-         
-         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto flex flex-col items-center mt-10">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-yellow-500/30 bg-yellow-500/10 text-yellow-500 text-[10px] font-bold tracking-widest uppercase mb-6 backdrop-blur-md">
-               <Zap className="w-3 h-3" /> Autonomous Self-Heating Core
-            </div>
-            
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase text-white mb-6 leading-[0.95]">
-               The Luxury of <br className="hidden md:block"/>
-               <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-600">Immediacy.</span>
-            </h1>
-            
-            <p className="text-base md:text-xl text-gray-300 font-light max-w-2xl mx-auto mb-10 leading-relaxed">
-               Experience 20 bars of raw industrial pressure. Add cold water, extract anywhere. Stop blowing your budget on takeaway coffee.
-            </p>
-            
-            <button id="scroll-to-buy" className="bg-white text-black px-8 py-5 md:px-12 md:py-6 text-sm font-black tracking-[0.2em] uppercase hover:bg-gray-200 transition-all flex items-center gap-4 hover:scale-105 shadow-[0_0_40px_rgba(255,255,255,0.15)] group">
-               SECURE DEPLOYMENT KIT <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-            </button>
-         </div>
-
-         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 animate-bounce">
-            <span className="text-[10px] tracking-[0.2em] uppercase font-bold text-white">Classified Intel</span>
-            <ChevronDown className="w-4 h-4 text-white" />
-         </div>
-      </section>
-      {/* --- FIN DEL GANCHO --- */}
-
-      <div id="buy-section-anchor" className="max-w-[1400px] mx-auto px-6 md:px-12 pt-20 pb-24 flex flex-col lg:flex-row gap-8 lg:gap-16 relative z-10 items-start">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-36 md:pt-40 pb-24 flex flex-col lg:flex-row gap-8 lg:gap-16 relative z-10 items-start">
         
-        {/* Left Column: Logic & Proof */}
         <div className="w-full lg:w-[55%] flex flex-col gap-10 order-2 lg:order-1 items-start mt-0">
           
-          <div className="bg-[#080808] border border-white/10 p-8 md:p-12 text-center rounded-sm w-full mb-2 shadow-2xl">
+          <div className="aspect-[4/5] w-full bg-[#0a0a0a] border border-white/10 relative overflow-hidden group rounded-sm shadow-2xl">
+            <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-1000">
+              <source src="/demo-hero.mp4" type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+          </div>
+
+          <div className="w-full flex justify-center my-2 md:hidden">
+             <a href={`${checkoutUrlBase}:1`} className="top-secure-link w-full bg-white text-black px-12 py-5 text-xs font-black tracking-[0.2em] uppercase hover:bg-gray-200 transition-colors flex items-center justify-center gap-4 group cursor-pointer shadow-[0_0_20px_rgba(255,255,255,0.15)]">
+                SECURE THE OBSIDIAN PRESS <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+             </a>
+          </div>
+
+          <div className="bg-transparent border-l-2 border-yellow-500 pl-6 text-left w-full my-2">
+            <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase mb-4 text-white leading-tight">
+              BLOWING YOUR BUDGET ON TAKEAWAY COFFEES?
+            </h2>
+            <p className="text-gray-400 leading-relaxed font-light text-sm md:text-base">
+              With The Obsidian Press, you can make rich, barista-style coffee anywhere in minutes - at home, work, camping or on the go. Stop paying $6 a cup.
+            </p>
+          </div>
+
+          <div className="bg-[#080808] border border-white/10 p-8 md:p-12 text-center rounded-sm w-full mb-2">
             <h2 className="text-2xl md:text-3xl font-black tracking-[0.1em] uppercase mb-6 text-white">COLD WATER CAN MAKE ESPRESSO.</h2>
             <p className="text-gray-400 leading-relaxed font-light text-sm">
               Remarkably small but with a powerful 2500mAh lithium battery. This industrial-grade portable espresso engine upgrades your daily coffee needs. Simply add cold water with your favorite capsules or freshly ground coffee. <strong className="text-white">Never be limited by location.</strong> It's just one tap to extract exquisite espresso anywhere.
@@ -354,6 +548,10 @@ export default async function Home() {
 
           <div className="w-full bg-[#050505] border border-white/10 rounded-sm overflow-hidden relative">
              <img src="/core-split.png" alt="Core Architecture Dual Compatibility" className="w-full h-auto object-contain" />
+          </div>
+
+          <div className="w-full bg-[#050505] border border-white/10 rounded-sm overflow-hidden relative">
+             <img src="/field-deployment.png" alt="Field Deployment" className="w-full h-auto object-contain" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mt-4">
@@ -417,10 +615,42 @@ export default async function Home() {
                     </div>
                  ))}
                </div>
+
+               <div className="flex flex-col gap-3 w-full md:w-auto items-center md:items-end justify-center">
+                 <div className="bg-[#111] border border-white/10 px-6 py-4 text-center rounded-sm w-full max-w-[200px]">
+                    <Lock className="w-5 h-5 text-gray-400 mx-auto mb-2" />
+                    <p className="text-[9px] text-gray-400 uppercase tracking-widest leading-relaxed">
+                      Only verified owners receive a secure link to submit reports.
+                    </p>
+                 </div>
+               </div>
             </div>
+
             {reviewWallContent}
           </div>
-          
+
+          <div className="w-full mt-0">
+            <h2 className="text-xl font-bold tracking-[0.1em] uppercase mb-6 text-center border-b border-white/10 pb-4 text-white">Intelligence Data (FAQ)</h2>
+            <div className="space-y-4">
+              {[ 
+                { q: "Do I need hot water or power to use it?", a: "Negative. The Obsidian Press features a 2500mAh self-heating core. Just add cold water, double click to activate, and it heats to 90°C in under 200 seconds." }, 
+                { q: "Which capsules are compatible?", a: "Absolute modular versatility. Includes adapters for small capsules (Nespresso Original), large pods (Dolce Gusto), and your own freshly ground coffee beans." }, 
+                { q: "Can this be used on a plane?", a: "Yes, cleared for carry-on luggage. However, airline regulations prohibit using the self-heating function *during* the flight. Perfect for the terminal." },
+                { q: "How do I clean the modular chamber?", a: "Hassle-free operation. Fill the reservoir with fresh water and run a cycle without ammunition (capsules). The 20-bar pressure system purges itself automatically." } 
+              ].map(faq => (
+                <details key={faq.q} className="group border border-white/10 bg-[#0a0a0a] p-6 cursor-pointer hover:border-white/30 transition-colors rounded-sm">
+                  <summary className="font-bold tracking-widest uppercase text-xs flex justify-between items-center text-white">
+                    {faq.q}
+                    <span className="text-gray-500 group-open:rotate-45 transition-transform text-xl font-light">+</span>
+                  </summary>
+                  <p className="mt-5 text-gray-400 font-light text-sm leading-relaxed border-t border-white/5 pt-5 max-w-2xl">
+                    {faq.a}
+                  </p>
+                </details>
+              ))}
+            </div>
+          </div>
+
         </div>
 
         {/* Right Column: Sticky Buy Box */}
@@ -452,6 +682,7 @@ export default async function Home() {
               <div className="flex flex-col gap-3 mb-6">
                 <h3 className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-1 border-t border-white/10 pt-6">Select Deployment Tier</h3>
 
+                {/* Option 1: Base */}
                 <label className="relative flex items-center justify-between p-4 border border-white/20 rounded-sm cursor-pointer hover:border-white/50 transition-colors bg-[#111] group">
                    <input type="radio" name="tier" value="1" className="peer absolute opacity-0" defaultChecked />
                    <div className="absolute inset-0 border border-transparent peer-checked:border-white pointer-events-none rounded-sm transition-colors"></div>
@@ -469,6 +700,7 @@ export default async function Home() {
                    </div>
                 </label>
 
+                {/* Option 2: Best Value (Highlighted) */}
                 <label className="relative flex items-center justify-between p-4 border border-yellow-500/50 rounded-sm cursor-pointer hover:border-yellow-500 transition-colors bg-gradient-to-r from-yellow-500/10 to-transparent group mt-3">
                    <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-yellow-500 text-black text-[9px] font-black tracking-[0.2em] uppercase px-3 py-0.5 rounded-sm">Best Value / Shared</div>
                    <input type="radio" name="tier" value="2" className="peer absolute opacity-0" />
@@ -488,7 +720,8 @@ export default async function Home() {
                    </div>
                 </label>
 
-                <label className="relative flex items-center justify-between p-4 border border-white/20 rounded-sm cursor-pointer hover:border-white/50 transition-colors bg-[#111] group mt-3">
+                {/* Option 3: Pro */}
+                <label className="relative flex items-center justify-between p-4 border border-white/20 rounded-sm cursor-pointer hover:border-white/50 transition-colors bg-[#111] group">
                    <input type="radio" name="tier" value="3" className="peer absolute opacity-0" />
                    <div className="absolute inset-0 border border-transparent peer-checked:border-white pointer-events-none rounded-sm transition-colors"></div>
                    <div className="flex items-center gap-3">
@@ -505,6 +738,7 @@ export default async function Home() {
                       <span className="text-[10px] text-gray-400 line-through">${(price * 3).toFixed(2)}</span>
                    </div>
                 </label>
+
               </div>
 
               <div className="flex flex-col gap-3 mb-8 border-t border-white/10 pt-6">
@@ -532,6 +766,7 @@ export default async function Home() {
             </div>
           </div>
         </div>
+
       </div>
 
       <div className="lg:hidden fixed bottom-0 left-0 w-full bg-[#050505] border-t border-white/10 p-4 z-50 transition-transform duration-300" id="mobile-buy-box">
@@ -540,7 +775,7 @@ export default async function Home() {
          </a>
       </div>
       
-      <footer className="border-t border-white/5 bg-black py-16 text-center pb-28 lg:pb-16 relative z-20 mt-12">
+      <footer className="border-t border-white/5 bg-black py-16 text-center pb-28 lg:pb-16 relative z-20">
         <h2 className="text-2xl font-serif tracking-[0.4em] uppercase text-white/20 mb-4">THE OBSIDIAN PRESS</h2>
         <p className="text-xs text-gray-600 uppercase tracking-widest">© 2026. All rights reserved. Oroná Del Carlo Corp. Industrial Logistics Div.</p>
       </footer>
