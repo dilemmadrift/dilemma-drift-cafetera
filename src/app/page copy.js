@@ -33,8 +33,7 @@ export default async function Home() {
   const fullVariantId = productNode.variants.edges[0]?.node?.id || '';
   const rawVariantId = fullVariantId.split('/').pop();
   const storeDomain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN || 'dilemma-drift-3.myshopify.com';
-  // Base checkout string without quantity
-  const checkoutUrlBase = `https://${storeDomain}/cart/${rawVariantId}`;
+  const checkoutUrl = `https://${storeDomain}/cart/${rawVariantId}:1`;
 
   const WHATSAPP_NUMBER = "5491100000000"; 
   const WHATSAPP_MSG = "Hello Dilemma Drift, I need assistance with The Obsidian Press.";
@@ -44,7 +43,7 @@ export default async function Home() {
     { id: 2, name: "David B.", date: "11/03/2026", rating: 3, img: null, text: "Not enough water space. The reservoir only holds 70ml, so I have to bring a thermos with cold water to refill it if I want a long coffee. The heating element is surprisingly fast though." },
     { id: 3, name: "Mia T.", date: "02/03/2026", rating: 5, img: "/review-2.jpg", text: "Received as a gift - perfect for taking away camping and still getting my coffee fix. The self-heating is completely silent." },
     { id: 4, name: "Emma T.", date: "28/02/2026", rating: 5, img: "/review-3.jpg", text: "Saved me a fortune. I used to spend $8 a day at the local cafe. Paid for itself in less than a month." },
-    { id: 5, name: "Jacob L.", date: "19/02/2026", rating: 5, img: "/review-4.jpg", text: "Fantastic on-the-go espresso maker. The 20-bar pressure isn't a marketing gimmick, crema is thick and golden." },
+    { id: 5, name: "Jacob L.", date: "19/02/2026", rating: 5, img: "/review-4.jpg", text: "Fantastic on-the-go espresso maker. The 18-bar pressure isn't a marketing gimmick, crema is thick and golden." },
     { id: 6, name: "Bron E.", date: "12/02/2026", rating: 4, img: null, text: "Still getting used to the double click function to heat, but happy so far. Pulls a great shot." },
     { id: 7, name: "Daniel H.", date: "14/01/2026", rating: 5, img: "/review-5.jpg", text: "My go-to for weekends away. Easy operation, great flavor and truly portable. Fits right into my car's cup holder." },
     { id: 8, name: "Scott K.", date: "02/01/2026", rating: 2, img: null, text: "It didn't puncture my large capsules correctly at first. Found out I wasn't pushing the adapter down hard enough. User error, but annoying." },
@@ -71,7 +70,7 @@ export default async function Home() {
     { id: 29, name: "Marcus T.", date: "10/08/2025", rating: 4, img: null, text: "A bit heavy for ultra-light backpacking, but considering it heats water internally, it's worth the weight." },
     { id: 30, name: "Sophie L.", date: "05/08/2025", rating: 5, img: null, text: "The matte onyx finish is gorgeous. Looks like a very expensive piece of tech on my desk." },
     { id: 31, name: "Aria N.", date: "01/08/2025", rating: 5, img: null, text: "I bought it for van life. Being completely off-grid and having a hot espresso is a game changer." },
-    { id: 32, name: "Leo F.", date: "25/07/2025", rating: 5, img: null, text: "The 20-bar pump sounds serious when it engages. You can tell it's pushing real pressure." },
+    { id: 32, name: "Leo F.", date: "25/07/2025", rating: 5, img: null, text: "The 18-bar pump sounds serious when it engages. You can tell it's pushing real pressure." },
     { id: 33, name: "Ben D.", date: "20/07/2025", rating: 5, img: null, text: "I'm wired! Makes espresso strong enough to wake me up instantly." },
     { id: 34, name: "Opie T.", date: "15/07/2025", rating: 5, img: null, text: "Purchased my first one and really like how you can do grinds or pods. Loved it so much purchased one for my husband." },
     { id: 35, name: "Phillip B.", date: "10/07/2025", rating: 5, img: null, text: "Use it on the building site everyday! very happy with my purchase." },
@@ -214,6 +213,7 @@ export default async function Home() {
     var reviewContent = reviewWallContent; 
   }
 
+  // Iconos de pago encriptados (Sin depender de Shopify)
   const PaymentIcons = () => (
     <div className="flex flex-col items-center justify-center gap-2 opacity-50 mt-6">
       <div className="flex items-center gap-2 text-white">
@@ -257,7 +257,6 @@ export default async function Home() {
       <script dangerouslySetInnerHTML={{__html: `
         if (typeof window !== 'undefined') {
           document.addEventListener('DOMContentLoaded', () => {
-            // --- UI Interaction Logic ---
             let lastScroll = window.pageYOffset;
             const commandCenter = document.getElementById('command-center');
             const subPopup = document.getElementById('sub-popup');
@@ -298,10 +297,10 @@ export default async function Home() {
                 });
             }
 
-            // --- Floating Video Logic ---
             const floatWidget = document.getElementById('floating-widget');
             const dragOverlay = document.getElementById('drag-overlay');
             const closeBtn = document.getElementById('close-floating-btn');
+            
             const openTrigger = document.getElementById('open-video-trigger');
             const closeBg = document.getElementById('close-video-bg');
             const closeX = document.getElementById('close-video-x');
@@ -353,55 +352,28 @@ export default async function Home() {
                     floatWidget.style.top = (initialTop + (clientY - startY)) + 'px';
                 };
 
-                const endDrag = () => { isDragging = false; };
+                const endDrag = () => {
+                    isDragging = false;
+                };
 
-                dragOverlay.addEventListener('mousedown', (e) => { e.preventDefault(); startDrag(e.clientX, e.clientY); });
+                dragOverlay.addEventListener('mousedown', (e) => { 
+                    e.preventDefault(); 
+                    startDrag(e.clientX, e.clientY); 
+                });
                 document.addEventListener('mousemove', (e) => { doDrag(e.clientX, e.clientY); });
                 document.addEventListener('mouseup', endDrag);
 
-                dragOverlay.addEventListener('touchstart', (e) => { startDrag(e.touches[0].clientX, e.touches[0].clientY); }, {passive: true});
-                document.addEventListener('touchmove', (e) => { if(isDragging){ e.preventDefault(); doDrag(e.touches[0].clientX, e.touches[0].clientY); } }, {passive: false});
+                dragOverlay.addEventListener('touchstart', (e) => { 
+                    startDrag(e.touches[0].clientX, e.touches[0].clientY); 
+                }, {passive: true});
+                document.addEventListener('touchmove', (e) => { 
+                    if(isDragging){ 
+                        e.preventDefault(); 
+                        doDrag(e.touches[0].clientX, e.touches[0].clientY); 
+                    } 
+                }, {passive: false});
                 document.addEventListener('touchend', endDrag);
             }
-
-            // --- UPSELL DYNAMIC CHECKOUT LOGIC ---
-            const baseCheckout = "${checkoutUrlBase}";
-            const basePriceNum = ${price};
-            
-            const desktopCheckoutBtn = document.getElementById('desktop-checkout-btn');
-            const mobileCheckoutBtn = document.getElementById('mobile-checkout-btn');
-            const mobilePriceDisplay = document.getElementById('mobile-price-display');
-            const mainPriceDisplay = document.getElementById('main-price-display');
-            const mainCompareDisplay = document.getElementById('main-compare-display');
-            
-            const tierRadios = document.querySelectorAll('input[name="tier"]');
-            
-            tierRadios.forEach(radio => {
-                radio.addEventListener('change', (e) => {
-                    const qty = parseInt(e.target.value);
-                    let discount = 1;
-                    if(qty === 2) discount = 0.85; // 15% off
-                    if(qty === 3) discount = 0.80; // 20% off
-                    
-                    const newTotal = (basePriceNum * qty * discount).toFixed(2);
-                    const newCompare = (basePriceNum * 1.5 * qty).toFixed(2);
-                    const newCheckoutUrl = baseCheckout + ':' + qty;
-                    
-                    // Update main display
-                    if(mainPriceDisplay) mainPriceDisplay.innerText = '$' + newTotal;
-                    if(mainCompareDisplay) mainCompareDisplay.innerText = '$' + newCompare;
-                    
-                    // Update mobile display
-                    if(mobilePriceDisplay) mobilePriceDisplay.innerText = '$' + newTotal;
-                    
-                    // Update links
-                    if(desktopCheckoutBtn) desktopCheckoutBtn.href = newCheckoutUrl;
-                    if(mobileCheckoutBtn) mobileCheckoutBtn.href = newCheckoutUrl;
-                    
-                    // Also update header top links if they exist
-                    document.querySelectorAll('.top-secure-link').forEach(link => link.href = newCheckoutUrl);
-                });
-            });
           });
         }
       `}} />
@@ -427,7 +399,7 @@ export default async function Home() {
            <label id="close-video-x" htmlFor="expand-floating-video" className="absolute top-6 right-6 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center cursor-pointer z-30 text-white hover:bg-white/20 transition-colors">
               <X className="w-5 h-5" />
            </label>
-           <a href={`${checkoutUrlBase}:1`} className="relative w-full max-w-sm aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-[0_0_50px_rgba(255,255,255,0.1)] block group cursor-pointer z-40 top-secure-link">
+           <a href={checkoutUrl} className="relative w-full max-w-sm aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-[0_0_50px_rgba(255,255,255,0.1)] block group cursor-pointer z-40">
               <video id="expanded-video" autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover pointer-events-none">
                 <source src="/floating-demo.mp4" type="video/mp4" />
               </video>
@@ -471,7 +443,7 @@ export default async function Home() {
              <h1 className="text-lg md:text-xl font-serif tracking-[0.4em] text-white/90 text-center">THE OBSIDIAN PRESS</h1>
           </div>
           <div className="w-full flex justify-end z-10 hidden md:flex">
-             <a href={`${checkoutUrlBase}:1`} className="top-secure-link text-[10px] font-bold tracking-[0.2em] uppercase text-black bg-white px-5 py-2.5 hover:bg-gray-200 transition-colors flex items-center gap-2 shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+             <a href={checkoutUrl} className="text-[10px] font-bold tracking-[0.2em] uppercase text-black bg-white px-5 py-2.5 hover:bg-gray-200 transition-colors flex items-center gap-2 shadow-[0_0_15px_rgba(255,255,255,0.2)]">
                  SECURE UNIT
              </a>
           </div>
@@ -490,7 +462,7 @@ export default async function Home() {
           </div>
 
           <div className="w-full flex justify-center my-2 md:hidden">
-             <a href={`${checkoutUrlBase}:1`} className="top-secure-link w-full bg-white text-black px-12 py-5 text-xs font-black tracking-[0.2em] uppercase hover:bg-gray-200 transition-colors flex items-center justify-center gap-4 group cursor-pointer shadow-[0_0_20px_rgba(255,255,255,0.15)]">
+             <a href={checkoutUrl} className="w-full bg-white text-black px-12 py-5 text-xs font-black tracking-[0.2em] uppercase hover:bg-gray-200 transition-colors flex items-center justify-center gap-4 group cursor-pointer shadow-[0_0_20px_rgba(255,255,255,0.15)]">
                 SECURE THE OBSIDIAN PRESS <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
              </a>
           </div>
@@ -517,7 +489,7 @@ export default async function Home() {
               {[ 
                 { step: 1, title: "Load Ammo", desc: "Insert Nespresso capsule, large pod, or ground coffee." }, 
                 { step: 2, title: "Add Water", desc: "Pour water into the reservoir. Double-click to self-heat." }, 
-                { step: 3, title: "Extract", desc: "Experience 20-bar pressure delivering rich, thick crema anywhere." } 
+                { step: 3, title: "Extract", desc: "Experience 18-bar pressure delivering rich, thick crema anywhere." } 
               ].map(s => (
                 <div key={s.step} className="bg-[#0a0a0a] p-6 border border-white/5 text-center hover:border-white/20 transition-colors">
                   <div className="w-8 h-8 rounded-full bg-white text-black font-bold flex items-center justify-center mx-auto mb-4">{s.step}</div>
@@ -534,7 +506,7 @@ export default async function Home() {
                {[ 
                  { icon: Coffee, title: "Dolce Modularity", desc: "Supports Nespresso, large pods, and ground coffee." }, 
                  { icon: Thermometer, title: "Thermodynamic Core", desc: "Self-heats water in 200 seconds. Boiling ready." }, 
-                 { icon: Zap, title: "Extraction Force", desc: "Industrial-grade mechanism. 20-bar crema." }, 
+                 { icon: Zap, title: "Extraction Force", desc: "Industrial-grade mechanism. 18-bar crema." }, 
                  { icon: ShieldCheck, title: "Autonomous Cell", desc: "Ultra-lightweight 700g chassis. 2500mAh engine." } 
                ].map(i => (
                  <div key={i.title} className="flex flex-col group">
@@ -545,6 +517,8 @@ export default async function Home() {
                ))}
              </div>
           </div>
+
+          {/* ELIMINADA LA IMAGEN FANTASMA */}
 
           <div className="w-full bg-[#050505] border border-white/10 rounded-sm overflow-hidden relative">
              <img src="/core-split.png" alt="Core Architecture Dual Compatibility" className="w-full h-auto object-contain" />
@@ -578,7 +552,7 @@ export default async function Home() {
               {[ 
                 { f: "Portable Off-Grid", u: true, t: false }, 
                 { f: "Self-Heating Core", u: true, t: false }, 
-                { f: "20-Bar Extraction", u: true, t: true }, 
+                { f: "18-Bar Extraction", u: true, t: true }, 
                 { f: "Multi-Capsule", u: true, t: false }, 
                 { f: "Cost Efficient", u: true, t: false } 
               ].map(row => (
@@ -636,7 +610,7 @@ export default async function Home() {
                 { q: "Do I need hot water or power to use it?", a: "Negative. The Obsidian Press features a 2500mAh self-heating core. Just add cold water, double click to activate, and it heats to 90°C in under 200 seconds." }, 
                 { q: "Which capsules are compatible?", a: "Absolute modular versatility. Includes adapters for small capsules (Nespresso Original), large pods (Dolce Gusto), and your own freshly ground coffee beans." }, 
                 { q: "Can this be used on a plane?", a: "Yes, cleared for carry-on luggage. However, airline regulations prohibit using the self-heating function *during* the flight. Perfect for the terminal." },
-                { q: "How do I clean the modular chamber?", a: "Hassle-free operation. Fill the reservoir with fresh water and run a cycle without ammunition (capsules). The 20-bar pressure system purges itself automatically." } 
+                { q: "How do I clean the modular chamber?", a: "Hassle-free operation. Fill the reservoir with fresh water and run a cycle without ammunition (capsules). The 18-bar pressure system purges itself automatically." } 
               ].map(faq => (
                 <details key={faq.q} className="group border border-white/10 bg-[#0a0a0a] p-6 cursor-pointer hover:border-white/30 transition-colors rounded-sm">
                   <summary className="font-bold tracking-widest uppercase text-xs flex justify-between items-center text-white">
@@ -667,81 +641,18 @@ export default async function Home() {
             </h1>
             
             <p className="text-sm text-gray-400 font-light mb-8 max-w-sm leading-relaxed">
-              Stop blowing your budget on takeaway coffees. Experience 20 bars of raw industrial pressure. <strong className="text-white">Anywhere. Anytime.</strong> Zero cords. Zero excuses.
+              Stop blowing your budget on takeaway coffees. Experience 18 bars of raw industrial pressure. <strong className="text-white">Anywhere. Anytime.</strong> Zero cords. Zero excuses.
             </p>
 
             <div className="w-full">
               
-              <div className="flex items-end gap-4 mb-6 pb-6">
-                  <span id="main-price-display" className="text-5xl font-black tracking-tighter text-white">${price}</span>
-                  <span id="main-compare-display" className="text-xl text-gray-600 line-through decoration-red-500/50 decoration-2 mb-1">${compareAtPrice}</span>
+              <div className="flex items-end gap-4 mb-6 border-b border-white/10 pb-6">
+                  <span className="text-5xl font-black tracking-tighter text-white">${price}</span>
+                  <span className="text-xl text-gray-600 line-through decoration-red-500/50 decoration-2 mb-1">${compareAtPrice}</span>
                   <span className="bg-white text-black text-[10px] font-black px-3 py-1 uppercase tracking-widest mb-2 ml-auto animate-pulse">Save 50%</span>
               </div>
 
-              {/* UPSELL TIER SELECTOR */}
-              <div className="flex flex-col gap-3 mb-6">
-                <h3 className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-1 border-t border-white/10 pt-6">Select Deployment Tier</h3>
-
-                {/* Option 1: Base */}
-                <label className="relative flex items-center justify-between p-4 border border-white/20 rounded-sm cursor-pointer hover:border-white/50 transition-colors bg-[#111] group">
-                   <input type="radio" name="tier" value="1" className="peer absolute opacity-0" defaultChecked />
-                   <div className="absolute inset-0 border border-transparent peer-checked:border-white pointer-events-none rounded-sm transition-colors"></div>
-                   <div className="flex items-center gap-3">
-                      <div className="w-4 h-4 rounded-full border border-gray-500 flex items-center justify-center peer-checked:border-white">
-                         <div className="w-2 h-2 rounded-full bg-white opacity-0 peer-checked:opacity-100 transition-opacity"></div>
-                      </div>
-                      <div className="flex flex-col">
-                         <span className="text-sm font-bold uppercase tracking-widest text-white">Entry Tier (1x)</span>
-                         <span className="text-[10px] text-gray-400">Standard Deployment</span>
-                      </div>
-                   </div>
-                   <div className="text-right">
-                      <span className="block text-sm font-black">${price}</span>
-                   </div>
-                </label>
-
-                {/* Option 2: Best Value (Highlighted) */}
-                <label className="relative flex items-center justify-between p-4 border border-yellow-500/50 rounded-sm cursor-pointer hover:border-yellow-500 transition-colors bg-gradient-to-r from-yellow-500/10 to-transparent group mt-3">
-                   <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-yellow-500 text-black text-[9px] font-black tracking-[0.2em] uppercase px-3 py-0.5 rounded-sm">Best Value / Shared</div>
-                   <input type="radio" name="tier" value="2" className="peer absolute opacity-0" />
-                   <div className="absolute inset-0 border border-transparent peer-checked:border-yellow-500 pointer-events-none rounded-sm transition-colors"></div>
-                   <div className="flex items-center gap-3">
-                      <div className="w-4 h-4 rounded-full border border-yellow-500/50 flex items-center justify-center peer-checked:border-yellow-500">
-                         <div className="w-2 h-2 rounded-full bg-yellow-500 opacity-0 peer-checked:opacity-100 transition-opacity"></div>
-                      </div>
-                      <div className="flex flex-col">
-                         <span className="text-sm font-bold uppercase tracking-widest text-white">Duo Pack (2x)</span>
-                         <span className="text-[10px] text-yellow-500">Save 15% Extra</span>
-                      </div>
-                   </div>
-                   <div className="text-right flex flex-col items-end">
-                      <span className="block text-sm font-black text-yellow-500">${(price * 2 * 0.85).toFixed(2)}</span>
-                      <span className="text-[10px] text-gray-400 line-through">${(price * 2).toFixed(2)}</span>
-                   </div>
-                </label>
-
-                {/* Option 3: Pro */}
-                <label className="relative flex items-center justify-between p-4 border border-white/20 rounded-sm cursor-pointer hover:border-white/50 transition-colors bg-[#111] group">
-                   <input type="radio" name="tier" value="3" className="peer absolute opacity-0" />
-                   <div className="absolute inset-0 border border-transparent peer-checked:border-white pointer-events-none rounded-sm transition-colors"></div>
-                   <div className="flex items-center gap-3">
-                      <div className="w-4 h-4 rounded-full border border-gray-500 flex items-center justify-center peer-checked:border-white">
-                         <div className="w-2 h-2 rounded-full bg-white opacity-0 peer-checked:opacity-100 transition-opacity"></div>
-                      </div>
-                      <div className="flex flex-col">
-                         <span className="text-sm font-bold uppercase tracking-widest text-white">Pro Pack (3x)</span>
-                         <span className="text-[10px] text-gray-400">Save 20% Extra</span>
-                      </div>
-                   </div>
-                   <div className="text-right flex flex-col items-end">
-                      <span className="block text-sm font-black text-white">${(price * 3 * 0.80).toFixed(2)}</span>
-                      <span className="text-[10px] text-gray-400 line-through">${(price * 3).toFixed(2)}</span>
-                   </div>
-                </label>
-
-              </div>
-
-              <div className="flex flex-col gap-3 mb-8 border-t border-white/10 pt-6">
+              <div className="flex flex-col gap-3 mb-8">
                  <div className="flex items-center gap-3 text-xs tracking-widest uppercase text-gray-300">
                     <Zap className="w-4 h-4 text-green-500" /> Free Worldwide Express Shipping
                  </div>
@@ -750,7 +661,7 @@ export default async function Home() {
                  </div>
               </div>
 
-              <a id="desktop-checkout-btn" href={`${checkoutUrlBase}:1`} className="w-full bg-white text-black px-8 py-5 text-sm font-black tracking-[0.2em] uppercase hover:bg-gray-200 transition-colors flex items-center justify-center gap-4 group cursor-pointer shadow-[0_0_20px_rgba(255,255,255,0.15)]">
+              <a href={checkoutUrl} className="w-full bg-white text-black px-8 py-5 text-sm font-black tracking-[0.2em] uppercase hover:bg-gray-200 transition-colors flex items-center justify-center gap-4 group cursor-pointer shadow-[0_0_20px_rgba(255,255,255,0.15)]">
                 SECURE YOUR DEPLOYMENT KIT
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
               </a>
@@ -770,8 +681,8 @@ export default async function Home() {
       </div>
 
       <div className="lg:hidden fixed bottom-0 left-0 w-full bg-[#050505] border-t border-white/10 p-4 z-50 transition-transform duration-300" id="mobile-buy-box">
-         <a id="mobile-checkout-btn" href={`${checkoutUrlBase}:1`} className="w-full bg-white text-black px-4 py-4 text-xs font-black tracking-[0.2em] uppercase hover:bg-gray-200 flex items-center justify-center gap-3">
-            SECURE UNIT - <span id="mobile-price-display">${price}</span> <ArrowRight className="w-4 h-4" />
+         <a href={checkoutUrl} className="w-full bg-white text-black px-4 py-4 text-xs font-black tracking-[0.2em] uppercase hover:bg-gray-200 flex items-center justify-center gap-3">
+            SECURE UNIT - ${price} <ArrowRight className="w-4 h-4" />
          </a>
       </div>
       
