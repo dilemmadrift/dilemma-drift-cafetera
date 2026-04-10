@@ -114,7 +114,7 @@ export default async function Home() {
     { id: 4, name: "David H.", date: "Canada", rating: 5, img: "/review-3.jpg", text: "Saved me a fortune. I used to drop $8 a day at the local cafe. Now I make a better espresso at my desk in 3 minutes." },
     { id: 5, name: "Jacob L.", date: "Australia", rating: 5, img: "/review-4.jpg", text: "Fantastic on-the-go asset. The matte onyx finish looks incredibly premium. Bought the duo pack for my partner." },
     { id: 6, name: "Christian M.", date: "Germany", rating: 4, img: null, text: "Still getting used to the double-click heating function, but very happy so far. The extraction is incredibly smooth." },
-    { id: 7, name: "Daniel H.", date: "USA", rating: 5, img: "/review-5.jpg", text: "My go-to for weekends drive. Easy operation, deep flavor profile and truly cordless. Fits right into the cup holder." },
+    { id: 7, name: "Daniel H.", date: "USA", rating: 5, img: "/review-5.jpg", text: "My go-to for weekend drives. Easy operation, deep flavor profile and truly cordless. Fits right into the cup holder." },
     { id: 8, name: "Scott K.", date: "USA", rating: 2, img: null, text: "It didn't puncture my large capsules correctly at first. Found out I wasn't pushing the adapter down hard enough. User error." },
     { id: 9, name: "Oliver S.", date: "Switzerland", rating: 5, img: "/review-6.jpg", text: "Impressive modularity. I've run both Nespresso pods and my own roasted grounds. Super hot. The perfect deployment tool." }
   ];
@@ -265,15 +265,15 @@ export default async function Home() {
 
       {/* --- EL GANCHO CINEMATOGRÁFICO (HERO SECTION) --- */}
       {/* REQUIERE: hero_video.mp4 */}
-      <section className="relative w-full h-[85vh] min-h-[700px] flex items-center justify-center overflow-hidden pt-20 bg-black border-b border-white/5 group">
-         <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-100 scale-105 pointer-events-none select-none transition-transform duration-1000 group-hover:scale-100">
+      <section className="relative w-full h-[85vh] min-h-[700px] flex items-center justify-center overflow-hidden pt-20 bg-black border-b border-white/5">
+         <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-100 scale-105 pointer-events-none select-none">
             <source src="/hero_video.mp4" type="video/mp4" />
          </video>
-         {/* CORRECCIÓN ÓPTICA MÓVIL: Fondo negro menos atenuado (40% vs 80% anterior) */}
+         {/* Fondo negro oscurecido menos agresivo en móvil (40% opacidad en lugar de 80%) */}
          <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] pointer-events-none"></div>
          
          <div className="relative z-10 text-center px-6 max-w-5xl mx-auto flex flex-col items-center mt-10">
-            <div className="inline-flex select-none items-center gap-2 px-4 py-1.5 rounded-sm border border-yellow-500/30 bg-yellow-500/10 text-yellow-500 text-[10px] font-bold tracking-widest uppercase mb-6 backdrop-blur-md shadow-2xl">
+            <div className="inline-flex select-none items-center gap-2 px-4 py-1.5 rounded-sm border border-yellow-500/30 bg-yellow-500/10 text-yellow-500 text-[10px] font-bold tracking-widest uppercase mb-6 backdrop-blur-md">
                <Zap className="w-3.5 h-3.5" /> Autonomous Thermodynamic Core
             </div>
             
@@ -282,37 +282,37 @@ export default async function Home() {
                <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-600">ABSOLUTE AUTONOMY.</span>
             </h1>
             
-            <p className="text-base md:text-xl text-gray-200 font-medium max-w-2xl mx-auto mb-10 leading-relaxed drop-shadow-2xl">
+            <p className="text-base md:text-xl text-gray-300 font-light max-w-2xl mx-auto mb-10 leading-relaxed drop-shadow-lg">
                Command 20 bars of raw industrial pressure. Add cold water. Extract a flawless, barista-grade espresso in minutes. <strong className="text-white">Zero cords. Zero compromises.</strong>
             </p>
             
-            <button id="scroll-to-buy" className="bg-white text-black px-8 py-5 md:px-12 md:py-6 text-sm md:text-base font-black tracking-[0.2em] uppercase hover:bg-gray-200 transition-all flex items-center gap-4 hover:scale-105 shadow-[0_0_50px_rgba(255,255,255,0.2)] group">
+            <button id="scroll-to-buy" className="bg-white text-black px-8 py-5 md:px-12 md:py-6 text-sm md:text-base font-black tracking-[0.2em] uppercase hover:bg-gray-200 transition-all flex items-center gap-4 hover:scale-105 shadow-[0_0_40px_rgba(255,255,255,0.15)] group">
                SECURE DEPLOYMENT KIT <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
             </button>
          </div>
 
-         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 animate-bounce cursor-pointer select-none">
+         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 animate-bounce cursor-pointer select-none">
             <span className="text-[10px] tracking-[0.2em] uppercase font-bold text-white">Classified Intel</span>
             <ChevronDown className="w-4 h-4 text-white" />
          </div>
       </section>
 
-      {/* --- SECCIÓN 2: CINEMATIC CAR BANNER --- */}
+      {/* --- SECCIÓN 2: CINEMATIC CAR BANNER (FULL WIDTH BACKGROUND CON TEXTO OVERLAY) --- */}
       {/* REQUIERE: seduction_result.jpg */}
       <section className="relative w-full py-32 md:py-48 flex items-center bg-[#050505] overflow-hidden border-t border-white/5 bg-[url('/seduction_result.jpg')] bg-cover bg-center bg-no-repeat group">
-         {/* CORRECCIÓN ÓPTICA MÓVIL: Filtros diferenciados (solo gradientes en los bordes, medio transparente) */}
+         {/* CORRECCIÓN ÓPTICA MÓVIL: Gradientes diferenciados para móvil. Arriba y abajo oscuros, pero transparente en el medio para revelar la foto. */}
          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-black/30 to-[#050505] pointer-events-none"></div>
          <div className="absolute inset-0 md:bg-gradient-to-r md:from-black/95 md:via-black/50 md:to-transparent pointer-events-none"></div>
 
          <div className="max-w-7xl mx-auto w-full px-6 md:px-12 relative z-10 flex justify-start">
             <div className="w-full md:w-3/5 text-left transition-transform duration-700 group-hover:translate-x-2">
-               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-yellow-500/30 bg-yellow-500/10 text-yellow-500 text-[10px] font-bold tracking-widest uppercase mb-4 backdrop-blur-md shadow-2xl">
+               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-yellow-500/30 bg-yellow-500/10 text-yellow-500 text-[10px] font-bold tracking-widest uppercase mb-4 backdrop-blur-md">
                   <Coffee className="w-3.5 h-3.5" /> Commercial Grade. Deployed.
                </div>
                <h2 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter uppercase text-white mb-6 leading-[0.95] drop-shadow-2xl">
-                  UNCOMPROMISING<br/>EXTRACTION.<br/><span className="text-gray-300 hover:text-white transition-colors">IN ANY TERRAIN.</span>
+                  UNCOMPROMISING<br/>EXTRACTION.<br/><span className="text-gray-400">IN ANY TERRAIN.</span>
                </h2>
-               <p className="text-gray-200 font-medium text-base md:text-lg leading-relaxed max-w-lg drop-shadow-2xl">
+               <p className="text-gray-300 font-light text-base md:text-lg leading-relaxed max-w-lg drop-shadow-lg">
                   Stop settling for mediocre drive-thru coffee. The Obsidian Press is the world's first tactical espresso engine that heats its own water and extracts with commercial-grade force. From the boardroom to the backcountry, demand perfection.
                </p>
             </div>
@@ -321,16 +321,16 @@ export default async function Home() {
 
       {/* --- SECCIÓN 3: LA LÓGICA DE INGENIERÍA --- */}
       {/* REQUIERE: engineering_proof.mp4 */}
-      <section className="relative w-full px-6 md:px-12 py-24 bg-[#0a0a0a] border-y border-white/5 overflow-hidden group">
-         {/* CORRECCIÓN ÓPTICA MÓVIL: Video al 60% para visibilidad perfecta del render */}
-         <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-60 scale-105 pointer-events-none select-none transition-transform duration-1000 group-hover:scale-100">
+      <section className="relative w-full px-6 md:px-12 py-24 bg-[#0a0a0a] border-y border-white/5 overflow-hidden">
+         {/* Video al 60% y capa oscura rebajada al 60% para visibilidad perfecta del render */}
+         <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-60 scale-105 pointer-events-none select-none">
             <source src="/engineering_proof.mp4" type="video/mp4" />
          </video>
          <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px]"></div>
          
          <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center gap-16 text-center">
             <div className="w-full max-w-3xl">
-               <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase text-white mb-10 leading-tight drop-shadow-2xl transition-colors hover:text-gray-300 cursor-default">ENGINEERED FOR<br/>INDEPENDENCE.</h2>
+               <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase text-white mb-10 leading-tight drop-shadow-2xl">ENGINEERED FOR<br/>INDEPENDENCE.</h2>
                <div className="grid grid-cols-2 gap-x-8 gap-y-10">
                  {[ 
                    { icon: Zap, title: "20-BAR KINETIC PUMP", desc: "Commercial-grade pressure for rich, dense, golden crema." }, 
@@ -339,9 +339,9 @@ export default async function Home() {
                    { icon: Coffee, title: "OMNI-COMPATIBLE", desc: "Adapters for Nespresso® Original, large pods, and ground coffee." } 
                  ].map(i => (
                    <div key={i.title} className="flex flex-col group items-center">
-                     <i.icon className="w-8 h-8 mb-4 text-white opacity-80 group-hover:opacity-100 transition-opacity drop-shadow-xl group-hover:scale-110 transition-transform" />
-                     <h3 className="text-xs font-bold tracking-[0.2em] uppercase mb-2 text-white drop-shadow-lg">{i.title}</h3>
-                     <p className="text-gray-300 font-medium text-[11px] leading-relaxed max-w-xs drop-shadow-lg">{i.desc}</p>
+                     <i.icon className="w-8 h-8 mb-4 text-white opacity-60 group-hover:opacity-100 transition-opacity drop-shadow-lg" />
+                     <h3 className="text-xs font-bold tracking-[0.2em] uppercase mb-2 text-white">{i.title}</h3>
+                     <p className="text-gray-400 font-light text-[11px] leading-relaxed max-w-xs">{i.desc}</p>
                    </div>
                  ))}
                </div>
@@ -349,15 +349,14 @@ export default async function Home() {
          </div>
       </section>
 
-      {/* --- SECCIÓN 4 (UPSOLD TABLE): TACTICAL SUPERIORITY --- */}
-      <div className="w-full bg-[#050505] py-24 px-6 md:px-12 border-b border-white/5 relative z-10 selection:bg-yellow-500/10">
+      <div className="w-full bg-[#050505] py-24 px-6 md:px-12 border-b border-white/5">
          <div className="max-w-5xl mx-auto">
-            <h2 className="text-xl font-bold tracking-[0.1em] uppercase mb-8 text-center text-white pb-4 border-b border-white/5 cursor-default">Tactical Superiority</h2>
-            <div className="space-y-4 bg-[#0a0a0a] border border-white/10 p-8 rounded-sm shadow-2xl">
+            <h2 className="text-xl font-bold tracking-[0.1em] uppercase mb-8 text-center text-white pb-4 border-b border-white/5">Tactical Superiority</h2>
+            <div className="space-y-4 bg-[#0a0a0a] border border-white/10 p-8 rounded-sm">
               <div className="flex justify-between items-center border-b border-white/5 pb-4 select-none">
                 <span className="text-sm font-bold uppercase tracking-wider text-gray-400 w-1/3">Feature</span>
                 <span className="text-sm font-bold uppercase tracking-wider text-white text-center w-1/3">The Obsidian Press</span>
-                <span className="text-sm font-bold uppercase tracking-wider text-gray-600 text-center w-1/3 hover:text-gray-400 cursor-default">Standard Makers</span>
+                <span className="text-sm font-bold uppercase tracking-wider text-gray-600 text-center w-1/3">Standard Makers</span>
               </div>
               {[ 
                 { f: "Portable Off-Grid", u: true, t: false }, 
@@ -366,8 +365,8 @@ export default async function Home() {
                 { f: "Multi-Capsule", u: true, t: false }, 
                 { f: "Battery Powered", u: true, t: false } 
               ].map(row => (
-                <div key={row.f} className="flex justify-between items-center border-b border-white/5 pb-4 transition-colors hover:bg-white/[0.02] cursor-default group">
-                  <span className="text-xs text-gray-400 w-1/3 uppercase font-light group-hover:text-white transition-colors">{row.f}</span>
+                <div key={row.f} className="flex justify-between items-center border-b border-white/5 pb-4 transition-colors hover:bg-white/[0.02]">
+                  <span className="text-xs text-gray-400 w-1/3 uppercase font-light">{row.f}</span>
                   <span className="w-1/3 flex justify-center">{row.u ? <Check className="w-4 h-4 text-green-500" /> : <X className="w-4 h-4 text-red-500" />}</span>
                   <span className="w-1/3 flex justify-center">{row.t ? <Check className="w-4 h-4 text-gray-600" /> : <X className="w-4 h-4 text-red-900" />}</span>
                 </div>
@@ -376,33 +375,29 @@ export default async function Home() {
          </div>
       </div>
 
-      {/* --- SECCIÓN DE VALIDACIÓN VISUAL (MODULARIDAD TÁCTICA) --- */}
-      {/* REQUIERE: field-deployment.png */}
-      <section className="relative w-full bg-[#050505] px-6 md:px-12 border-b border-white/5">
+      <section className="relative w-full bg-[#050505] py-24 px-6 md:px-12 border-b border-white/5">
          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div className="w-full order-2 md:order-1 select-none py-10">
+            <div className="w-full order-2 md:order-1 select-none">
                <img src="/field-deployment.png" alt="Dual Compatibility Architecture" className="w-full h-auto object-contain p-4 drop-shadow-2xl" />
             </div>
-            <div className="w-full order-1 md:order-2 text-center md:text-left py-10 md:py-24">
-               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-yellow-500/30 bg-yellow-500/10 text-yellow-500 text-[10px] font-bold tracking-widest uppercase mb-4 backdrop-blur-md shadow-2xl">
+            <div className="w-full order-1 md:order-2 text-center md:text-left">
+               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-yellow-500/30 bg-yellow-500/10 text-yellow-500 text-[10px] font-bold tracking-widest uppercase mb-4 backdrop-blur-md">
                   <Coffee className="w-3.5 h-3.5" /> Fast Heating. Omni-Compatible.
                </div>
                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter uppercase text-white mb-6 leading-[0.95] drop-shadow-2xl">
-                  TACTICAL<br/>DEPLOYMENT<br/><span className="text-gray-400 hover:text-white transition-colors">VERSATILITY.</span>
+                  TACTICAL<br/>DEPLOYMENT<br/><span className="text-gray-400">VERSATILITY.</span>
                </h2>
-               <p className="text-gray-200 font-medium text-base leading-relaxed max-w-lg mx-auto md:mx-0 drop-shadow-lg">
+               <p className="text-gray-300 font-light text-base leading-relaxed max-w-lg mx-auto md:mx-0 drop-shadow-lg">
                   Load your ammo: Nespresso® Original, large pods, or your preferred ground coffee. The modular thermodynamic cell boils cold water to 195°F (90°C) in minutes. Pure, cordless power.
                </p>
             </div>
          </div>
       </section>
 
-      {/* --- EL MURO DE PRUEBAS SOCIALES (TESTIMONIOS) --- */}
-      {/* CORRECCIÓN DE FLUJO: Sección de reseñas cosida directamente debajo de la validación visual */}
-      <section className="bg-black text-white py-24 px-6 md:px-12 selection:bg-yellow-500/10" id="reviews">
-         <div className="max-w-7xl mx-auto relative z-10">
-            <h2 className="text-3xl font-black tracking-widest uppercase text-white mb-8 text-center cursor-default">VERIFIED FIELD REPORTS</h2>
-            <div className="bg-[#0a0a0a] border border-white/10 p-10 rounded-sm flex flex-col md:flex-row gap-8 justify-between items-center mb-16 shadow-2xl selection:bg-yellow-500/5">
+      <section className="bg-black text-white py-24 px-6 md:px-12 border-b border-white/5 selection:bg-yellow-500/20" id="reviews">
+         <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl font-black tracking-widest uppercase text-white mb-8 text-center">VERIFIED FIELD REPORTS</h2>
+            <div className="bg-[#0a0a0a] border border-white/10 p-10 rounded-sm flex flex-col md:flex-row gap-8 justify-between items-center mb-16 shadow-xl">
                <div className="flex flex-col items-center md:items-start select-none">
                   <div className="flex items-center gap-4">
                      <StarRating48 />
@@ -412,13 +407,13 @@ export default async function Home() {
                </div>
                <div className="flex-1 w-full max-w-sm space-y-2 select-none">
                  {[86, 10, 3, 1, 0].map((pct, i) => (
-                    <div key={5-i} className="flex items-center gap-3 text-xs text-gray-400 font-mono group">
-                      <span className="w-2 group-hover:text-white transition-colors">{5-i}</span>
-                      <Star className="w-3.5 h-3.5 fill-current text-gray-600 group-hover:text-gray-400 transition-colors" />
+                    <div key={5-i} className="flex items-center gap-3 text-xs text-gray-400 font-mono">
+                      <span className="w-2">{5-i}</span>
+                      <Star className="w-3.5 h-3.5 fill-current text-gray-600" />
                       <div className="flex-1 h-1.5 bg-[#111] rounded-full overflow-hidden">
-                         <div className="h-full bg-yellow-500 transition-all duration-1000" style={{ width: `${pct}%` }}></div>
+                         <div className="h-full bg-yellow-500" style={{ width: `${pct}%` }}></div>
                       </div>
-                      <span className="w-10 text-right group-hover:text-white transition-colors">({Math.floor(totalReviewsAnclaje * pct / 100)})</span>
+                      <span className="w-10 text-right">({Math.floor(totalReviewsAnclaje * pct / 100)})</span>
                     </div>
                  ))}
                </div>
@@ -430,102 +425,101 @@ export default async function Home() {
          </div>
       </section>
 
-      {/* --- SECCIÓN FINAL DEL CARRITO DE COMPRAS (LA OFERTA) --- */}
-      <section id="buy-section-anchor" className="max-w-4xl mx-auto px-6 md:px-12 py-24 relative z-20">
-         <div className="flex flex-col items-center text-center mx-auto mb-16 pb-6 border-b border-white/5 relative selection:bg-yellow-500/10">
-            <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase text-white mb-6 leading-[0.95] drop-shadow-2xl">INITIATE<br/>DEPLOYMENT.</h2>
-            <p className="text-sm md:text-base text-gray-300 font-medium leading-relaxed max-w-xl mx-auto mb-4 drop-shadow-lg">
+      <section id="buy-section-anchor" className="max-w-4xl mx-auto px-6 md:px-12 py-24 relative z-10">
+         <div className="flex flex-col items-center text-center mx-auto mb-16 pb-6 border-b border-white/5">
+            <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase text-white mb-6 leading-[0.95]">INITIATE<br/>DEPLOYMENT.</h2>
+            <p className="text-sm md:text-base text-gray-400 font-light leading-relaxed max-w-xl mx-auto mb-4">
               Stop blowing your budget on $6 lattes. The Obsidian Press pays for itself in less than 30 days. Experience elite espresso anywhere.
             </p>
-            <span className="bg-red-500 text-white text-[10px] font-black px-4 py-1.5 uppercase tracking-widest mb-2 animate-pulse rounded-sm flex items-center gap-2 shadow-2xl">
+            <span className="bg-red-500 text-white text-[10px] font-black px-4 py-1.5 uppercase tracking-widest mb-2 animate-pulse rounded-sm flex items-center gap-2">
               <ShieldCheck className="w-3 h-3" /> Critical stock: Only 14 units left
             </span>
          </div>
 
-         <div className="w-full bg-[#080808] border border-white/10 p-8 shadow-3xl rounded-sm selection:bg-yellow-500/10">
+         <div className="w-full bg-[#080808] border border-white/10 p-4 md:p-8 shadow-2xl rounded-sm">
            
            <div className="flex items-end gap-4 mb-6 pb-6 select-none border-b border-white/10">
-               <span id="main-price-display" className="text-5xl font-black tracking-tighter text-white drop-shadow-2xl">${price || "119.99"}</span>
-               <span className="text-xl text-gray-600 line-through decoration-red-500/50 decoration-2 mb-1">${compareAtPrice || "179.98"}</span>
-               <span className="bg-white text-black text-[10px] font-black px-3 py-1 uppercase tracking-widest mb-2 ml-auto animate-pulse shadow-xl">Save 50%</span>
+               <span id="main-price-display" className="text-4xl md:text-5xl font-black tracking-tighter text-white">${price || "119.99"}</span>
+               <span className="text-lg md:text-xl text-gray-600 line-through decoration-red-500/50 decoration-2 mb-1">${compareAtPrice || "179.98"}</span>
+               <span className="bg-white text-black text-[10px] font-black px-3 py-1 uppercase tracking-widest mb-2 ml-auto animate-pulse">Save 50%</span>
            </div>
 
-           {/* --- SELECTOR DE PAQUETES DE UPSell --- */}
-           {/* REQUIERE: Bundle_1x.png, Bundle_2x.png, Bundle_3x.png */}
-           <div className="flex flex-col gap-5 mt-6 select-none">
-             <h3 className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-1 border-t border-white/10 pt-6">Select Acquisition Tier</h3>
+           {/* UPSELL TIER SELECTOR */}
+           {/* CORRECCIÓN CRÍTICA DE COLAPSO MÓVIL: Flexbox reconstruido con flex-shrink-0 y flex-1 */}
+           <div className="flex flex-col gap-4 mt-6 select-none">
+             <h3 className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-1">Select Acquisition Tier</h3>
 
-             <label className="relative flex items-center justify-between p-6 border border-white/20 rounded-sm cursor-pointer hover:border-white/50 transition-colors bg-[#111] group order-2 mt-3 shadow-lg">
+             <label className="relative w-full flex items-center justify-between p-4 md:p-6 border border-white/20 rounded-sm cursor-pointer hover:border-white/50 transition-colors bg-[#111] group order-2 mt-2">
                 <input type="radio" name="tier" value="1" className="peer absolute opacity-0" defaultChecked />
                 <div className="absolute inset-0 border border-transparent peer-checked:border-white pointer-events-none rounded-sm transition-colors"></div>
-                <div className="flex items-center gap-5">
-                   <div className="w-5 h-5 rounded-full border border-gray-500 flex items-center justify-center peer-checked:border-white group-hover:border-white/70 transition-colors">
-                      <div className="w-3 h-3 rounded-full bg-white opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+                <div className="flex items-center gap-3 md:gap-5 w-full">
+                   <div className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0 rounded-full border border-gray-500 flex items-center justify-center peer-checked:border-white">
+                      <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-white opacity-0 peer-checked:opacity-100 transition-opacity"></div>
                    </div>
-                   <img src="/Bundle_1x.png" alt="Entry Tier" className="w-20 md:w-24 h-auto object-contain p-2 drop-shadow-xl transition-transform duration-500 group-hover:scale-105" />
-                   <div className="flex flex-col">
-                      <span className="text-base md:text-lg font-bold uppercase tracking-widest text-white leading-tight">Entry Tier (1x)</span>
-                      <span className="text-[10px] text-gray-400 uppercase tracking-wider mt-1">Standard Deployment</span>
+                   <img src="/Bundle_1x.png" alt="Entry Tier" className="w-14 md:w-24 h-auto object-contain flex-shrink-0 drop-shadow-xl" />
+                   <div className="flex flex-col flex-1">
+                      <span className="text-sm md:text-lg font-bold uppercase tracking-widest text-white leading-tight">Entry Tier</span>
+                      <span className="text-[9px] md:text-xs text-gray-400 uppercase tracking-wider mt-1">Standard</span>
                    </div>
-                </div>
-                <div className="text-right">
-                   <span className="block text-xl md:text-2xl font-black text-white drop-shadow-xl">${price || "119.99"}</span>
+                   <div className="text-right flex-shrink-0">
+                      <span className="block text-lg md:text-2xl font-black">${price || "119.99"}</span>
+                   </div>
                 </div>
              </label>
 
-             <label className="relative flex items-center justify-between p-6 border-2 border-yellow-500 rounded-sm cursor-pointer hover:border-yellow-500 transition-colors bg-gradient-to-r from-yellow-500/10 to-transparent group order-1 shadow-[0_0_50px_rgba(234,179,8,0.15)]">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-500 text-black text-[9px] font-black tracking-[0.2em] uppercase px-4 py-1 rounded-sm shadow-xl text-center w-max">Best Value / Shared Deployment</div>
+             <label className="relative w-full flex items-center justify-between p-4 md:p-6 border-2 border-yellow-500 rounded-sm cursor-pointer hover:border-yellow-500 transition-colors bg-gradient-to-r from-yellow-500/10 to-transparent group order-1 mt-4 shadow-[0_0_20px_rgba(234,179,8,0.15)]">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-500 text-black text-[8px] md:text-[9px] font-black tracking-[0.2em] uppercase px-3 py-1 rounded-sm text-center w-max">Best Value / Shared</div>
                 <input type="radio" name="tier" value="2" className="peer absolute opacity-0" />
                 <div className="absolute inset-0 border border-transparent peer-checked:border-yellow-500 pointer-events-none rounded-sm transition-colors"></div>
-                <div className="flex items-center gap-5">
-                   <div className="w-5 h-5 rounded-full border border-yellow-500/50 flex items-center justify-center peer-checked:border-yellow-500 group-hover:border-yellow-500/80 transition-colors">
-                      <div className="w-3 h-3 rounded-full bg-yellow-500 opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+                <div className="flex items-center gap-3 md:gap-5 w-full">
+                   <div className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0 rounded-full border border-yellow-500/50 flex items-center justify-center peer-checked:border-yellow-500">
+                      <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-yellow-500 opacity-0 peer-checked:opacity-100 transition-opacity"></div>
                    </div>
-                   <img src="/Bundle_2x.png" alt="Duo Pack" className="w-20 md:w-24 h-auto object-contain p-2 drop-shadow-2xl transition-transform duration-500 group-hover:scale-110" />
-                   <div className="flex flex-col">
-                      <span className="text-base md:text-lg font-bold uppercase tracking-widest text-white leading-tight">Duo Pack (2x)</span>
-                      <span className="text-[10px] text-yellow-500 font-bold uppercase tracking-wider mt-1 transition-colors group-hover:text-yellow-400">Save 15% Extra + Priority Dispatch</span>
+                   <img src="/Bundle_2x.png" alt="Duo Pack" className="w-14 md:w-24 h-auto object-contain flex-shrink-0 drop-shadow-xl" />
+                   <div className="flex flex-col flex-1">
+                      <span className="text-sm md:text-lg font-bold uppercase tracking-widest text-white leading-tight">Duo Pack</span>
+                      <span className="text-[9px] md:text-[10px] text-yellow-500 font-bold uppercase tracking-wider mt-1">Save 15% Extra</span>
                    </div>
-                </div>
-                <div className="text-right flex flex-col items-end">
-                   <span className="block text-xl md:text-2xl font-black text-yellow-500 drop-shadow-xl transition-colors group-hover:text-yellow-400">${((price || 119.99) * 2 * 0.85).toFixed(2)}</span>
-                   <span className="text-xs text-gray-500 line-through decoration-red-500/50 decoration-2 tracking-wider mt-1">${((price || 119.99) * 2).toFixed(2)}</span>
-                   <span className="text-[10px] text-gray-400 mt-0.5">(${(numericalPrice * 0.85).toFixed(2)} ea.)</span>
+                   <div className="text-right flex flex-col items-end flex-shrink-0">
+                      <span className="block text-lg md:text-2xl font-black text-yellow-500 leading-none">${((numericalPrice) * 2 * 0.85).toFixed(2)}</span>
+                      <span className="text-[10px] md:text-xs text-gray-500 line-through decoration-red-500/50 decoration-2 tracking-wider mt-1">${((numericalPrice) * 2).toFixed(2)}</span>
+                      <span className="text-[9px] text-gray-400 mt-0.5">(${(numericalPrice * 0.85).toFixed(2)} ea.)</span>
+                   </div>
                 </div>
              </label>
 
-             <label className="relative flex items-center justify-between p-6 border border-white/20 rounded-sm cursor-pointer hover:border-white/50 transition-colors bg-[#111] group order-3 mt-3 shadow-lg">
+             <label className="relative w-full flex items-center justify-between p-4 md:p-6 border border-white/20 rounded-sm cursor-pointer hover:border-white/50 transition-colors bg-[#111] group order-3 mt-2">
                 <input type="radio" name="tier" value="3" className="peer absolute opacity-0" />
                 <div className="absolute inset-0 border border-transparent peer-checked:border-white pointer-events-none rounded-sm transition-colors"></div>
-                <div className="flex items-center gap-5">
-                   <div className="w-5 h-5 rounded-full border border-gray-500 flex items-center justify-center peer-checked:border-white group-hover:border-white/70 transition-colors">
-                      <div className="w-3 h-3 rounded-full bg-white opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+                <div className="flex items-center gap-3 md:gap-5 w-full">
+                   <div className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0 rounded-full border border-gray-500 flex items-center justify-center peer-checked:border-white">
+                      <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-white opacity-0 peer-checked:opacity-100 transition-opacity"></div>
                    </div>
-                   <img src="/Bundle_3x.png" alt="Pro Pack" className="w-20 md:w-24 h-auto object-contain p-2 drop-shadow-xl transition-transform duration-500 group-hover:scale-105" />
-                   <div className="flex flex-col">
-                      <span className="text-base md:text-lg font-bold uppercase tracking-widest text-white leading-tight">Pro Pack (3x)</span>
-                      <span className="text-[10px] text-gray-400 uppercase tracking-wider mt-1 group-hover:text-gray-200 transition-colors">Save 20% Extra + VIP Support</span>
+                   <img src="/Bundle_3x.png" alt="Pro Pack" className="w-14 md:w-24 h-auto object-contain flex-shrink-0 drop-shadow-xl" />
+                   <div className="flex flex-col flex-1">
+                      <span className="text-sm md:text-lg font-bold uppercase tracking-widest text-white leading-tight">Pro Pack</span>
+                      <span className="text-[9px] md:text-[10px] text-gray-400 uppercase tracking-wider mt-1">Save 20% Extra</span>
                    </div>
-                </div>
-                <div className="text-right flex flex-col items-end">
-                   <span className="block text-xl md:text-2xl font-black text-white drop-shadow-xl group-hover:text-gray-200 transition-colors">${((price || 119.99) * 3 * 0.80).toFixed(2)}</span>
-                   <span className="text-xs text-gray-500 line-through decoration-red-500/50 decoration-装饰-2 tracking-wider mt-1">${((price || 119.99) * 3).toFixed(2)}</span>
+                   <div className="text-right flex flex-col items-end flex-shrink-0">
+                      <span className="block text-lg md:text-2xl font-black text-white leading-none">${((numericalPrice) * 3 * 0.80).toFixed(2)}</span>
+                      <span className="text-[10px] md:text-xs text-gray-500 line-through decoration-red-500/50 decoration-2 tracking-wider mt-1">${((numericalPrice) * 3).toFixed(2)}</span>
+                   </div>
                 </div>
              </label>
 
            </div>
 
-           <div className="flex flex-col md:flex-row gap-6 mt-10 mb-8 border-t border-white/10 pt-8 selection:bg-yellow-500/5">
-              <div className="w-full md:w-1/2 flex items-center gap-4 text-xs tracking-widest uppercase text-gray-300 group">
-                 <Zap className="w-5 h-5 text-green-500 group-hover:scale-110 transition-transform" /> Free Worldwide Express Shipping
+           <div className="flex flex-col md:flex-row gap-6 mt-10 mb-8 border-t border-white/10 pt-8">
+              <div className="w-full md:w-1/2 flex items-center gap-4 text-xs tracking-widest uppercase text-gray-300">
+                 <Zap className="w-5 h-5 text-green-500" /> Free Worldwide Express Shipping
               </div>
-              <div className="w-full md:w-1/2 flex items-center gap-4 text-xs tracking-widest uppercase text-gray-300 group">
-                 <ShieldCheck className="w-5 h-5 text-white opacity-60 group-hover:opacity-100 transition-opacity" /> 2-Year Industrial Warranty (Global Support)
+              <div className="w-full md:w-1/2 flex items-center gap-4 text-xs tracking-widest uppercase text-gray-300">
+                 <ShieldCheck className="w-5 h-5 text-white opacity-60" /> 2-Year Industrial Warranty (Global Support)
               </div>
            </div>
 
-           <a id="desktop-checkout-btn" href={`${checkoutUrlBase}:1`} className="w-full bg-white text-black px-10 py-6 md:py-8 text-sm md:text-lg font-black tracking-[0.2em] uppercase hover:bg-gray-200 transition-all flex items-center justify-center gap-4 hover:scale-105 shadow-[0_0_50px_rgba(255,255,255,0.15)] group cursor-pointer selection:bg-black selection:text-white">
-             SECURE YOUR DEPLOYMENT KIT
+           <a id="desktop-checkout-btn" href={`${checkoutUrlBase}:1`} className="w-full bg-white text-black px-10 py-6 md:py-8 text-sm md:text-lg font-black tracking-[0.2em] uppercase hover:bg-gray-200 transition-all flex items-center justify-center gap-4 hover:scale-105 shadow-[0_0_50px_rgba(255,255,255,0.15)] group cursor-pointer">
+             SECURE DEPLOYMENT KIT
              <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
            </a>
            
@@ -534,15 +528,14 @@ export default async function Home() {
          </div>
       </section>
 
-      {/* --- BOTÓN DE COMPRA FLOTANTE (SÓLO MÓVIL) --- */}
-      <div className="lg:hidden fixed bottom-0 left-0 w-full bg-[#050505] border-t border-white/10 p-4 z-50 transition-transform duration-300 shadow-[0_-10px_30px_rgba(0,0,0,0.5)] nav-visible" id="mobile-buy-box">
+      <div className="lg:hidden fixed bottom-0 left-0 w-full bg-[#050505] border-t border-white/10 p-4 z-50 transition-transform duration-300 shadow-[0_-10px_30px_rgba(0,0,0,0.5)]" id="mobile-buy-box">
          <a id="mobile-checkout-btn" href={`${checkoutUrlBase}:1`} className="w-full bg-white text-black px-4 py-5 text-xs font-black tracking-[0.2em] uppercase hover:bg-gray-200 flex items-center justify-center gap-3">
             SECURE UNIT - <span id="mobile-price-display">${price || "119.99"}</span> <ArrowRight className="w-4 h-4" />
          </a>
       </div>
       
-      <footer className="border-t border-white/5 bg-black py-16 text-center pb-28 lg:pb-16 relative z-20 mt-12 select-none selection:bg-yellow-500/10 border-t border-white/5">
-        <h2 className="text-2xl font-serif tracking-[0.4em] uppercase text-white/20 mb-4 hover:text-white transition-colors">THE OBSIDIAN PRESS</h2>
+      <footer className="border-t border-white/5 bg-black py-16 text-center pb-28 lg:pb-16 relative z-20 mt-12 select-none selection:bg-yellow-500/20">
+        <h2 className="text-2xl font-serif tracking-[0.4em] uppercase text-white/20 mb-4">THE OBSIDIAN PRESS</h2>
         <p className="text-xs text-gray-600 uppercase tracking-widest">© 2026. All rights reserved. Oroná Del Carlo Corp. Industrial Logistics Div.</p>
       </footer>
     </div>
