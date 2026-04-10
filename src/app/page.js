@@ -3,63 +3,170 @@ import { ArrowRight, Zap, Star, ShieldCheck, Check, X, CheckCircle2, Thermometer
 
 export const dynamic = 'force-dynamic';
 
+const totalReviewsAnclaje = 681;
+
+const StarRating48 = () => (
+  <div className="flex text-yellow-500 mt-2 gap-0.5">
+    <Star className="w-5 h-5 fill-current" />
+    <Star className="w-5 h-5 fill-current" />
+    <Star className="w-5 h-5 fill-current" />
+    <Star className="w-5 h-5 fill-current" />
+    <div className="relative w-5 h-5">
+       <Star className="absolute top-0 left-0 w-5 h-5 text-gray-700" />
+       <div className="absolute top-0 left-0 h-full overflow-hidden" style={{ width: '80%' }}>
+         <Star className="w-5 h-5 fill-yellow-500 text-yellow-500" />
+       </div>
+    </div>
+  </div>
+);
+
+const ReviewModal = ({ review }) => (
+  <div className="review-modal-container contents">
+    <input type="checkbox" id={`modal-${review.id}`} className="peer/modal hidden" />
+    <div className="fixed inset-0 z-[200] hidden peer-checked/modal:flex items-center justify-center p-4">
+       <label htmlFor={`modal-${review.id}`} className="absolute inset-0 bg-black/90 backdrop-blur-sm cursor-pointer"></label>
+       <div className="relative bg-[#0a0a0a] text-white p-8 max-w-md w-full rounded-md shadow-[0_0_40px_rgba(255,255,255,0.05)] z-10 border border-white/10 animate-fade-in">
+          <label htmlFor={`modal-${review.id}`} className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-white/5 rounded-full cursor-pointer hover:bg-white/10 transition-colors">
+             <X className="w-4 h-4 text-gray-400" />
+          </label>
+          <div className="flex justify-between items-start mb-6">
+             <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <h3 className="font-bold text-lg tracking-wide">{review.name}</h3>
+                  <div className="flex items-center gap-1 text-green-500 bg-green-500/10 border border-green-500/20 px-2 py-0.5 rounded-sm text-xs font-bold uppercase tracking-widest">
+                     <CheckCircle2 className="w-3 h-3" /> Verified
+                  </div>
+                </div>
+                <div className="flex gap-0.5">
+                  {[...Array(5)].map((_, j) => <Star key={`stm-${review.id}-${j}`} className={`w-4 h-4 ${j < review.rating ? 'fill-yellow-500 text-yellow-500' : 'text-gray-700'}`} />)}
+                </div>
+             </div>
+             <span className="text-xs text-gray-500 font-mono mt-1">{review.date}</span>
+          </div>
+          <p className="text-gray-300 text-base leading-relaxed mb-6 font-light italic">"{review.text}"</p>
+          {review.img && (
+            <div className="w-full aspect-square bg-black border border-white/5 rounded-sm overflow-hidden mb-4">
+               <img src={review.img} alt="Customer product" className="w-full h-full object-cover" />
+            </div>
+          )}
+          <div className="border-t border-white/10 pt-4 mt-2">
+             <p className="text-[10px] text-gray-500 uppercase tracking-widest">Item deployed: The Obsidian Press</p>
+          </div>
+       </div>
+    </div>
+  </div>
+);
+
+const PaymentIcons = () => (
+  <div className="flex flex-col items-center justify-center gap-2 opacity-50 mt-6">
+    <div className="flex items-center gap-2 text-white">
+      <Lock className="w-3 h-3" />
+      <span className="text-[9px] font-bold uppercase tracking-widest">Guaranteed Safe Checkout</span>
+    </div>
+    <div className="flex gap-2 text-gray-400"><CreditCard className="w-5 h-5" /></div>
+  </div>
+);
+
 export default async function Home() {
-  // ... (Query de Shopify idéntica)
-  const query = `
-    query {
-      products(first: 10) {
-        edges {
-          node {
-            id
-            title
-            variants(first: 1) { edges { node { id } } }
-            priceRange { minVariantPrice { amount } }
+  let price = "119.99";
+  let compareAtPrice = "179.98";
+  let rawVariantId = "fallback-id-123";
+  const storeDomain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN || 'dilemma-drift-3.myshopify.com';
+
+  // PARACAÍDAS TÁCTICO: Si Shopify falla, la página sigue viva.
+  try {
+    const query = `
+      query {
+        products(first: 10) {
+          edges {
+            node {
+              id
+              title
+              variants(first: 1) { edges { node { id } } }
+              priceRange { minVariantPrice { amount } }
+            }
           }
         }
       }
+    `;
+    const { body } = await shopifyFetch({ query });
+    const products = body?.data?.products?.edges || [];
+    const productNode = products.find(p => 
+      p.node.title.toUpperCase().includes('ESPRESSO') || p.node.title.toUpperCase().includes('AUTONOMOUS')
+    )?.node;
+
+    if (productNode) {
+      price = parseFloat(productNode.priceRange.minVariantPrice.amount).toFixed(2);
+      compareAtPrice = (price * 1.5).toFixed(2); 
+      const fullVariantId = productNode.variants.edges[0]?.node?.id || '';
+      rawVariantId = fullVariantId.split('/').pop() || rawVariantId;
     }
-  `;
+  } catch (error) {
+    console.error("Shopify Link Fractured. Deploying fallback UI.", error);
+  }
 
-  const { body } = await shopifyFetch({ query });
-  const products = body?.data?.products?.edges || [];
-  const productNode = products.find(p => 
-    p.node.title.toUpperCase().includes('ESPRESSO') || p.node.title.toUpperCase().includes('AUTONOMOUS')
-  )?.node;
-
-  if (!productNode) return <div className="p-20 text-white bg-black min-h-screen text-center tracking-widest uppercase font-mono">System Offline. Data Fractured.</div>;
-
-  const price = parseFloat(productNode.priceRange.minVariantPrice.amount).toFixed(2);
-  const compareAtPrice = (price * 1.5).toFixed(2); 
-  
-  const fullVariantId = productNode.variants.edges[0]?.node?.id || '';
-  const rawVariantId = fullVariantId.split('/').pop();
-  const storeDomain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN || 'dilemma-drift-3.myshopify.com';
   const checkoutUrlBase = `https://${storeDomain}/cart/${rawVariantId}`;
 
-  // ... (Estructura de Reseñas idéntica)
   const baseReviews = [
     { id: 1, name: "J. Chen", date: "USA", rating: 5, img: "/review-1.jpg", text: "Indispensable para mi auto. Calidad de cafetería." },
     { id: 2, name: "M. Silva", date: "Brazil", rating: 5, img: null, text: "Café real en la montaña. Independence total." },
     { id: 3, name: "L. Dubois", date: "France", rating: 5, img: "/review-2.jpg", text: "Ingeniería pura. Ahorro tiempo y dinero." }
   ];
 
-  const totalReviewsAnclaje = 681;
+  const count5 = Math.floor(totalReviewsAnclaje * 0.86);
+  const count4 = Math.floor(totalReviewsAnclaje * 0.10);
+  const count3 = Math.floor(totalReviewsAnclaje * 0.03);
+  const count2 = Math.floor(totalReviewsAnclaje * 0.01);
+  const count1 = totalReviewsAnclaje - (count5 + count4 + count3 + count2); 
 
-  // ... (Estrellas y Lógica de Scroll idénticas)
-  const StarRating48 = () => (
-    <div className="flex text-yellow-500 mt-2 gap-0.5">
-      <Star className="w-5 h-5 fill-current" />
-      <Star className="w-5 h-5 fill-current" />
-      <Star className="w-5 h-5 fill-current" />
-      <Star className="w-5 h-5 fill-current" />
-      <div className="relative w-5 h-5">
-         <Star className="absolute top-0 left-0 w-5 h-5 text-gray-700" />
-         <div className="absolute top-0 left-0 h-full overflow-hidden" style={{ width: '80%' }}>
-           <Star className="w-5 h-5 fill-yellow-500 text-yellow-500" />
-         </div>
+  const chunkSize = 6;
+  const reviewChunks = [];
+  for (let i = 0; i < baseReviews.length; i += chunkSize) {
+    reviewChunks.push(baseReviews.slice(i, i + chunkSize));
+  }
+
+  let reviewWallContent = null;
+  for (let i = reviewChunks.length - 1; i >= 0; i--) {
+    const chunk = reviewChunks[i];
+    const isLast = i === reviewChunks.length - 1;
+    reviewWallContent = (
+      <div className="w-full contents">
+        <div className="masonry-columns space-y-4 mb-2 w-full block">
+          {chunk.map((review) => (
+            <div key={`rev-${review.id}`} className="bg-[#0a0a0a] text-gray-200 rounded-sm border border-white/5 break-inside-avoid overflow-hidden flex flex-col hover:border-white/20 transition-all relative shadow-lg">
+              <label htmlFor={`modal-${review.id}`} className="absolute inset-0 z-10 cursor-pointer"></label>
+              {review.img && (
+                <div className="w-full aspect-[4/3] bg-black relative border-b border-white/5">
+                  <img src={review.img} alt="Deployment Asset" className="absolute inset-0 w-full h-full object-cover opacity-90" />
+                </div>
+              )}
+              <div className="p-6 flex-1 flex flex-col">
+                <div className="flex justify-between items-start mb-3">
+                   <div>
+                      <p className="text-sm font-bold text-white flex items-center gap-1">{review.name} <CheckCircle2 className="w-3 h-3 text-green-500" /></p>
+                      <p className="text-[10px] text-gray-500 mt-1">{review.date}</p>
+                   </div>
+                </div>
+                <div className="flex gap-0.5 mb-4">
+                  {[...Array(5)].map((_, j) => <Star key={`st-${review.id}-${j}`} className={`w-3 h-3 ${j < review.rating ? 'fill-yellow-500 text-yellow-500' : 'text-gray-700'}`} />)}
+                </div>
+                <p className="text-sm text-gray-400 leading-relaxed font-light italic">"{review.text}"</p>
+              </div>
+              <ReviewModal review={review} />
+            </div>
+          ))}
+        </div>
+        {!isLast && (
+          <div className="w-full break-inside-avoid flex flex-col items-center mt-2 mb-4">
+            <input type="checkbox" id={`load-more-${i}`} className="toggle-chk hidden" />
+            <label htmlFor={`load-more-${i}`} className="toggle-lbl bg-[#0a0a0a] border border-white/10 text-white px-10 py-4 text-xs tracking-widest font-bold uppercase hover:border-white/30 transition-colors cursor-pointer text-center w-full md:w-auto rounded-sm">Show more reports</label>
+            <div className="toggle-content hidden w-full">{reviewContent}</div>
+          </div>
+        )}
       </div>
-    </div>
-  );
+    );
+    var reviewContent = reviewWallContent; 
+  }
 
   return (
     <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-white selection:text-black antialiased pb-20 lg:pb-0 relative scroll-smooth">
@@ -71,19 +178,38 @@ export default async function Home() {
         .animate-marquee { display: flex; width: max-content; animation: marquee 45s linear infinite; }
         .masonry-columns { column-count: 1; column-gap: 16px; width: 100%; display: block; }
         @media (min-width: 640px) { .masonry-columns { column-count: 2; } }
+        .toggle-chk:checked ~ .toggle-content { display: block; }
+        .toggle-chk:checked ~ .toggle-lbl { display: none; }
+        .nav-hidden { transform: translateY(-100%); }
+        .nav-visible { transform: translateY(0); }
       `}} />
 
       <script dangerouslySetInnerHTML={{__html: `
         if (typeof window !== 'undefined') {
           document.addEventListener('DOMContentLoaded', () => {
-            // --- UI Interaction Logic ---
+            let lastScroll = window.pageYOffset;
+            const commandCenter = document.getElementById('command-center');
+            
+            window.addEventListener('scroll', () => {
+              const currentScroll = window.pageYOffset;
+              if (commandCenter) {
+                if (currentScroll > lastScroll && currentScroll > 100) {
+                  commandCenter.classList.add('nav-hidden');
+                  commandCenter.classList.remove('nav-visible');
+                } else {
+                  commandCenter.classList.add('nav-visible');
+                  commandCenter.classList.remove('nav-hidden');
+                }
+              }
+              lastScroll = currentScroll;
+            });
+
             const scrollBtn = document.getElementById('scroll-to-buy');
             const buyBox = document.getElementById('buy-section-anchor');
             if(scrollBtn && buyBox) { scrollBtn.addEventListener('click', () => buyBox.scrollIntoView({ behavior: 'smooth' })); }
 
-            // --- UPSELL DYNAMIC CHECKOUT LOGIC ---
             const baseCheckout = "${checkoutUrlBase}";
-            const basePriceNum = ${price};
+            const basePriceNum = ${price || 119.99};
             const desktopCheckoutBtn = document.getElementById('desktop-checkout-btn');
             const mobileCheckoutBtn = document.getElementById('mobile-checkout-btn');
             const mobilePriceDisplay = document.getElementById('mobile-price-display');
@@ -121,8 +247,6 @@ export default async function Home() {
         </nav>
       </header>
 
-      {/* --- SECCIÓN 01: EL GANCHO (HERO SECTION) --- */}
-      {/* REQUIERE: hero_video.mp4 */}
       <section className="relative w-full h-[90vh] min-h-[700px] flex items-center justify-center overflow-hidden pt-20">
          <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-60 scale-105">
             <source src="/hero_video.mp4" type="video/mp4" />
@@ -134,11 +258,9 @@ export default async function Home() {
                EL LUJO DE LA <br className="hidden md:block"/>
                <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-600">INMEDIATEZ.</span>
             </h1>
-            
             <p className="text-lg md:text-2xl text-gray-300 font-light max-w-3xl mx-auto mb-12 leading-relaxed selection:bg-yellow-500/30">
                Tu espresso, donde sea. Tu tiempo, sin compromisos. Sistema de extracción automatizado de 20 bares. Calienta agua en minutos. Zero cables.
             </p>
-            
             <button id="scroll-to-buy" className="bg-white text-black px-10 py-6 md:px-16 md:py-8 text-sm md:text-base font-black tracking-[0.2em] uppercase hover:bg-gray-200 transition-all hover:scale-105 shadow-[0_0_50px_rgba(255,255,255,0.2)] group">
                ADQUIRIR SISTEMA OBSIDIAN <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
             </button>
@@ -150,8 +272,6 @@ export default async function Home() {
          </div>
       </section>
 
-      {/* --- SECCIÓN 02: LA SEDUCCIÓN DEL RESULTADO --- */}
-      {/* REQUIERE: seduction_result.jpg */}
       <section className="relative w-full px-6 md:px-12 pt-24 pb-20 bg-[#050505] overflow-hidden border-t border-white/5">
          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
             <div className="w-full md:w-1/2 aspect-square rounded-sm overflow-hidden border border-white/10 shadow-2xl">
@@ -169,8 +289,6 @@ export default async function Home() {
          </div>
       </section>
 
-      {/* --- SECCIÓN 03: LA LÓGICA DE INGENIERÍA --- */}
-      {/* REQUIERE: engineering_proof.mp4 */}
       <section className="relative w-full px-6 md:px-12 py-24 bg-[#0a0a0a] border-y border-white/5 overflow-hidden">
          <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-20 scale-105 pointer-events-none">
             <source src="/engineering_proof.mp4" type="video/mp4" />
@@ -194,12 +312,11 @@ export default async function Home() {
                </div>
             </div>
             <div className="w-full md:w-1/2 order-1 md:order-2 aspect-square rounded-sm overflow-hidden border border-white/10 shadow-2xl bg-black flex items-center justify-center">
-               <img src="/core-split.png" alt="Core Architecture Dual Compatibility" className="w-full h-auto object-contain p-4" />
+               <img src="/field-deployment.png" alt="Core Architecture Dual Compatibility" className="w-full h-auto object-contain p-4" />
             </div>
          </div>
       </section>
 
-      {/* --- SECCIÓN 04: PRUEBA SOCIAL TOTAL --- */}
       <section className="bg-black text-white py-24 px-6 md:px-12 border-b border-white/5 selection:bg-yellow-500/20" id="reviews">
          <div className="max-w-7xl mx-auto">
             <div className="bg-[#0a0a0a] border border-white/10 p-10 rounded-sm flex flex-col md:flex-row gap-8 justify-between items-center mb-16 shadow-xl">
@@ -218,7 +335,7 @@ export default async function Home() {
                       <div className="flex-1 h-1.5 bg-[#111] rounded-full overflow-hidden">
                          <div className="h-full bg-yellow-500" style={{ width: `${pct}%` }}></div>
                       </div>
-                      <span className="w-10 text-right">({totalReviewsAnclaje * pct / 100})</span>
+                      <span className="w-10 text-right">({Math.floor(totalReviewsAnclaje * pct / 100)})</span>
                     </div>
                  ))}
                </div>
@@ -230,8 +347,6 @@ export default async function Home() {
          </div>
       </section>
 
-      {/* --- SECCIÓN 05: ADQUISICIÓN ESCALAR (BUY SECTION) --- */}
-      {/* REQUIERE: bundle_1x.png, bundle_2x.png, bundle_3x.png */}
       <section id="buy-section-anchor" className="max-w-7xl mx-auto px-6 md:px-12 py-24 relative z-10">
          <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16 pb-6 border-b border-white/5">
             <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase text-white mb-6 leading-[0.95]">ADQUIERE<br/>TU SISTEMA.</h2>
@@ -246,11 +361,8 @@ export default async function Home() {
          <div className="w-full">
            <PaymentIcons />
            
-           {/* UPSELL TIER SELECTOR */}
            <div className="flex flex-col gap-5 mt-10">
              
-             {/* Option 2: Duo Pack (Best Value / Highlighted) */}
-             {/* REQUIERE: bundle_2x.png */}
              <label className="relative flex items-center justify-between p-6 border-2 border-yellow-500 rounded-sm cursor-pointer hover:border-yellow-500 transition-colors bg-gradient-to-r from-yellow-500/10 to-transparent group mt-3 order-1 md:order-2 shadow-[0_0_30px_rgba(234,179,8,0.2)]">
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-500 text-black text-[9px] font-black tracking-[0.2em] uppercase px-4 py-1 rounded-sm">Best Value / Shared Deployment</div>
                 <input type="radio" name="tier" value="2" className="peer absolute opacity-0" defaultChecked />
@@ -258,7 +370,7 @@ export default async function Home() {
                    <div className="w-5 h-5 rounded-full border border-yellow-500/50 flex items-center justify-center peer-checked:border-yellow-500">
                       <div className="w-3 h-3 rounded-full bg-yellow-500 opacity-0 peer-checked:opacity-100 transition-opacity"></div>
                    </div>
-                   <img src="/bundle_2x.png" alt="Duo Pack" className="w-20 md:w-28 h-auto object-contain p-2" />
+                   <img src="/Bundle_2x.png" alt="Duo Pack" className="w-20 md:w-28 h-auto object-contain p-2" />
                    <div className="flex flex-col">
                       <span className="text-base md:text-xl font-bold uppercase tracking-widest text-white">Duo Pack (2x)</span>
                       <span className="text-xs text-yellow-500 font-bold uppercase tracking-wider">Save 15% Extra + Priority Dispatch</span>
@@ -271,15 +383,13 @@ export default async function Home() {
                 </div>
              </label>
 
-             {/* Option 1: Entry Tier */}
-             {/* REQUIERE: bundle_1x.png */}
              <label className="relative flex items-center justify-between p-6 border border-white/20 rounded-sm cursor-pointer hover:border-white/50 transition-colors bg-[#111] group order-2 md:order-1 mt-3">
                 <input type="radio" name="tier" value="1" className="peer absolute opacity-0" />
                 <div className="flex items-center gap-5">
                    <div className="w-5 h-5 rounded-full border border-gray-500 flex items-center justify-center peer-checked:border-white">
                       <div className="w-3 h-3 rounded-full bg-white opacity-0 peer-checked:opacity-100 transition-opacity"></div>
                    </div>
-                   <img src="/bundle_1x.png" alt="Entry Tier" className="w-20 md:w-28 h-auto object-contain p-2" />
+                   <img src="/Bundle_1x.png" alt="Entry Tier" className="w-20 md:w-28 h-auto object-contain p-2" />
                    <div className="flex flex-col">
                       <span className="text-base md:text-xl font-bold uppercase tracking-widest text-white">Entry Tier (1x)</span>
                       <span className="text-xs text-gray-400 uppercase tracking-wider">Standard Deployment</span>
@@ -290,15 +400,13 @@ export default async function Home() {
                 </div>
              </label>
 
-             {/* Option 3: Pro Pack */}
-             {/* REQUIERE: bundle_3x.png */}
              <label className="relative flex items-center justify-between p-6 border border-white/20 rounded-sm cursor-pointer hover:border-white/50 transition-colors bg-[#111] group order-3 mt-3">
                 <input type="radio" name="tier" value="3" className="peer absolute opacity-0" />
                 <div className="flex items-center gap-5">
                    <div className="w-5 h-5 rounded-full border border-gray-500 flex items-center justify-center peer-checked:border-white">
                       <div className="w-3 h-3 rounded-full bg-white opacity-0 peer-checked:opacity-100 transition-opacity"></div>
                    </div>
-                   <img src="/bundle_3x.png" alt="Pro Pack" className="w-20 md:w-28 h-auto object-contain p-2" />
+                   <img src="/Bundle_3x.png" alt="Pro Pack" className="w-20 md:w-28 h-auto object-contain p-2" />
                    <div className="flex flex-col">
                       <span className="text-base md:text-xl font-bold uppercase tracking-widest text-white">Pro Pack (3x)</span>
                       <span className="text-xs text-gray-400 uppercase tracking-wider">Save 20% Extra + VIP Support</span>
@@ -334,8 +442,6 @@ export default async function Home() {
 
          </div>
       </section>
-
-      {/* --- FIN DE LA LANDING --- */}
 
       <div className="lg:hidden fixed bottom-0 left-0 w-full bg-[#050505] border-t border-white/10 p-4 z-50 transition-transform duration-300 shadow-[0_-10px_30px_rgba(0,0,0,0.5)]" id="mobile-buy-box">
          <a id="mobile-checkout-btn" href={`${checkoutUrlBase}:2`} className="w-full bg-white text-black px-4 py-5 text-xs font-black tracking-[0.2em] uppercase hover:bg-gray-200 flex items-center justify-center gap-3">
