@@ -105,6 +105,7 @@ export default async function Home() {
   }
 
   const checkoutUrlBase = `https://${storeDomain}/cart/${rawVariantId}`;
+  const numericalPrice = parseFloat(price || "119.99");
 
   const baseReviews = [
     { id: 1, name: "Alexander W.", date: "USA", rating: 5, img: "/review-1.jpg", text: "Takes up zero space in my Porsche. The build quality feels like a heavy, expensive lens. Pulls a thick crema every single time." },
@@ -224,7 +225,7 @@ export default async function Home() {
             if(scrollBtn && buyBox) { scrollBtn.addEventListener('click', () => buyBox.scrollIntoView({ behavior: 'smooth' })); }
 
             const baseCheckout = "${checkoutUrlBase}";
-            const basePriceNum = ${price || 119.99};
+            const basePriceNum = ${numericalPrice};
             const desktopCheckoutBtn = document.getElementById('desktop-checkout-btn');
             const mobileCheckoutBtn = document.getElementById('mobile-checkout-btn');
             const mobilePriceDisplay = document.getElementById('mobile-price-display');
@@ -262,7 +263,6 @@ export default async function Home() {
         </nav>
       </header>
 
-      {/* --- EL NUEVO GANCHO CINEMATOGRÁFICO (HERO SECTION) --- */}
       <section className="relative w-full h-[85vh] min-h-[700px] flex items-center justify-center overflow-hidden pt-20 bg-black">
          <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-90 scale-105 pointer-events-none select-none">
             <source src="/hero_video.mp4" type="video/mp4" />
@@ -294,7 +294,6 @@ export default async function Home() {
          </div>
       </section>
 
-      {/* --- SECCIÓN 2 REDISEÑADA (FULL WIDTH BACKGROUND CON TEXTO OVERLAY) --- */}
       <section className="relative w-full py-32 md:py-48 flex items-center bg-[#050505] overflow-hidden border-t border-white/5 bg-[url('/seduction_result.jpg')] bg-cover bg-center bg-no-repeat group">
          <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-transparent pointer-events-none"></div>
          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505] pointer-events-none"></div>
@@ -418,7 +417,6 @@ export default async function Home() {
                <span className="bg-white text-black text-[10px] font-black px-3 py-1 uppercase tracking-widest mb-2 ml-auto animate-pulse">Save 50%</span>
            </div>
 
-           {/* UPSELL TIER SELECTOR */}
            <div className="flex flex-col gap-5 mt-6 select-none">
              <h3 className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-1">Select Acquisition Tier</h3>
 
@@ -455,9 +453,9 @@ export default async function Home() {
                    </div>
                 </div>
                 <div className="text-right flex flex-col items-end">
-                   <span className="block text-xl md:text-2xl font-black text-yellow-500">${((price || 119.99) * 2 * 0.85).toFixed(2)}</span>
-                   <span className="text-xs text-gray-500 line-through decoration-red-500/50 decoration-2 tracking-wider">${((price || 119.99) * 2).toFixed(2)}</span>
-                   <span className="text-[10px] text-gray-400">(${(basePriceNum * 0.85).toFixed(2)} ea.)</span>
+                   <span className="block text-xl md:text-2xl font-black text-yellow-500">${((numericalPrice) * 2 * 0.85).toFixed(2)}</span>
+                   <span className="text-xs text-gray-500 line-through decoration-red-500/50 decoration-2 tracking-wider">${((numericalPrice) * 2).toFixed(2)}</span>
+                   <span className="text-[10px] text-gray-400">(${(numericalPrice * 0.85).toFixed(2)} ea.)</span>
                 </div>
              </label>
 
@@ -475,8 +473,8 @@ export default async function Home() {
                    </div>
                 </div>
                 <div className="text-right flex flex-col items-end">
-                   <span className="block text-xl md:text-2xl font-black text-white">${((price || 119.99) * 3 * 0.80).toFixed(2)}</span>
-                   <span className="text-xs text-gray-500 line-through decoration-red-500/50 decoration-2 tracking-wider">${((price || 119.99) * 3).toFixed(2)}</span>
+                   <span className="block text-xl md:text-2xl font-black text-white">${((numericalPrice) * 3 * 0.80).toFixed(2)}</span>
+                   <span className="text-xs text-gray-500 line-through decoration-red-500/50 decoration-2 tracking-wider">${((numericalPrice) * 3).toFixed(2)}</span>
                 </div>
              </label>
 
