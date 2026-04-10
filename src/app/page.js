@@ -264,14 +264,12 @@ export default async function Home() {
       </header>
 
       {/* --- EL GANCHO CINEMATOGRÁFICO (HERO SECTION) --- */}
-      {/* REQUIERE: hero_video.mp4 */}
       <section className="relative w-full h-[85vh] min-h-[700px] flex items-center justify-center overflow-hidden pt-20 bg-black border-b border-white/5">
-         {/* CORRECCIÓN: Video nítido (Opacidad 100%) */}
          <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-100 scale-105 pointer-events-none select-none">
             <source src="/hero_video.mp4" type="video/mp4" />
          </video>
-         {/* CORRECCIÓN: Overlay oscuro profundo y nítido (backdrop-blur-sm, no lavados) */}
-         <div className="absolute inset-0 bg-black/80 backdrop-blur-sm pointer-events-none"></div>
+         {/* CORRECCIÓN: Fondo negro oscurecido menos agresivo en móvil (40% opacidad en lugar de 80%) */}
+         <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] pointer-events-none"></div>
          
          <div className="relative z-10 text-center px-6 max-w-5xl mx-auto flex flex-col items-center mt-10">
             <div className="inline-flex select-none items-center gap-2 px-4 py-1.5 rounded-sm border border-yellow-500/30 bg-yellow-500/10 text-yellow-500 text-[10px] font-bold tracking-widest uppercase mb-6 backdrop-blur-md">
@@ -298,11 +296,11 @@ export default async function Home() {
          </div>
       </section>
 
-      {/* --- SECCIÓN 2: CINEMATIC CAR BANNER (FULL WIDTH BACKGROUND CON TEXTO OVERLAY) --- */}
+      {/* --- SECCIÓN 2: CINEMATIC CAR BANNER --- */}
       <section className="relative w-full py-32 md:py-48 flex items-center bg-[#050505] overflow-hidden border-t border-white/5 bg-[url('/seduction_result.jpg')] bg-cover bg-center bg-no-repeat group">
-         {/* CORRECCIÓN: Overlay oscuro pero nítido (eliminados los desenfoques que lavaban la imagen) */}
-         <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/70 to-transparent pointer-events-none"></div>
-         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505] pointer-events-none"></div>
+         {/* CORRECCIÓN: Gradientes diferenciados para móvil. Arriba y abajo oscuros, pero transparente en el medio para revelar la foto. */}
+         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-black/40 to-[#050505] pointer-events-none"></div>
+         <div className="absolute inset-0 md:bg-gradient-to-r md:from-black/90 md:via-black/50 md:to-transparent pointer-events-none"></div>
 
          <div className="max-w-7xl mx-auto w-full px-6 md:px-12 relative z-10 flex justify-start">
             <div className="w-full md:w-3/5 text-left transition-transform duration-700 group-hover:translate-x-2">
@@ -310,9 +308,9 @@ export default async function Home() {
                   <Coffee className="w-3.5 h-3.5" /> Commercial Grade. Deployed.
                </div>
                <h2 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter uppercase text-white mb-6 leading-[0.95] drop-shadow-2xl">
-                  UNCOMPROMISING<br/>EXTRACTION.<br/><span className="text-gray-400">IN ANY TERRAIN.</span>
+                  UNCOMPROMISING<br/>EXTRACTION.<br/><span className="text-gray-300">IN ANY TERRAIN.</span>
                </h2>
-               <p className="text-gray-300 font-light text-base md:text-lg leading-relaxed max-w-lg drop-shadow-lg">
+               <p className="text-gray-200 font-medium text-base md:text-lg leading-relaxed max-w-lg drop-shadow-lg">
                   Stop settling for mediocre drive-thru coffee. The Obsidian Press is the world's first tactical espresso engine that heats its own water and extracts with commercial-grade force. From the boardroom to the backcountry, demand perfection.
                </p>
             </div>
@@ -320,14 +318,12 @@ export default async function Home() {
       </section>
 
       {/* --- SECCIÓN 3: LA LÓGICA DE INGENIERÍA --- */}
-      {/* REQUIERE: engineering_proof.mp4 */}
       <section className="relative w-full px-6 md:px-12 py-24 bg-[#0a0a0a] border-y border-white/5 overflow-hidden">
-         {/* CORRECCIÓN: Video de ingeniería más nítido (Aumentada opacidad del 20% al 40%) */}
-         <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-40 scale-105 pointer-events-none select-none">
+         {/* CORRECCIÓN: Video al 60% y capa oscura rebajada al 60% para visibilidad perfecta del render */}
+         <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-60 scale-105 pointer-events-none select-none">
             <source src="/engineering_proof.mp4" type="video/mp4" />
          </video>
-         {/* CORRECCIÓN: Capa de desenfoque muy sutil para asegurar legibilidad del texto técnico */}
-         <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]"></div>
+         <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px]"></div>
          
          <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center gap-16 text-center">
             <div className="w-full max-w-3xl">
@@ -340,9 +336,9 @@ export default async function Home() {
                    { icon: Coffee, title: "OMNI-COMPATIBLE", desc: "Adapters for Nespresso® Original, large pods, and ground coffee." } 
                  ].map(i => (
                    <div key={i.title} className="flex flex-col group items-center">
-                     <i.icon className="w-8 h-8 mb-4 text-white opacity-60 group-hover:opacity-100 transition-opacity drop-shadow-lg" />
-                     <h3 className="text-xs font-bold tracking-[0.2em] uppercase mb-2 text-white">{i.title}</h3>
-                     <p className="text-gray-400 font-light text-[11px] leading-relaxed max-w-xs">{i.desc}</p>
+                     <i.icon className="w-8 h-8 mb-4 text-white opacity-80 group-hover:opacity-100 transition-opacity drop-shadow-lg" />
+                     <h3 className="text-xs font-bold tracking-[0.2em] uppercase mb-2 text-white drop-shadow-lg">{i.title}</h3>
+                     <p className="text-gray-300 font-medium text-[11px] leading-relaxed max-w-xs drop-shadow-lg">{i.desc}</p>
                    </div>
                  ))}
                </div>
@@ -376,9 +372,6 @@ export default async function Home() {
          </div>
       </div>
 
-      {/* --- SECCIÓN 4 MOVIDA Y REDISEÑADA: DUAL COMPATIBILITY VISUAL VALIDATION --- */}
-      {/* REQUIERE: field-deployment.png */}
-      {/* CORRECCIÓN: Movida de la grilla técnica y posicionada justo antes de reseñas como validación final. */}
       <section className="relative w-full bg-[#050505] py-24 px-6 md:px-12 border-b border-white/5">
          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div className="w-full order-2 md:order-1 select-none">
@@ -440,72 +433,73 @@ export default async function Home() {
             </span>
          </div>
 
-         <div className="w-full bg-[#080808] border border-white/10 p-8 shadow-2xl rounded-sm">
+         <div className="w-full bg-[#080808] border border-white/10 p-4 md:p-8 shadow-2xl rounded-sm">
            
            <div className="flex items-end gap-4 mb-6 pb-6 select-none border-b border-white/10">
-               <span id="main-price-display" className="text-5xl font-black tracking-tighter text-white">${price || "119.99"}</span>
-               <span className="text-xl text-gray-600 line-through decoration-red-500/50 decoration-2 mb-1">${compareAtPrice || "179.98"}</span>
+               <span id="main-price-display" className="text-4xl md:text-5xl font-black tracking-tighter text-white">${price || "119.99"}</span>
+               <span className="text-lg md:text-xl text-gray-600 line-through decoration-red-500/50 decoration-2 mb-1">${compareAtPrice || "179.98"}</span>
                <span className="bg-white text-black text-[10px] font-black px-3 py-1 uppercase tracking-widest mb-2 ml-auto animate-pulse">Save 50%</span>
            </div>
 
-           <div className="flex flex-col gap-5 mt-6 select-none">
+           {/* --- CORRECCIÓN COLAPSO MÓVIL: Flexbox reconstruido con flex-shrink-0 --- */}
+           <div className="flex flex-col gap-4 mt-6 select-none">
              <h3 className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 mb-1">Select Acquisition Tier</h3>
 
-             <label className="relative flex items-center justify-between p-6 border border-white/20 rounded-sm cursor-pointer hover:border-white/50 transition-colors bg-[#111] group order-2 mt-3">
+             <label className="relative w-full flex items-center justify-between p-4 md:p-6 border border-white/20 rounded-sm cursor-pointer hover:border-white/50 transition-colors bg-[#111] group order-2 mt-2">
                 <input type="radio" name="tier" value="1" className="peer absolute opacity-0" defaultChecked />
                 <div className="absolute inset-0 border border-transparent peer-checked:border-white pointer-events-none rounded-sm transition-colors"></div>
-                <div className="flex items-center gap-5">
-                   <div className="w-5 h-5 rounded-full border border-gray-500 flex items-center justify-center peer-checked:border-white">
-                      <div className="w-3 h-3 rounded-full bg-white opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+                <div className="flex items-center gap-3 md:gap-5 w-full">
+                   <div className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0 rounded-full border border-gray-500 flex items-center justify-center peer-checked:border-white">
+                      <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-white opacity-0 peer-checked:opacity-100 transition-opacity"></div>
                    </div>
-                   <img src="/Bundle_1x.png" alt="Entry Tier" className="w-20 md:w-24 h-auto object-contain p-2 drop-shadow-xl" />
-                   <div className="flex flex-col">
-                      <span className="text-base md:text-lg font-bold uppercase tracking-widest text-white">Entry Tier (1x)</span>
-                      <span className="text-[10px] text-gray-400 uppercase tracking-wider">Standard Deployment</span>
+                   <img src="/Bundle_1x.png" alt="Entry Tier" className="w-14 md:w-24 h-auto object-contain flex-shrink-0 drop-shadow-xl" />
+                   <div className="flex flex-col flex-1">
+                      <span className="text-sm md:text-lg font-bold uppercase tracking-widest text-white leading-tight">Entry Tier</span>
+                      <span className="text-[9px] md:text-xs text-gray-400 uppercase tracking-wider mt-1">Standard</span>
                    </div>
-                </div>
-                <div className="text-right">
-                   <span className="block text-xl md:text-2xl font-black">${price || "119.99"}</span>
+                   <div className="text-right flex-shrink-0">
+                      <span className="block text-lg md:text-2xl font-black">${price || "119.99"}</span>
+                   </div>
                 </div>
              </label>
 
-             <label className="relative flex items-center justify-between p-6 border-2 border-yellow-500 rounded-sm cursor-pointer hover:border-yellow-500 transition-colors bg-gradient-to-r from-yellow-500/10 to-transparent group order-1 shadow-[0_0_20px_rgba(234,179,8,0.15)]">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-500 text-black text-[9px] font-black tracking-[0.2em] uppercase px-4 py-1 rounded-sm">Best Value / Shared Deployment</div>
+             <label className="relative w-full flex items-center justify-between p-4 md:p-6 border-2 border-yellow-500 rounded-sm cursor-pointer hover:border-yellow-500 transition-colors bg-gradient-to-r from-yellow-500/10 to-transparent group order-1 mt-4 shadow-[0_0_20px_rgba(234,179,8,0.15)]">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-500 text-black text-[8px] md:text-[9px] font-black tracking-[0.2em] uppercase px-3 py-1 rounded-sm text-center w-max">Best Value / Shared</div>
                 <input type="radio" name="tier" value="2" className="peer absolute opacity-0" />
                 <div className="absolute inset-0 border border-transparent peer-checked:border-yellow-500 pointer-events-none rounded-sm transition-colors"></div>
-                <div className="flex items-center gap-5">
-                   <div className="w-5 h-5 rounded-full border border-yellow-500/50 flex items-center justify-center peer-checked:border-yellow-500">
-                      <div className="w-3 h-3 rounded-full bg-yellow-500 opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+                <div className="flex items-center gap-3 md:gap-5 w-full">
+                   <div className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0 rounded-full border border-yellow-500/50 flex items-center justify-center peer-checked:border-yellow-500">
+                      <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-yellow-500 opacity-0 peer-checked:opacity-100 transition-opacity"></div>
                    </div>
-                   <img src="/Bundle_2x.png" alt="Duo Pack" className="w-20 md:w-24 h-auto object-contain p-2 drop-shadow-xl" />
-                   <div className="flex flex-col">
-                      <span className="text-base md:text-lg font-bold uppercase tracking-widest text-white">Duo Pack (2x)</span>
-                      <span className="text-[10px] text-yellow-500 font-bold uppercase tracking-wider">Save 15% Extra + Priority Dispatch</span>
+                   <img src="/Bundle_2x.png" alt="Duo Pack" className="w-14 md:w-24 h-auto object-contain flex-shrink-0 drop-shadow-xl" />
+                   <div className="flex flex-col flex-1">
+                      <span className="text-sm md:text-lg font-bold uppercase tracking-widest text-white leading-tight">Duo Pack</span>
+                      <span className="text-[9px] md:text-[10px] text-yellow-500 font-bold uppercase tracking-wider mt-1">Save 15% Extra</span>
                    </div>
-                </div>
-                <div className="text-right flex flex-col items-end">
-                   <span className="block text-xl md:text-2xl font-black text-yellow-500">${((numericalPrice) * 2 * 0.85).toFixed(2)}</span>
-                   <span className="text-xs text-gray-500 line-through decoration-red-500/50 decoration-2 tracking-wider">${((numericalPrice) * 2).toFixed(2)}</span>
-                   <span className="text-[10px] text-gray-400">(${(numericalPrice * 0.85).toFixed(2)} ea.)</span>
+                   <div className="text-right flex flex-col items-end flex-shrink-0">
+                      <span className="block text-lg md:text-2xl font-black text-yellow-500 leading-none">${((numericalPrice) * 2 * 0.85).toFixed(2)}</span>
+                      <span className="text-[10px] md:text-xs text-gray-500 line-through decoration-red-500/50 decoration-2 tracking-wider mt-1">${((numericalPrice) * 2).toFixed(2)}</span>
+                      <span className="text-[9px] text-gray-400 mt-0.5">(${(numericalPrice * 0.85).toFixed(2)} ea.)</span>
+                   </div>
                 </div>
              </label>
 
-             <label className="relative flex items-center justify-between p-6 border border-white/20 rounded-sm cursor-pointer hover:border-white/50 transition-colors bg-[#111] group order-3 mt-3">
+             <label className="relative w-full flex items-center justify-between p-4 md:p-6 border border-white/20 rounded-sm cursor-pointer hover:border-white/50 transition-colors bg-[#111] group order-3 mt-2">
                 <input type="radio" name="tier" value="3" className="peer absolute opacity-0" />
                 <div className="absolute inset-0 border border-transparent peer-checked:border-white pointer-events-none rounded-sm transition-colors"></div>
-                <div className="flex items-center gap-5">
-                   <div className="w-5 h-5 rounded-full border border-gray-500 flex items-center justify-center peer-checked:border-white">
-                      <div className="w-3 h-3 rounded-full bg-white opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+                <div className="flex items-center gap-3 md:gap-5 w-full">
+                   <div className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0 rounded-full border border-gray-500 flex items-center justify-center peer-checked:border-white">
+                      <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-white opacity-0 peer-checked:opacity-100 transition-opacity"></div>
                    </div>
-                   <img src="/Bundle_3x.png" alt="Pro Pack" className="w-20 md:w-24 h-auto object-contain p-2 drop-shadow-xl" />
-                   <div className="flex flex-col">
-                      <span className="text-base md:text-lg font-bold uppercase tracking-widest text-white">Pro Pack (3x)</span>
-                      <span className="text-[10px] text-gray-400 uppercase tracking-wider">Save 20% Extra + VIP Support</span>
+                   <img src="/Bundle_3x.png" alt="Pro Pack" className="w-14 md:w-24 h-auto object-contain flex-shrink-0 drop-shadow-xl" />
+                   <div className="flex flex-col flex-1">
+                      <span className="text-sm md:text-lg font-bold uppercase tracking-widest text-white leading-tight">Pro Pack</span>
+                      <span className="text-[9px] md:text-[10px] text-gray-400 uppercase tracking-wider mt-1">Save 20% Extra</span>
                    </div>
-                </div>
-                <div className="text-right flex flex-col items-end">
-                   <span className="block text-xl md:text-2xl font-black text-white">${((numericalPrice) * 3 * 0.80).toFixed(2)}</span>
-                   <span className="text-xs text-gray-500 line-through decoration-red-500/50 decoration-2 tracking-wider">${((numericalPrice) * 3).toFixed(2)}</span>
+                   <div className="text-right flex flex-col items-end flex-shrink-0">
+                      <span className="block text-lg md:text-2xl font-black text-white leading-none">${((numericalPrice) * 3 * 0.80).toFixed(2)}</span>
+                      <span className="text-[10px] md:text-xs text-gray-500 line-through decoration-red-500/50 decoration-2 tracking-wider mt-1">${((numericalPrice) * 3).toFixed(2)}</span>
+                   </div>
                 </div>
              </label>
 
